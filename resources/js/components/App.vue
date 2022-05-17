@@ -11,7 +11,7 @@
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import NavbarVue from './Navbar.vue'
-import Page2 from './Page2.vue'
+import Page2 from './Pfe.vue'
 export default {
     components:{
         'navbar':NavbarVue,
