@@ -16,12 +16,16 @@
 </template>
 
 <script>
+import StatCard from './StatCard.vue';
     export default {
         data() {
             return {
                 message: "Bonjour le monde"
             }
     },
+        components:{
+    StatCard
+},
         methods: {
     showAlert() {
       // Use sweetalert2

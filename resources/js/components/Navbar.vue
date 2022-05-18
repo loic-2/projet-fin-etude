@@ -5,10 +5,10 @@
     </div>
     <nav class="menu">
       <ul class="menu-list">
-        <li class="dashboard"><router-link to="/Page1"><font-awesome-icon icon="dashboard"/>  Tableau de bord</router-link></li>
-        <li class="dashboard"><router-link to="/Page2"><font-awesome-icon icon="dashboard"/>  Memoires</router-link></li>
-        <li class="dashboard"><router-link to="/Page3"><font-awesome-icon icon="dashboard"/>  PFE</router-link></li>
-        <li class="dashboard"><router-link to="/Page4"><font-awesome-icon icon="dashboard"/>  Administrateur</router-link></li>
+        <li class="dashboard"><router-link to="/dashboard"><font-awesome-icon icon="dashboard"/>  Tableau de bord</router-link></li>
+        <li class="dashboard"><router-link to="/memoire"><font-awesome-icon icon="dashboard"/>  Memoires</router-link></li>
+        <li class="dashboard"><router-link to="/pfe"><font-awesome-icon icon="dashboard"/>  PFE</router-link></li>
+        <li class="dashboard"><router-link to="/card"><font-awesome-icon icon="dashboard"/>  Administrateur</router-link></li>
         <hr/>
         <li class="dashboard"><router-link to="/Page5"><font-awesome-icon icon="dashboard"/>  Parametres</router-link></li>
         <li class="dashboard"><router-link to="/Page6"><font-awesome-icon icon="dashboard"/>  Historique</router-link></li>

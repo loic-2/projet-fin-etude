@@ -1,18 +1,28 @@
 
-import Page1 from './components/Memoire'
-import Page2 from './components/Pfe'
+import Memoire from './components/Memoire'
+import Pfe from './components/Pfe'
+import Board from './components/Board'
+import StatCard from './components/StatCard'
 
 export default{
     
     mode: 'history',
     routes: [
         {
-            path:'/page1',
+            path:'/memoire',
             component: Memoire
         },
         {
-            path:'/page2',
+            path:'/dashboard',
+            component: Board
+        },
+        {
+            path:'/pfe',
             component: Pfe
+        },
+        {
+            path:'/card',
+            component: StatCard
         }
     ]
 }

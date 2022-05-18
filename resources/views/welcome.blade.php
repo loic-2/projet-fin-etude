@@ -8,7 +8,6 @@
         <style>
             body {
                 font-family: 'Nunito', sans-serif;
-                color: #ffffff;
                 overflow-x: hidden;
             }
         </style>

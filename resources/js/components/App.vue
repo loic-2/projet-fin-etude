@@ -1,8 +1,8 @@
 <template>
     <div class="container-flex ">
         <div class="row">
-            <navbar class="col-md-2  position-fixed"/>
-            <div class="col-md-10 offset-2">
+            <navbar class="col-md-2  position-fixed "/>
+            <div class="col-md-10 offset-2 " >
                 <router-view/>
             </div>
         </div>
@@ -11,21 +11,27 @@
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import NavbarVue from './Navbar.vue'
-import Page2 from './Pfe.vue'
+import Pfe from './Pfe.vue'
 export default {
     components:{
         'navbar':NavbarVue,
         'font-awesome-icon': FontAwesomeIcon,
-        'page-2':Page2
+        'pfe':Pfe
     }
 }
 </script>
 <style scoped>
 .col-md-10{
     padding: 0;
+    background-color: red;
+    height: 100vh;
+    overflow-y:scroll
 }
+
+
 .col-md-2{
     padding-right: 0;
+    margin-left: 0;
     overflow: hidden;
 }
 </style>
