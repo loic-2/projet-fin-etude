@@ -1,17 +1,17 @@
 <template>
-  <div class="nav-test ">
+  <div class="nav-test container p-0">
     <div class="logo">
       <span class="name">SUP'PTIC</span>
     </div>
     <nav class="menu">
       <ul class="menu-list">
         <li class="dashboard"><router-link to="/dashboard"><font-awesome-icon icon="dashboard"/>  Tableau de bord</router-link></li>
-        <li class="dashboard"><router-link to="/memoire"><font-awesome-icon icon="dashboard"/>  Memoires</router-link></li>
-        <li class="dashboard"><router-link to="/pfe"><font-awesome-icon icon="dashboard"/>  PFE</router-link></li>
-        <li class="dashboard"><router-link to="/card"><font-awesome-icon icon="dashboard"/>  Administrateur</router-link></li>
+        <li class="dashboard"><router-link to="/memoire"><font-awesome-icon icon="fa-solid fa-book-bookmark" />  Memoires</router-link></li>
+        <li class="dashboard"><router-link to="/pfe"><font-awesome-icon icon="fa-solid fa-book-bookmark" />  PFE</router-link></li>
+        <li class="dashboard"><router-link to="/card"><font-awesome-icon icon="fa-solid fa-user-tie" />  Administrateur</router-link></li>
         <hr/>
-        <li class="dashboard"><router-link to="/Page5"><font-awesome-icon icon="dashboard"/>  Parametres</router-link></li>
-        <li class="dashboard"><router-link to="/Page6"><font-awesome-icon icon="dashboard"/>  Historique</router-link></li>
+        <li class="dashboard"><router-link to="/Page5"><font-awesome-icon icon="gear"/>  Parametres</router-link></li>
+        <li class="dashboard"><router-link to="/Page6"><font-awesome-icon icon="fa-solid fa-clock-rotate-left" />  Historique</router-link></li>
       </ul>
     </nav>
   </div>

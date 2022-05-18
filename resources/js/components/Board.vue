@@ -1,7 +1,7 @@
 <template>
     <div class="container">
-        <div class="row">
-            <StatCard class="offset-3" :parametre="parametre" v-for="parametre in parametres" :key="parametre.id"></StatCard>
+        <div class="row justify-content-center ">
+            <StatCard class="offset-1" :parametre="parametre" v-for="parametre in parametres" :key="parametre.id"></StatCard>
         </div>
     </div>
 </template>
@@ -29,9 +29,13 @@ export default {
                         color:'pink',
                         valeur:'4'
                     },
+                    
                 ],
       }
   }
     
 }
 </script>
+<style scoped>
+
+</style>

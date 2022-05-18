@@ -1,8 +1,13 @@
 <template>
     <div class="container-flex ">
-        <div class="row">
-            <navbar class="col-md-2  position-fixed "/>
-            <div class="col-md-10 offset-2 " >
+        <div class="row ">
+            <div class="col-md-2  position-fixed " :class="{'hide':hide}">
+                <navbar />
+            </div>
+            <div  :class="[ !hide? 'col-md-10 offset-2' : 'col-md-12']">
+                <div class="row m-0 ">
+                    <TopBar position-fixed @hide='masquer'></TopBar>
+                </div>
                 <router-view/>
             </div>
         </div>
@@ -12,11 +17,24 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import NavbarVue from './Navbar.vue'
 import Pfe from './Pfe.vue'
+import TopBar from './TopBar.vue'
 export default {
+    data(){
+        return{
+            hide: false
+        }
+    },
     components:{
-        'navbar':NavbarVue,
-        'font-awesome-icon': FontAwesomeIcon,
-        'pfe':Pfe
+    "navbar": NavbarVue,
+    "font-awesome-icon": FontAwesomeIcon,
+    "pfe": Pfe,
+    TopBar
+    },
+    methods:{
+        masquer(){
+            this.hide=!this.hide 
+            console.log(this.hide)
+        }
     }
 }
 </script>
@@ -25,13 +43,31 @@ export default {
     padding: 0;
     background-color: red;
     height: 100vh;
-    overflow-y:scroll
+    overflow-y:scroll;
+    overflow-x: hidden;
+}
+
+.row{
+    margin: 0;
+}
+
+.col-md-12{
+    padding: 0;
+    background-color: red;
+    height: 100vh;
+    overflow-y:scroll;
+    scrollbar-width: none;
+    overflow-x: hidden;
 }
 
 
+
 .col-md-2{
-    padding-right: 0;
-    margin-left: 0;
+    padding: 0;
     overflow: hidden;
+}
+
+.hide{
+    visibility: hidden;
 }
 </style>

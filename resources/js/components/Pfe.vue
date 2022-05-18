@@ -1,15 +1,13 @@
 <template>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
+                <div class="card p-0">
                     <div class="card-header">Example Component</div>
 
                     <div class="card-body">
                         I'm an example 2 component.
                     </div>
                 </div>
-            </div>
         </div>
     </div>
 </template>
@@ -21,3 +19,8 @@
         }
     }
 </script>
+<style scoped>
+.card{
+    margin-top: 60px;
+}
+</style>
