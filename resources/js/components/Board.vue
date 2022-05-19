@@ -1,7 +1,7 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center ">
-            <StatCard class="offset-1" :parametre="parametre" v-for="parametre in parametres" :key="parametre.id"></StatCard>
+    <div class="container-flex">
+        <div class="row">
+            <StatCard :parametre="parametre" v-for="parametre in parametres" :key="parametre.id"></StatCard>
         </div>
     </div>
 </template>
@@ -37,5 +37,7 @@ export default {
 }
 </script>
 <style scoped>
-
+.row{
+    margin: 0;
+}
 </style>

@@ -3,6 +3,7 @@ import Memoire from './components/Memoire'
 import Pfe from './components/Pfe'
 import Board from './components/Board'
 import StatCard from './components/StatCard'
+import Graphe from './components/Graphe'
 
 export default{
     
@@ -23,6 +24,10 @@ export default{
         {
             path:'/card',
             component: StatCard
+        },
+        {
+            path:'/graphe',
+            component: Graphe
         }
     ]
 }

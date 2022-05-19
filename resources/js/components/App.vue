@@ -6,7 +6,7 @@
             </div>
             <div  :class="[ !hide? 'col-md-10 offset-2' : 'col-md-12']">
                 <div class="row m-0 ">
-                    <TopBar position-fixed @hide='masquer'></TopBar>
+                    <TopBar :hide="hide" position-fixed @hide='masquer'></TopBar>
                 </div>
                 <router-view/>
             </div>
@@ -41,7 +41,7 @@ export default {
 <style scoped>
 .col-md-10{
     padding: 0;
-    background-color: red;
+    background-color: rgba(236, 221, 221, 0.363);
     height: 100vh;
     overflow-y:scroll;
     overflow-x: hidden;
@@ -53,7 +53,7 @@ export default {
 
 .col-md-12{
     padding: 0;
-    background-color: red;
+    background-color: rgba(236, 221, 221, 0.363);
     height: 100vh;
     overflow-y:scroll;
     scrollbar-width: none;

@@ -1,5 +1,5 @@
 <template>
-     <div class="stat col-md-3 offset-2 px-0" >
+     <div class="stat col offset-2 px-0" >
         <div class="nom-parametre" :style="{backgroundColor:parametre.color}">
             <span>{{parametre.nom}}</span>
         </div>
