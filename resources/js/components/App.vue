@@ -1,11 +1,11 @@
 <template>
-    <div class="container-flex ">
+    <div class="container-flex">
         <div class="row ">
             <div class="col-md-2  position-fixed " :class="{'hide':hide}">
                 <navbar />
             </div>
             <div  :class="[ !hide? 'col-md-10 offset-2' : 'col-md-12']">
-                <div class="row m-0 ">
+                <div class="row ">
                     <TopBar :hide="hide" position-fixed @hide='masquer'></TopBar>
                 </div>
                 <router-view/>
@@ -43,7 +43,8 @@ export default {
     padding: 0;
     background-color: rgba(236, 221, 221, 0.363);
     height: 100vh;
-    overflow-y:scroll;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;
     overflow-x: hidden;
 }
 
@@ -55,7 +56,8 @@ export default {
     padding: 0;
     background-color: rgba(236, 221, 221, 0.363);
     height: 100vh;
-    overflow-y:scroll;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;
     scrollbar-width: none;
     overflow-x: hidden;
 }

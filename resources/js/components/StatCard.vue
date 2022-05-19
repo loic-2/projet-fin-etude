@@ -29,7 +29,7 @@ export default {
     color:#000000;
     border-radius:20px;
     height: 200px;
-    margin: 80px 0 0 15px;
+    margin: 50px 15px 0 15px;
 }
 
 .nom-parametre{
