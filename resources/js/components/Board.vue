@@ -33,9 +33,32 @@
                 </div>
             </div>
         </div>
+        <div class="row" style="margin:0 20px 20px 20px;">
+            <div class="categorie" >
+                <div class="row">
+                    <span>Categorie</span>
+                </div>
+                <div class="row">
+                    <div class="col" v-for="categorie in categories" :key="categorie.id">
+                        <categorie :categorie="categorie"></categorie>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" v-for="categorie in categories" :key="categorie.id">
+                        <categorie :categorie="categorie"></categorie>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" v-for="categorie in categories" :key="categorie.id">
+                        <categorie :categorie="categorie"></categorie>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
+import CategorieVue from './Categorie.vue'
 import InputCustomVue from './InputCustom.vue'
 import MembreVue from './Membre.vue'
 import SelectVue from './Select.vue'
@@ -45,7 +68,8 @@ export default {
       StatCard,
       'membre': MembreVue,
       'inputcustom': InputCustomVue,
-      'selectcustom': SelectVue
+      'selectcustom': SelectVue,
+      'categorie': CategorieVue
    },
    methods:{
        ajouterEtudiant(){
@@ -57,6 +81,23 @@ export default {
    },
   data(){
       return{
+          categories:[
+              {
+                  text:'Sante',
+                  background:'#F58F8F',
+                  id:1
+              },
+              {
+                  text:'Agriculture',
+                  background:'#F5D699',
+                  id:2
+              },
+              {
+                  text:'Telecommunications & TIC',
+                  background:'#AAF58F',
+                  id:3
+              },
+          ],
           intitule:
           {
                     text:"Theme",
@@ -163,18 +204,18 @@ export default {
                     {
                         nom:"Memoires",
                         valeur:'134',
-                        color:'blue',
+                        color:'#5EA6DA',
                         id:1,
                     },
                     {
                         nom:"PFE",
                         valeur:'189',
-                        color:'green',
+                        color:'#5E63DA',
                         id:2,
                     },
                     {
                         nom:"Admin",
-                        color:'pink',
+                        color:'#32E279',
                         valeur:'4'
                     },
                     
@@ -212,4 +253,11 @@ export default {
     padding-top: 1px;
     padding-bottom: 1px;
 }
+
+.categorie{
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 10px 0 10px 0;
+}
+
 </style>
