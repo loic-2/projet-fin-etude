@@ -1,8 +1,6 @@
 <template>
     <div class="container-flex" style="margin-top:50px;">
-        <div class="row" style="margin: 0 0 40px 0;">
-            <span class="state"><router-link to="/dashboard">Tableau de bord</router-link> > <router-link to>Admin</router-link></span>
-        </div>
+        <State :routes="routes" style="margin-bottom:40px"></State>
         <div class="row group-box">
             <div class="row action" style="margin-bottom:10px">
                 <div class="col">
@@ -14,8 +12,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col"></div>
-                <div class="col-3 justify-content-end">
+                <div class="col text-end">
                     <ButtonCustom :button="filtre"></ButtonCustom>
                 </div>
             </div>
@@ -28,9 +25,17 @@
 import DataTable from './DataTable.vue';
 import ButtonCustom from './ButtonCustom.vue';
 import InputCustom from './InputCustom.vue';
+import State from './State.vue'
     export default {
         data() {
             return {
+                routes:[
+                    {
+                        Name:"Administrateur",
+                        path:"/admin",
+                        id:1
+                    }
+                ],
                 ajouter:{
                     text:"Ajouter",
                     style:'btn-alert',
@@ -56,7 +61,8 @@ import InputCustom from './InputCustom.vue';
                     type:"text",
                     placeholder:"Rechercher...",
                     icon:'fa-solid fa-magnifying-glass',
-                    showlabel:false
+                    showlabel:false,
+                    hide:true
                 },
                 donnees:[
                     {
@@ -122,18 +128,18 @@ import InputCustom from './InputCustom.vue';
         components:{
             DataTable,
             ButtonCustom,
-            InputCustom
+            InputCustom,
+            State,
         },
         methods: {
             showAlert() {
             // Use sweetalert2
-            this.$router.push('/ajoutmemoire')
+            this.$router.push('/ajoutadmin')
             //this.$swal('Hello Vue world!!!');
             },
         },
         mounted(){
-            console.log(1)
-            this.$emit("pagename",["Administrateur","/admin"])
+            this.$emit("pagename","Administrateur")
         }
     }
 </script>
@@ -151,10 +157,5 @@ import InputCustom from './InputCustom.vue';
 }
 .group-box{
     margin-bottom: 40px;
-}
-.state a, .state{
-    list-style: none;
-    text-decoration: none;
-    color: #363740;
 }
 </style>

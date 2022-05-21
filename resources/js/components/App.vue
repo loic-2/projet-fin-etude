@@ -4,9 +4,9 @@
             <div class="col-md-2  position-fixed " :class="{'hide':hide}">
                 <navbar />
             </div>
-            <div  :class="[ !hide? 'col-md-10 offset-2' : 'col-md-12']" @pagename="affiche">
-                <div class="row ">
-                    <TopBar :hide="hide" position-fixed @hide='masquer'></TopBar>
+            <div  :class="[ !hide? 'col-md-10 offset-2' : 'col-md-12']" >
+                <div class="row " @pagename='(n)=>console.log(n)'>
+                    <TopBar :hide="hide" position-fixed @hide='masquer' :namepage="namepage"></TopBar>
                 </div>
                 <router-view/>
             </div>
@@ -21,7 +21,8 @@ import TopBar from './TopBar.vue'
 export default {
     data(){
         return{
-            hide: false
+            hide: false,
+            namepage:"Tableau de bord"
         }
     },
     components:{

@@ -1,8 +1,6 @@
 <template>
     <div class="container-flex" style="margin-top:50px;">
-        <div class="row" style="margin: 0 0 40px 0;">
-            <span class="state"><router-link to="/dashboard">Tableau de bord</router-link> > <router-link to="/pfe">Projet de fin d'etude</router-link></span>
-        </div>
+        <state :routes="routes" style="margin-bottom:40px"></state>
         <div class="row group-box">
             <div class="row action" style="margin-bottom:10px">
                 <div class="col">
@@ -14,8 +12,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col"></div>
-                <div class="col-3 justify-content-end">
+                <div class="col text-end">
                     <ButtonCustom :button="filtre"></ButtonCustom>
                 </div>
             </div>
@@ -28,9 +25,17 @@
 import DataTable from './DataTable.vue';
 import ButtonCustom from './ButtonCustom.vue';
 import InputCustom from './InputCustom.vue';
+import State from './State.vue';
     export default {
         data() {
             return {
+                routes:[
+                {
+                    Name:"Projets de fin d'etudes",
+                    path:"/pfe",
+                    id:1,
+                },
+            ],
                 ajouter:{
                     text:"Ajouter",
                     style:'btn-alert',
@@ -123,7 +128,8 @@ import InputCustom from './InputCustom.vue';
         components:{
     DataTable,
     ButtonCustom,
-    InputCustom
+    InputCustom,
+    State,
 },
         methods: {
             showAlert() {
@@ -133,8 +139,7 @@ import InputCustom from './InputCustom.vue';
             },
         },
         mounted(){
-            console.log(1)
-            this.$emit("pagename",["Projet de fin d'etude","/pfe"])
+            this.$emit("pagename","Projets de fin d'etude")
         }
     }
 </script>
@@ -152,10 +157,5 @@ import InputCustom from './InputCustom.vue';
 }
 .group-box{
     margin-bottom: 40px;
-}
-.state a, .state{
-    list-style: none;
-    text-decoration: none;
-    color: #363740;
 }
 </style>

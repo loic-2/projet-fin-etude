@@ -5,6 +5,7 @@ import Board from './components/Board'
 import Admin from './components/Admin'
 import AjoutMemoire from './components/AjoutMemoire'
 import AjoutPfe from './components/AjoutPfe'
+import AjoutAdmin from './components/AjoutAdmin'
 
 export default{
     
@@ -33,6 +34,10 @@ export default{
         {
             path:'/ajoutmemoire',
             component: AjoutMemoire
+        },
+        {
+            path:'/ajoutadmin',
+            component: AjoutAdmin
         }
     ]
 }
