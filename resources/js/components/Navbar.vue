@@ -8,10 +8,10 @@
         <li class="dashboard"><router-link to="/dashboard"><font-awesome-icon icon="dashboard"/>  Tableau de bord</router-link></li>
         <li class="dashboard"><router-link to="/memoire"><font-awesome-icon icon="fa-solid fa-book-bookmark" />  Memoires</router-link></li>
         <li class="dashboard"><router-link to="/pfe"><font-awesome-icon icon="fa-solid fa-book-bookmark" />  PFE</router-link></li>
-        <li class="dashboard"><router-link to="/card"><font-awesome-icon icon="fa-solid fa-user-tie" />  Administrateur</router-link></li>
+        <li class="dashboard"><router-link to="/admin"><font-awesome-icon icon="fa-solid fa-user-tie" />  Administrateur</router-link></li>
         <hr/>
-        <li class="dashboard"><router-link to="/graphe"><font-awesome-icon icon="gear"/>  Parametres</router-link></li>
-        <li class="dashboard"><router-link to="/Page6"><font-awesome-icon icon="fa-solid fa-clock-rotate-left" />  Historique</router-link></li>
+        <li class="dashboard"><router-link to="/paramtres"><font-awesome-icon icon="gear"/>  Parametres</router-link></li>
+        <li class="dashboard"><router-link to="/historique"><font-awesome-icon icon="fa-solid fa-clock-rotate-left" />  Historique</router-link></li>
       </ul>
     </nav>
   </div>

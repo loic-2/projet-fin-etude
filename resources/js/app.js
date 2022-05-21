@@ -9,22 +9,20 @@ import App from './components/App'
 import { library } from '@fortawesome/fontawesome-svg-core'
 
 import { BootstrapVue, } from 'bootstrap-vue'
-
 // Import Bootstrap and BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
-
 /* import specific icons */
-import { faDashboard,faUserPlus,faPlus,faTrash,faUserTimes,faPen,faSave,faUndo,faTimes,faArrowAltCircleLeft,faSearch,
+import { faDashboard,faSort,faUserPlus,faPlus,faTrash,faUserTimes,faPen,faSave,faUndo,faTimes,faArrowAltCircleLeft,faSearch,
   faFilter,faCheck,faPlusCircle,faEye,faEyeSlash,faBars,faBookBookmark,faUserTie,faGear,faMagnifyingGlass,faBell,faClockRotateLeft,faCircleUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /*import of bar-chart */
 import {Bar} from 'vue-chartjs/legacy'
-library.add(faUserPlus,faPlus,faTrash,faUserTimes,faPen,faSave,faUndo,faTimes,faArrowAltCircleLeft,
+library.add(faUserPlus,faSort,faPlus,faTrash,faUserTimes,faPen,faSave,faUndo,faTimes,faArrowAltCircleLeft,
   faFilter,faPlusCircle,faCheck,faEye,faEyeSlash,faSearch,faDashboard,faBars,faBookBookmark,faUserTie,faGear,faBell,faMagnifyingGlass,faClockRotateLeft,faCircleUser)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

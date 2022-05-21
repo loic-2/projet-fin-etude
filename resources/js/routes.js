@@ -2,8 +2,9 @@
 import Memoire from './components/Memoire'
 import Pfe from './components/Pfe'
 import Board from './components/Board'
-import StatCard from './components/StatCard'
-import Membre from './components/Membre'
+import Admin from './components/Admin'
+import AjoutMemoire from './components/AjoutMemoire'
+import AjoutPfe from './components/AjoutPfe'
 
 export default{
     
@@ -22,12 +23,16 @@ export default{
             component: Pfe
         },
         {
-            path:'/card',
-            component: StatCard
+            path:'/admin',
+            component: Admin
         },
         {
-            path:'/graphe',
-            component: Membre
+            path:'/ajoutpfe',
+            component: AjoutPfe
+        },
+        {
+            path:'/ajoutmemoire',
+            component: AjoutMemoire
         }
     ]
 }

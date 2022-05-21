@@ -1,6 +1,8 @@
 <template>
     <div class="input">
-        <label :for="champ.text" class="title">{{champ.text}}</label><br>
+        <div v-if="champ.showlabel">
+            <label :for="champ.text" class="title">{{champ.text}}</label><br>
+        </div>
         <input :type="champ.type" class="valeur" :class="{'erreurborder': !test}" v-model="valeur" :placeholder="champ.placeholder" @input="controle">
         <font-awesome-icon :icon="champ.icon" :style="{'color':color}" class="icon" :class="{'hide':champ.hide}"/>
     </div>
@@ -23,6 +25,7 @@ export default {
                 type:"password",
                 placeholder:"Entrer ...",
                 icon:'fa-solid fa-eye-slash',
+                showlabel:true,
                 controle: {
                     type: Function
                 }
@@ -49,7 +52,6 @@ export default {
 
 <style scoped>
 input{
-    margin-top: 3px;
     padding-left: 10px;
     padding-right: 30px;
     background-color: #ffffff;
@@ -65,6 +67,7 @@ input{
 }
 .title{
     margin-top: 10px;
+    margin-bottom: 3px;
     color:#363740;
 }
 .input{
@@ -72,7 +75,7 @@ input{
 }
 .icon{
     position: absolute;
-    padding: 15px;
+    padding: 12px;
     padding-left: 0;
     margin-left: -25px;
 }
@@ -80,4 +83,7 @@ input{
     border: 1px red solid;
 }
 
+.erreurborder:focus{
+    border: 1px red solid;
+}
 </style>

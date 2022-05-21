@@ -1,9 +1,9 @@
 <template>
     <div class="row" style="margin:0 0 5px 0">
-        <div class="col-1">
+        <div class="col-3">
             <font-awesome-icon icon="fa-solid fa-circle-user" style="height:25px" :style="{color:personneConnecte.color}"/>
         </div>
-        <div class="col-10 offset-1" >
+        <div class="col-9" >
             <span class="nom-user-connecte">
                 {{personneConnecte.nom}}
             </span>

@@ -4,7 +4,7 @@
             <div class="col-md-2  position-fixed " :class="{'hide':hide}">
                 <navbar />
             </div>
-            <div  :class="[ !hide? 'col-md-10 offset-2' : 'col-md-12']">
+            <div  :class="[ !hide? 'col-md-10 offset-2' : 'col-md-12']" @pagename="affiche">
                 <div class="row ">
                     <TopBar :hide="hide" position-fixed @hide='masquer'></TopBar>
                 </div>
@@ -34,6 +34,9 @@ export default {
         masquer(){
             this.hide=!this.hide 
             console.log(this.hide)
+        },
+        affiche(val){
+            console.log(val)
         }
     }
 }
@@ -70,6 +73,6 @@ export default {
 }
 
 .hide{
-    visibility: hidden;
+    display: none;
 }
 </style>
