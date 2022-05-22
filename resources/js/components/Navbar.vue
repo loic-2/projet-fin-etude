@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-test container p-0">
+  <div class="nav-test">
     <div class="logo">
       <span class="name">SUP'PTIC</span>
     </div>
@@ -65,5 +65,7 @@ ul > li > a{
     color: #ffffff;
     border-left: #ffffff 3px solid;
 }
-
+.nav-test{
+  margin-top:40px;
+}
 </style>

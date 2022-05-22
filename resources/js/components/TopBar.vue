@@ -1,22 +1,27 @@
 <template>
-    <div class="container-flex position-fixed top-bar row mx-0  py-2">
-        <div class="col-md-8 col-xs">
-            <span>
-                <font-awesome-icon id="menu-bar" icon="fa-solid fa-bars" @click="$emit('hide')" />
-                <span>&nbsp;</span><span>&nbsp;</span>
-                <span class="state">{{namepage}}</span>
-            </span>
-        </div>
-        <div class="col-md-4 col-xs">
-            <font-awesome-icon icon="fa-solid fa-bell" />
-            <span class="vertical-line"></span>
-            <span class="name">Ganno Loic</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span>
-            <font-awesome-icon class="icon" id="compte" icon="fa-solid fa-circle-user" @click="showProfile"/>
-            <div class="row profile" style="background-color:#ffffff" v-if="profile">
-                <ul>
-                    <li><router-link to="/profile">Profile</router-link></li>
-                    <li><router-link to="/connexion">Deconnexion</router-link></li>
-                </ul>
+    <div class="top-bar container-flex">
+        <div class="row py-2 px-2">
+            <div class="col">
+                <span>
+                    <font-awesome-icon id="menu-bar" icon="fa-solid fa-bars" @click="$emit('hide')" v-if="hide"/>
+                    <font-awesome-icon id="menu-bar" icon="fa-solid fa-times" @click="$emit('hide')" v-else/>
+                    <span>&nbsp;</span><span>&nbsp;</span>
+                    <span class="state">{{namepage}}</span>
+                </span>
+            </div>
+            <div class="col text-end">
+                <div>
+                    <font-awesome-icon icon="fa-solid fa-bell" />
+                    <span class="vertical-line"></span>
+                    <span class="name">Ganno Loic</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span>
+                    <font-awesome-icon class="icon" id="compte" icon="fa-solid fa-circle-user" @click="showProfile"/>
+                    <div class="row profile" style="background-color:#ffffff" v-if="profile">
+                        <ul>
+                            <li><router-link to="/profile">Profile</router-link></li>
+                            <li><router-link to="/connexion">Deconnexion</router-link></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -32,6 +37,10 @@ export default {
         namepage:{
             type: String,
             default: "Tableau de bord"
+        },
+        hide:{
+            type:Boolean,
+            default: false
         }
     },
     methods:{
@@ -43,8 +52,8 @@ export default {
 </script>
 <style scoped>
 .top-bar{
-    height: 40px;
-    background-color: rgb(209, 212, 211);
+    margin: 0;
+    padding: 0;
 }
 .vertical-line{
     border-left: 3px #000000 solid;

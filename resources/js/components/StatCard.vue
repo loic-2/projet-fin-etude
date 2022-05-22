@@ -1,5 +1,5 @@
 <template>
-     <div class="stat col offset-2 px-0" >
+     <div class="stat col px-0" >
         <div class="nom-parametre" :style="{backgroundColor:parametre.color}">
             <span>{{parametre.nom}}</span>
         </div>
@@ -29,7 +29,7 @@ export default {
     color:#000000;
     border-radius:20px;
     height: 200px;
-    margin: 50px 15px 0 15px;
+    margin: 15px;
 }
 
 .nom-parametre{

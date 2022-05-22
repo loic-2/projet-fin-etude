@@ -4,21 +4,25 @@
             <StatCard :parametre="parametre" v-for="parametre in parametres" :key="parametre.id"></StatCard>
         </div>
         <div class="row">
-            <div class="col documents">
-                <div style="margin:0 0 10px 0">
-                    <span>
-                        Documents les plus en vue
-                    </span>
+            <div class="col-sm-12 col-md-8 col-lg-8">
+                <div class="row  documents">
+                    <div style="margin:5px 0 10px 5px">
+                        <span>
+                            <h5>Documents les plus en vue</h5>
+                        </span>
+                    </div>
+                    <LaUne :document="document" v-for="document in documents" :key="document.id"/>
                 </div>
-                <LaUne :document="document" v-for="document in documents" :key="document.id"/>
             </div>
-            <div class="col-3 personne-connecte">
-                <div style="margin:0 0 10px 0">
-                    <span>
-                        Personnes connectes
-                    </span>
+            <div class="col-sm-12 col-md-4 col-lg-4 ">
+                <div class="row personne-connecte">
+                    <div style="margin:5px 0 10px 5px">
+                        <span>
+                            <h5>Personnes connectes</h5>
+                        </span>
+                    </div>
+                    <personne-connecte :personneConnecte="personne" v-for="personne in personnes" :key="personne.id"/>
                 </div>
-                <personne-connecte :personneConnecte="personne" v-for="personne in personnes" :key="personne.id"/>
             </div>
         </div>
     </div>
@@ -112,27 +116,19 @@ export default {
 .personne-connecte{
     background-color: #ffffff;
     border-radius: 20px;
-    margin: 15px;
-    padding: 5px 15px 10px 15px;
 }
 
 .documents{
     background-color: #ffffff;
     border-radius: 20px;
-    margin: 15px;
-    padding: 5px 15px 10px 15px;
-}
-
-.personne-connecte span{
-    font-size:18px;
-}
-
-.documents span{
-    font-size:18px;
 }
 
 .row{
     margin: 0;
 }
 
+.col-lg-8,.col-lg-4{
+    padding: 15px;
+    margin: 0;
+}
 </style>
