@@ -20,8 +20,7 @@ import { faDashboard,faSort,faUserPlus,faPlus,faTrash,faUserTimes,faPen,faSave,f
   faFilter,faCheck,faPlusCircle,faEye,faEyeSlash,faBars,faBookBookmark,faUserTie,faGear,faMagnifyingGlass,faBell,faClockRotateLeft,faCircleUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-/*import of bar-chart */
-import {Bar} from 'vue-chartjs/legacy'
+
 library.add(faUserPlus,faSort,faPlus,faTrash,faUserTimes,faPen,faSave,faUndo,faTimes,faArrowAltCircleLeft,
   faFilter,faPlusCircle,faCheck,faEye,faEyeSlash,faSearch,faDashboard,faBars,faBookBookmark,faUserTie,faGear,faBell,faMagnifyingGlass,faClockRotateLeft,faCircleUser)
 Vue.component('font-awesome-icon', FontAwesomeIcon)

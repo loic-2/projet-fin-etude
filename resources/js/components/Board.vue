@@ -3,6 +3,9 @@
         <div class="row">
             <StatCard :parametre="parametre" v-for="parametre in parametres" :key="parametre.id"></StatCard>
         </div>
+        <div class="row chart">
+            <Chart></Chart>
+        </div>
         <div class="row">
             <div class="col-sm-12 col-md-8 col-lg-8">
                 <div class="row  documents">
@@ -31,12 +34,14 @@
 import PersonneConnecteVue from './PersonneConnecte.vue';
 import LaUne from './LaUne.vue';
 import StatCard from './StatCard.vue'
+import Chart from './Chart.vue';
 export default {
-  components: { 
-        StatCard,
-        "personne-connecte": PersonneConnecteVue,
-        LaUne,
-   },
+  components: {
+    StatCard,
+    "personne-connecte": PersonneConnecteVue,
+    LaUne,
+    Chart
+},
   data(){
       return{
           parametres:[
@@ -130,5 +135,10 @@ export default {
 .col-lg-8,.col-lg-4{
     padding: 15px;
     margin: 0;
+}
+.chart{
+    background-color: #ffffff;
+    margin: 0 15px 0 15px;
+    border-radius: 20px;
 }
 </style>

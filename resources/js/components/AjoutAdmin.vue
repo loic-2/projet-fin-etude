@@ -61,7 +61,7 @@ export default {
                     placeholder:"Entrer un mot de passe",
                     showlabel:true,
                     icon:'fa-solid fa-eye-slash',
-                    hide:true,
+                    hide:false,
                     id:3,
                 },
                 {
@@ -70,7 +70,7 @@ export default {
                     placeholder:"Veillez confirmer le mot de passe",
                     showlabel:true,
                     icon:'fa-solid fa-eye-slash',
-                    hide:true,
+                    hide:false,
                     id:4,
                 },
             ],
