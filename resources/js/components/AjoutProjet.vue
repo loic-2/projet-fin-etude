@@ -116,7 +116,7 @@ export default {
                     placeholder:"Entrer le nom complet",
                     showlabel:true,
                     icon:'fa-solid fa-eye-slash',
-                    hide:true,
+                    hide:false,
                     id:1
                 },
                 {

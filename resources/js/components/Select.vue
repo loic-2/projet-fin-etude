@@ -1,7 +1,7 @@
 <template>   
    <div class="grp_selection">
        <label for="Filiere" class="title">{{title}}</label><br>
-       <select name="filiere" id="" class="selection">
+       <select name="filiere" id="" class="selection form-select">
             <option value="parametre.value" v-for="parametre in parametres" :key="parametre.id">{{parametre.value}}</option>
         </select> 
    </div>

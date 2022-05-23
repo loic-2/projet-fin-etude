@@ -3,8 +3,10 @@
         <div v-if="champ.showlabel">
             <label :for="champ.text" class="title">{{champ.text}}</label><br>
         </div>
-        <input :type="champ.type" class="valeur" :class="{'erreurborder': !test}" v-model="valeur" :placeholder="champ.placeholder" @input="controle">
-        <font-awesome-icon :icon="champ.icon" :style="{'color':color}" class="icon" :class="{'hide':champ.hide}"/>
+        <div class="input-group mb-3">
+            <input :type="champ.type" class="valeur form-control" :class="{'erreurborder': !test}" v-model="valeur" :placeholder="champ.placeholder" @input="controle">
+            <span class="input-group-text icon" :class="{'erreurborder': !test}" v-if="!champ.hide"><font-awesome-icon :icon="champ.icon" :style="{'color':color}"/></span>
+        </div>
     </div>
 </template>
 
@@ -61,29 +63,27 @@ input{
     border: 1px #363740 solid;
 
 }
-
-.hide{
-    display: none;
-}
 .title{
     margin-top: 10px;
     margin-bottom: 3px;
     color:#363740;
 }
-.input{
-    display: block;
-}
-.icon{
-    position: absolute;
-    padding: 12px;
-    padding-left: 0;
-    margin-left: -25px;
-}
 .erreurborder {
     border: 1px red solid;
+    border-right: none;
 }
 
 .erreurborder:focus{
     border: 1px red solid;
+}
+.input div span{
+    border-radius: 10px;
+    background-color: #ffffff;
+    border: 1px #363740 solid;
+}
+
+.input div .erreurborder:last-child{
+    border-color: red;
+    border-left: none;
 }
 </style>

@@ -15,13 +15,15 @@
                     <span class="vertical-line"></span>
                     <span class="name">Ganno Loic</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span>
                     <font-awesome-icon class="icon" id="compte" icon="fa-solid fa-circle-user" @click="showProfile"/>
-                    <div class="row profile" style="background-color:#ffffff" v-if="profile">
-                        <ul>
-                            <li><router-link to="/profile">Profile</router-link></li>
-                            <li><router-link to="/connexion">Deconnexion</router-link></li>
-                        </ul>
-                    </div>
                 </div>
+            </div>
+        </div>
+        <div class="row justify-content-end"  v-if="profile">
+            <div class="col-4  profile align-self-end" style="background-color:#ffffff">
+                <ul>
+                    <li><router-link to="/profile">Profile</router-link></li>
+                    <li><router-link to="/connexion">Deconnexion</router-link></li>
+                </ul>
             </div>
         </div>
     </div>
@@ -61,7 +63,7 @@ export default {
     margin-right: 20px;
     height: 40px;
 }
-.col{
+.col,.col-4{
     padding: 0;
 }
 .row{
@@ -74,11 +76,10 @@ export default {
     cursor: pointer;
 }
 .profile{
-    position: relative;
     width: 150px;
-    right: -30px;
     z-index: 2;
     border-radius: 5px;
+    margin-right: 20px;
 }
 .profile ul{
     list-style: none;
