@@ -14,27 +14,23 @@
 
 <script>
 import { Chart } from 'chart.js'
-// 2. Import the `generateChart()` method to create the vue component.
+// Import the `generateChart()` method to create the vue component.
 import { generateChart } from 'vue-chartjs/legacy'
-// 3. Import needed controller from Chart.js
+// Import needed controller from Chart.js
 import { LineController } from 'chart.js'
 
 // 3. Extend one of the default charts
-// http://www.chartjs.org/docs/latest/developers/charts.html
-class LineWithLineController extends LineController { /* custom magic here */}
-
-// 4. Generate the vue-chartjs component
+class LineWithLineController extends LineController{}
 // The first argument is the chart-id, the second the chart type, third is the custom controller
 const CustomLine = generateChart('custom-line', 'line', LineWithLineController)
 
 /*import of bar-chart */
-import {Bar} from 'vue-chartjs/legacy'
-import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, LineElement, PointElement } from 'chart.js'
+import { Chart as ChartJS, Title, Tooltip,Filler, Legend, BarElement, CategoryScale, LinearScale, LineElement, PointElement } from 'chart.js'
 
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale,LineController,LineElement,PointElement)
+ChartJS.register(Title, Tooltip, Legend, Filler,BarElement, CategoryScale, LinearScale,LineController,LineElement,PointElement)
 export default {
   name: 'BarChart',
-  components: { Bar,CustomLine },
+  components: { CustomLine },
   props: {
     chartId: {
       type: String,
@@ -73,11 +69,12 @@ export default {
         ,'Octobre','Novembre','Decembre' ],
         datasets: [ {
             type:"line",
-            data: [40, 20, 12, 20, 35, 14, 9, 12, 25, -19, 27, 42], 
+            data: [40, 20, 12, 20, 35, 14, 9, 12, 25, 19, 27, 42], 
             label:"Visite",
-            backgroundColor:"#364312",
-            borderColor:"blue",
-            fill:'origin',
+            backgroundColor:"rgba(0,0,255,0.2)",
+            pointBackgroundColor:"rgba(0,0,255,0.8)",
+            borderColor:"rgba(0,0,255,0.6)",
+            fill:true,
              },
         ]
       },
@@ -86,6 +83,7 @@ export default {
         lineTension:0.4,
         scales:{
             y:{
+                type:'linear',
                 beginAtZero:true,
             }
         },
