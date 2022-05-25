@@ -14,7 +14,8 @@ class CategorieProjetFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'ID_PROJET' => $this->faker->optional($weight=100)->unique($reset=true)->numberBetween(1,60),
+            'ID_CATEGORIE' => $this->faker->optional($weight=100)->unique($reset=true)->numberBetween(1,60),
         ];
     }
 }

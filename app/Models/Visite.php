@@ -10,4 +10,5 @@ class Visite extends Model
     use HasFactory;
     protected $table='VISITE';
     protected $primaryKey='ID_VISITE';
+    public $timestamps = false;
 }

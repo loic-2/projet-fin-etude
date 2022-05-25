@@ -14,7 +14,9 @@ class EncadreurFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'NOM_ENCADREUR' => $this->faker->name,
+            'PROFESSION_ENCADREUR' => $this->faker->word(),
+            'TELEPHONE_ENCADREUR' => $this->faker->phoneNumber(),
         ];
     }
 }

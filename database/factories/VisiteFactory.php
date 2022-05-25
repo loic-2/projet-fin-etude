@@ -14,7 +14,7 @@ class VisiteFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'DATE_VISITE' => $this->faker->date()
         ];
     }
 }

@@ -10,4 +10,5 @@ class Utilisateur extends Model
     use HasFactory;
     protected $table='UTILISATEUR';
     protected $primaryKey='ID_UTILISATEUR';
+    public $timestamps = false;
 }

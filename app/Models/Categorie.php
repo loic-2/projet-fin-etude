@@ -10,9 +10,13 @@ class Categorie extends Model
     use HasFactory;
     protected $table='CATEGORIE';
     protected $primaryKey='ID_CATEGORIE';
+    public $timestamps = false;
+    protected $fillable=[
+        'NOM_CATEGORIE'
+    ];
 
-    public function projet()
+    public function projets()
     {
-        $this->belongsToMany('App\Models\Projet','CategorierProjet');
+       return $this->belongsToMany('App\Models\Projet','CATEGORIE_PROJET','ID_CATEGORIE','ID_PROJET');
     }
 }

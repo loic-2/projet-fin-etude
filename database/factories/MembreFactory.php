@@ -14,7 +14,10 @@ class MembreFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'ID_PROJET' => $this->faker->optional($weight=100)->unique(true)->numberBetween(1,60),
+            'NOM_MEMBRE' => $this->faker->name(),
+            'FILIERE_MEMBRE' => $this->faker->word(),
+            'TELEPHONE_MEMBRE' => $this->faker->phoneNumber(),
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Historique;
 use Illuminate\Database\Seeder;
 
 class HistoriqueSeeder extends Seeder
@@ -13,6 +14,6 @@ class HistoriqueSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Historique::factory(100)->create();
     }
 }

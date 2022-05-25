@@ -10,19 +10,21 @@ class Membre extends Model
     use HasFactory;
     protected $table='MEMBRE';
     protected $primaryKey='ID_MEMBRE';
+    public $timestamps = false;
 
     public function encadrement()
     {
-        $this->hasMany('App\Models\Encadrement');
+        return $this->hasMany('App\Models\Encadrement');
     }
 
     public function projet()
     {
-        $this->belongsTo('App\Models\Projet');
+        return $this->belongsTo('App\Models\Projet','ID_PROJET');
     }
 
     public function encadreurs()
     {
-        $this->belongsToMany('App\Models\Encadreurs','ENCADREMENT');
+        return $this->belongsToMany('App\Models\Encadreur','ENCADREMENT','ID_MEMBRE','ID_ENCADREUR')
+        ->withPivot('ANNEE_ENCADREMENT','TYPE_ENCADREMENT');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CategorieProjet;
 use Illuminate\Database\Seeder;
 
 class CategorieProjetSeeder extends Seeder
@@ -13,6 +14,6 @@ class CategorieProjetSeeder extends Seeder
      */
     public function run()
     {
-        //
+        CategorieProjet::factory(60)->create();
     }
 }

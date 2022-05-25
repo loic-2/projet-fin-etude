@@ -9,6 +9,7 @@ class CategorieProjet extends Model
 {
     use HasFactory;
     protected $table='CATEGORIE_PROJET';
+    public $timestamps = false;
 
     public function projet()
     {

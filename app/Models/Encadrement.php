@@ -9,19 +9,20 @@ class Encadrement extends Model
 {
     use HasFactory;
     protected $table='ENCADREMENT';
+    public $timestamps = false;
 
     public function projet()
     {
-        $this->belongsTo('App\Models\Projet');
+       return $this->belongsTo('App\Models\Projet');
     }
 
     public function encadreur()
     {
-        $this->belongsTo('App\Models\Encadreur');
+       return $this->belongsTo('App\Models\Encadreur');
     }
 
     public function membre()
     {
-        $this->belongsTo('App\Models\Membre');
+       return $this->belongsTo('App\Models\Membre');
     }
 }

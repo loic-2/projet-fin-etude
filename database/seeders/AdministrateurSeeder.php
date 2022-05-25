@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Administrateur;
 use Illuminate\Database\Seeder;
 
 class AdministrateurSeeder extends Seeder
@@ -13,6 +14,6 @@ class AdministrateurSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Administrateur::factory(60)->create();
     }
 }

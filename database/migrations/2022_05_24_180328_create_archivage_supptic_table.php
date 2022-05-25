@@ -15,7 +15,7 @@ class CreateArchivageSuppticTable extends Migration
     public function up()
     {
         Schema::create('ADMINISTRATEUR', function (Blueprint $table) {
-            $table->integer('ID_ADMINISTRATEUR')->primary();
+            $table->integer('ID_ADMINISTRATEUR', true);
             $table->string('NOM_ADMINISTRATEUR')->nullable();
             $table->string('EMAIL_ADMINISTRATEUR')->nullable();
             $table->string('LOGIN_ADMINISTRATEUR')->nullable();
@@ -26,13 +26,14 @@ class CreateArchivageSuppticTable extends Migration
         });
 
         Schema::create('CATEGORIE', function (Blueprint $table) {
-            $table->integer('ID_CATEGORIE')->primary();
+            $table->integer('ID_CATEGORIE', true);
             $table->string('NOM_CATEGORIE')->nullable();
         });
 
         Schema::create('CATEGORIE_PROJET', function (Blueprint $table) {
             $table->integer('ID_CATEGORIE')->index('I_FK_CATEGORIE_PROJET_CATEGORIE');
             $table->integer('ID_PROJET')->index('I_FK_CATEGORIE_PROJET_PROJET');
+
             $table->primary(['ID_CATEGORIE', 'ID_PROJET']);
         });
 
@@ -42,32 +43,33 @@ class CreateArchivageSuppticTable extends Migration
             $table->integer('ID_MEMBRE')->index('I_FK_ENCADREMENT_MEMBRE');
             $table->string('ANNEE_ENCADREMENT')->nullable();
             $table->string('TYPE_ENCADREMENT')->nullable();
+
             $table->primary(['ID_ENCADREUR', 'ID_PROJET', 'ID_MEMBRE']);
         });
 
         Schema::create('ENCADREUR', function (Blueprint $table) {
-            $table->integer('ID_ENCADREUR')->primary();
+            $table->integer('ID_ENCADREUR', true);
             $table->string('NOM_ENCADREUR')->nullable();
             $table->string('PROFESSION_ENCADREUR')->nullable();
             $table->string('TELEPHONE_ENCADREUR', 32)->nullable();
         });
 
         Schema::create('HISTORIQUE', function (Blueprint $table) {
-            $table->integer('ID_HISTORIQUE')->primary();
+            $table->integer('ID_HISTORIQUE', true);
             $table->integer('ID_ADMINISTRATEUR')->index('I_FK_HISTORIQUE_ADMINISTRATEUR');
             $table->string('ACTION_HISTORIQUE')->nullable();
             $table->dateTime('DATE_HISTORIQUE')->nullable();
         });
 
         Schema::create('MEMBRE', function (Blueprint $table) {
-            $table->integer('ID_MEMBRE')->primary();
+            $table->integer('ID_MEMBRE', true);
             $table->string('NOM_MEMBRE')->nullable();
             $table->string('FILIERE_MEMBRE')->nullable();
             $table->string('TELEPHONE_MEMBRE')->nullable();
         });
 
         Schema::create('PROJET', function (Blueprint $table) {
-            $table->integer('ID_PROJET')->primary();
+            $table->integer('ID_PROJET', true);
             $table->string('TYPE_PROJET')->nullable();
             $table->string('PROMOTION_PROJET', 32)->nullable();
             $table->string('LIEN_FICHIER_PROJET')->nullable();
@@ -78,7 +80,7 @@ class CreateArchivageSuppticTable extends Migration
         });
 
         Schema::create('UTILISATEUR', function (Blueprint $table) {
-            $table->integer('ID_UTILISATEUR')->primary();
+            $table->integer('ID_UTILISATEUR', true);
             $table->string('NOM_UTILISATEUR')->nullable();
             $table->string('LOGIN_UTILISATEUR')->nullable();
             $table->string('EMAIL_UTILISATEUR')->nullable();
@@ -88,7 +90,7 @@ class CreateArchivageSuppticTable extends Migration
         });
 
         Schema::create('VISITE', function (Blueprint $table) {
-            $table->integer('ID_VISITE')->primary();
+            $table->integer('ID_VISITE', true);
             $table->dateTime('DATE_VISITE')->nullable();
         });
 

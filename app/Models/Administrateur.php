@@ -10,9 +10,10 @@ class Administrateur extends Model
     use HasFactory;
     protected $table='ADMINISTRATEUR';
     protected $primaryKey='ID_ADMINISTRATEUR';
+    public $timestamps=false;
 
-    public function historique()
+    public function historiques()
     {
-        $this->hasMany('App\Models\Historique');
+       return $this->hasMany('App\Models\Historique','ID_ADMINISTRATEUR');
     }
 }
