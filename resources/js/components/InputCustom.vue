@@ -4,7 +4,7 @@
             <label :for="champ.text" class="title">{{champ.text}}</label><br>
         </div>
         <div class="input-group mb-3">
-            <input :type="champ.type" class="valeur form-control" :class="{'erreurborder': !test}" v-model="valeur" :placeholder="champ.placeholder" @input="controle">
+            <input :type="champ.type"  class="valeur form-control" :class="{'erreurborder': !test}" v-model="champ.valeur" :placeholder="champ.placeholder" @input="controle">
             <span class="input-group-text icon" :class="{'erreurborder': !test}" v-if="!champ.hide"><font-awesome-icon :icon="champ.icon" :style="{'color':color}"/></span>
         </div>
     </div>
@@ -14,7 +14,6 @@
 export default {
     data(){
         return{
-            valeur:'',
             test: true,
             color: "#363740"
         }
@@ -25,6 +24,7 @@ export default {
             default:()=>({
                 text:"Bouton",
                 type:"password",
+                valeur:'aaa',
                 placeholder:"Entrer ...",
                 icon:'fa-solid fa-eye-slash',
                 showlabel:true,
@@ -37,8 +37,9 @@ export default {
     },
     methods:{
         controle(){
+            console.log(this.champ.valeur)
             this.champ.hide=false;
-            if (this.valeur.length <=12) {
+            if (this.champ.valeur.length <=12) {
                 this.champ.icon='fa-solid fa-times'
                 this.color="red"
                 this.test=false

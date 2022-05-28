@@ -11,4 +11,7 @@ class Visite extends Model
     protected $table='VISITE';
     protected $primaryKey='ID_VISITE';
     public $timestamps = false;
+    protected $fillable=[
+        'DATE_VISITE'
+    ];
 }

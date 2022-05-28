@@ -11,6 +11,9 @@ class Historique extends Model
     protected $table='HISTORIQUE';
     protected $primaryKey='ID_HISTORIQUE';
     public $timestamps=false;
+    protected $fillable=[
+        'ACTION_HISTORIQUE','ID_ADMINISTRATEUR'
+    ];
 
     public function administrateur()
     {

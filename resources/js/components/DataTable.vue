@@ -12,12 +12,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="donnee in donnees" :key="donnee.id">
+                <tr v-for="donnee in donnees" :key="donnee[0]">
                     <td><input type="checkbox" v-model="donnee.check" name="allChecked" @change="[donnee.check? add(donnee):remove(donnee)]"></td>
                     <td v-for="colonne in colonnes" :key="colonne.key">
                         {{donnee[colonne.reference]}}
                     </td>
-                    <td><font-awesome-icon icon="fas fa-pen" v-if="donnee.edit"/><span>&nbsp;</span><span>&nbsp;</span><font-awesome-icon icon="fas fa-trash" v-if="donnee.trash" @click="add(donnee)"/></td>
+                    <td><font-awesome-icon icon="fas fa-pen" v-if="edit"/><span>&nbsp;</span><span>&nbsp;</span><font-awesome-icon icon="fas fa-trash" v-if="trash" @click="add(donnee)"/></td>
                 </tr>
             </tbody>
         </table>
@@ -43,6 +43,8 @@ export default {
     },
     props:{
         colonnes:Array,
+        trash:Boolean,
+        edit:Boolean,
         donnees:Array,
     },
     methods:{

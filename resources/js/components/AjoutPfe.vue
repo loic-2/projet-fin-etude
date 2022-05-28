@@ -1,7 +1,8 @@
 <template>
     <div class="row">
         <state :routes="routes"></state>
-        <ajout-projet style="margin-top:50px" :addetudiant="true" :annee="annee"></ajout-projet>
+        <Button @click="affiche">test</Button>
+        <ajout-projet style="margin-top:50px" :etudiant="etudiant" :addetudiant="true" :annee="annee"></ajout-projet>
         <ButtonGroup :buttons="buttons"></ButtonGroup>
     </div>
 </template>
@@ -14,6 +15,198 @@ import State from './State.vue'
 export default {
     data(){
         return{
+            etudiant:[
+                [{
+                    text:"Nom",
+                    type:"text",
+                    valeur:'aa',
+                    placeholder:"Entrer le nom complet",
+                    showlabel:true,
+                    icon:'fa-solid fa-eye-slash',
+                    hide:false,
+                    id:1
+                },
+                {
+                    text:"Matricule",
+                    type:"text",
+                    valeur:'',
+                    placeholder:"Entrer le matricule",
+                    showlabel:true,
+                    icon:'fa-solid fa-eye-slash',
+                    hide:true,
+                    id:2,
+                },
+                {
+                    text:"Telephone",
+                    type:"text",
+                    valeur:'',
+                    placeholder:"+237",
+                    showlabel:true,
+                    icon:'fa-solid fa-eye-slash',
+                    hide:true,
+                    id:3,
+                }],
+                [
+                    {
+                    text:"Nom",
+                    type:"text",
+                    valeur:'',
+                    placeholder:"Entrer le nom complet",
+                    showlabel:true,
+                    icon:'fa-solid fa-eye-slash',
+                    hide:false,
+                    id:1
+                },
+                {
+                    text:"Matricule",
+                    type:"text",
+                    valeur:'',
+                    placeholder:"Entrer le matricule",
+                    showlabel:true,
+                    icon:'fa-solid fa-eye-slash',
+                    hide:true,
+                    id:2,
+                },
+                {
+                    text:"Telephone",
+                    type:"text",
+                    valeur:'',
+                    placeholder:"+237",
+                    showlabel:true,
+                    icon:'fa-solid fa-eye-slash',
+                    hide:true,
+                    id:3,
+                }
+                ],
+                [
+                    {
+                    text:"Nom",
+                    type:"text",
+                    valeur:'',
+                    placeholder:"Entrer le nom complet",
+                    showlabel:true,
+                    icon:'fa-solid fa-eye-slash',
+                    hide:false,
+                    id:1
+                },
+                {
+                    text:"Matricule",
+                    type:"text",
+                    valeur:'',
+                    placeholder:"Entrer le matricule",
+                    showlabel:true,
+                    icon:'fa-solid fa-eye-slash',
+                    hide:true,
+                    id:2,
+                },
+                {
+                    text:"Telephone",
+                    type:"text",
+                    valeur:'',
+                    placeholder:"+237",
+                    showlabel:true,
+                    icon:'fa-solid fa-eye-slash',
+                    hide:true,
+                    id:3,
+                }
+                ],
+                [
+                    {
+                    text:"Nom",
+                    type:"text",
+                    valeur:'',
+                    placeholder:"Entrer le nom complet",
+                    showlabel:true,
+                    icon:'fa-solid fa-eye-slash',
+                    hide:false,
+                    id:1
+                },
+                {
+                    text:"Matricule",
+                    type:"text",
+                    valeur:'',
+                    placeholder:"Entrer le matricule",
+                    showlabel:true,
+                    icon:'fa-solid fa-eye-slash',
+                    hide:true,
+                    id:2,
+                },
+                {
+                    text:"Telephone",
+                    type:"text",
+                    valeur:'',
+                    placeholder:"+237",
+                    showlabel:true,
+                    icon:'fa-solid fa-eye-slash',
+                    hide:true,
+                    id:3,
+                }
+                ],
+                [
+                    {
+                    text:"Nom",
+                    type:"text",
+                    valeur:'',
+                    placeholder:"Entrer le nom complet",
+                    showlabel:true,
+                    icon:'fa-solid fa-eye-slash',
+                    hide:false,
+                    id:1
+                },
+                {
+                    text:"Matricule",
+                    type:"text",
+                    valeur:'',
+                    placeholder:"Entrer le matricule",
+                    showlabel:true,
+                    icon:'fa-solid fa-eye-slash',
+                    hide:true,
+                    id:2,
+                },
+                {
+                    text:"Telephone",
+                    type:"text",
+                    valeur:'',
+                    placeholder:"+237",
+                    showlabel:true,
+                    icon:'fa-solid fa-eye-slash',
+                    hide:true,
+                    id:3,
+                }
+                ],
+                [
+                    {
+                    text:"Nom",
+                    type:"text",
+                    valeur:'',
+                    placeholder:"Entrer le nom complet",
+                    showlabel:true,
+                    icon:'fa-solid fa-eye-slash',
+                    hide:false,
+                    id:1
+                },
+                {
+                    text:"Matricule",
+                    type:"text",
+                    valeur:'',
+                    placeholder:"Entrer le matricule",
+                    showlabel:true,
+                    icon:'fa-solid fa-eye-slash',
+                    hide:true,
+                    id:2,
+                },
+                {
+                    text:"Telephone",
+                    type:"text",
+                    valeur:'',
+                    placeholder:"+237",
+                    showlabel:true,
+                    icon:'fa-solid fa-eye-slash',
+                    hide:true,
+                    id:3,
+                }
+                ]
+            ],
             routes:[
                 {
                     Name:"Projets de fin d'etude",
@@ -66,6 +259,14 @@ export default {
       ButtonCustom,
       ButtonGroup,
       State
+    },
+    methods:{
+        affiche(){
+            console.log(this.etudiant[0][0].valeur)
+        }
+    },
+    mounted(){
+        this.affiche()
     }
 }
 </script>

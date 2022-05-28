@@ -22,16 +22,17 @@ export default {
 },
     data(){
         return{
+            val:"sss",
             buttons:[
                 {
                     text:"Annuler",
-                    reference:"annulerMemoire",
+                    reference:"annulerAdmin",
                     icon:"fa-solid fa-undo",
                     id:1
                 },
                 {
                     text:"Enregistrer",
-                    reference:"enregistrerMemoire",
+                    reference:"enregistrerAdmin",
                     icon:"fa-solid fa-save",
                     id:2
                 }
@@ -41,6 +42,7 @@ export default {
                     text:"Nom complet",
                     type:"text",
                     placeholder:"Entrer le nom complet",
+                    content:'dfghj',
                     showlabel:true,
                     icon:'fa-solid fa-eye-slash',
                     hide:true,

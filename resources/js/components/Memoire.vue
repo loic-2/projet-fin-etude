@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-        <DataTable :colonnes="colonnes" :donnees="donnees" class="tableau"></DataTable>
+        <DataTable :colonnes="colonnes" :edit="true" :trash="true" :donnees="donnees" class="tableau"></DataTable>
     </div>
 </template>
 
@@ -26,6 +26,8 @@ import DataTable from './DataTable.vue';
 import ButtonCustom from './ButtonCustom.vue';
 import InputCustom from './InputCustom.vue';
 import State from './State.vue'
+const axios= require('axios');
+import { index } from '../api';
     export default {
         data() {
             return {
@@ -64,60 +66,32 @@ import State from './State.vue'
                     showlabel:false,
                     hide:true
                 },
-                donnees:[
-                    {
-                        theme:"Realisation d'une bibliotheque numerique",
-                        membre:"Annette, Jauress",
-                        categorie:"Sante, Education",
-                        promotion:"2017 - 2020",
-                        edit:true,
-                        trash:true,
-                        check:false
-                    },
-                    {
-                        theme:"Realisation d'une outil info de consultation du cancer",
-                        membre:"Armelle, christian",
-                        categorie:"Sante, Informatique",
-                        promotion:"2018 - 2021",
-                        edit:true,
-                        trash:true,
-                        check:false
-                    },
-                    {
-                        theme:"Realisation d'une application pour faciliter l'apprentissage",
-                        membre:"Emilie, Laure",
-                        categorie:"Agriculture, Education",
-                        promotion:"2018 - 2021",
-                        edit:true,
-                        trash:true,
-                        check:false
-                    }
-                ],
+                donnees:[],
                 colonnes:[
                     {
                         nom:"Theme",
-                        reference:"theme",
+                        reference:"NOM_PROJET",
                         type:"String",
                         key:1,
                         sortable:true
                     },
                     {
-                        nom:"Membres",
-                        reference:"membre",
+                        nom:"Telechargements",
+                        reference:"TELECHARGEMENT_PROJET",
                         type:"String",
                         key:2,
                         sortable:true
                     },
                     {
-                        nom:"Categorie",
-                        reference:"categorie",
+                        nom:"Vues",
+                        reference:"VUE_PROJET",
                         type:"String",
                         key:3,
                         sortable:true
                     },
                     {
                         nom:"Promotion",
-                        reference:"promotion",
+                        reference:"PROMOTION_PROJET",
                         type:"String",
                         key:4,
                         sortable:true
@@ -139,7 +113,10 @@ import State from './State.vue'
             },
         },
         mounted(){
-            this.$emit("pagename","Memoires")
+            const res = index('http://localhost:8000/api/categorie');
+            res.then((res)=>{console.log(res.data)});
+            const reponse= index('http://localhost:8000/api/projet')
+            reponse.then(res => {this.donnees=res.data})
         }
     }
 </script>

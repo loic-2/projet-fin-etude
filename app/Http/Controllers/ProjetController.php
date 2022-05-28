@@ -14,8 +14,7 @@ class ProjetController extends Controller
      */
     public function index()
     {
-        $projet= new Projet;
-        echo $projet->categorie();
+        return Projet::all();
     }
 
     /**

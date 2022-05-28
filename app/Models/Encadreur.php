@@ -11,6 +11,9 @@ class Encadreur extends Model
     protected $table='ENCADREUR';
     protected $primaryKey='ID_ENCADREUR';
     public $timestamps = false;
+    protected $fillable=[
+      'NOM_ENCADREUR','PROFESSION_ENCADREUR','TELEPHONE_ENCADREUR'
+    ];
 
     public function encadrement()
     {

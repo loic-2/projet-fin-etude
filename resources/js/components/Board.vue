@@ -1,7 +1,9 @@
 <template>
     <div class="container-flex">
         <div class="row">
-            <StatCard :parametre="parametre" v-for="parametre in parametres" :key="parametre.id"></StatCard>
+            <StatCard color="#5EA6DA" nom="Memoires" :valeur="memoires_val"></StatCard>
+            <StatCard color="#5E63DA" nom="PFE" :valeur="pfe_val"></StatCard>
+            <StatCard color="#32E279" nom="Administrateur" :valeur="admin_val"></StatCard>
         </div>
         <div class="row chart">
             <Chart></Chart>
@@ -35,6 +37,8 @@ import PersonneConnecteVue from './PersonneConnecte.vue';
 import LaUne from './LaUne.vue';
 import StatCard from './StatCard.vue'
 import Chart from './Chart.vue';
+import { index, manyResponse } from '../api';
+const axios= require('axios')
 export default {
   components: {
     StatCard,
@@ -44,26 +48,9 @@ export default {
 },
   data(){
       return{
-          parametres:[
-                    {
-                        nom:"Memoires",
-                        valeur:'134',
-                        color:'#5EA6DA',
-                        id:1,
-                    },
-                    {
-                        nom:"PFE",
-                        valeur:'189',
-                        color:'#5E63DA',
-                        id:2,
-                    },
-                    {
-                        nom:"Admin",
-                        color:'#32E279',
-                        valeur:'4'
-                    },
-                    
-                ],
+                memoires_val:123,
+                pfe_val:189,
+                admin_val:230,
 
                 documents:[
                     {
@@ -108,6 +95,14 @@ export default {
                     },
                 ],
       }
+  },
+  mounted(){
+    Promise.all([index('http://localhost:8000/api/administrateur'),index('http://localhost:8000/api/projet')])
+    .then((res)=>{
+        this.admin_val=res[0].data.length
+        this.memoires_val=res[1].data.length
+        this.pfe_val=res[1].data.length
+    })
   }
     
 }

@@ -1,25 +1,28 @@
 <template>
      <div class="stat col px-0" >
-        <div class="nom-parametre" :style="{backgroundColor:parametre.color}">
-            <span>{{parametre.nom}}</span>
+        <div class="nom-parametre" :style="{backgroundColor:color}">
+            <span>{{nom}}</span>
         </div>
         <div class="valeur">
-            <span>{{parametre.valeur}}</span>
+            <span>{{valeur}}</span>
         </div>
     </div>   
 </template>
 <script>
 export default {
     props:{
-        parametre:{
-            type: Object,
-            default:()=>({
-                nom:"Memoires",
-                color:'blue',
-                valeur:"145"
-            }),
-
-            },
+        nom:{
+            type:String,
+            default:"Memoires",
+        },
+        color:{
+            type:String,
+            default:'blue',
+        },
+        valeur:{
+            type:Number,
+            default:145
+        },
         }
     }
 </script>

@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-        <DataTable :colonnes="colonnes" :donnees="donnees" class="tableau"></DataTable>
+        <DataTable :colonnes="colonnes" :edit="true" :trash="true" :donnees="donnees" class="tableau"></DataTable>
     </div>
 </template>
 
@@ -26,6 +26,7 @@ import DataTable from './DataTable.vue';
 import ButtonCustom from './ButtonCustom.vue';
 import InputCustom from './InputCustom.vue';
 import State from './State.vue'
+import { index } from '../api';
     export default {
         data() {
             return {
@@ -64,60 +65,32 @@ import State from './State.vue'
                     showlabel:false,
                     hide:true
                 },
-                donnees:[
-                    {
-                        nom:"Ganno Loic",
-                        login:"loic",
-                        mdp:"weddkijhggs",
-                        date:"2021-03-23",
-                        edit:true,
-                        trash:true,
-                        check:false
-                    },
-                    {
-                        nom:"Athena Irma",
-                        login:"Irma",
-                        mdp:"dfgrttr55454",
-                        date:"2019-07-02",
-                        edit:true,
-                        trash:true,
-                        check:false
-                    },
-                    {
-                        nom:"Tekonang Brian",
-                        login:"Brian",
-                        mdp:"1334ghhhhf",
-                        date:"2022-04-23",
-                        edit:true,
-                        trash:true,
-                        check:false
-                    }
-                ],
+                donnees:[],
                 colonnes:[
                     {
                         nom:"Nom",
-                        reference:"nom",
+                        reference:"NOM_ADMINISTRATEUR",
                         type:"String",
                         key:1,
                         sortable:true
                     },
                     {
                         nom:"Login",
-                        reference:"login",
+                        reference:"LOGIN_ADMINISTRATEUR",
                         type:"String",
                         key:2,
                         sortable:true
                     },
                     {
                         nom:"Mot de passe",
-                        reference:"mdp",
+                        reference:"MOT_DE_PASSE_ADMINISTRATEUR",
                         type:"String",
                         key:3,
                         sortable:false
                     },
                     {
                         nom:"Date Ajout",
-                        reference:"date",
+                        reference:"DATE_CREATION_ADMINISTRATEUR",
                         type:"String",
                         key:4,
                         sortable:true
@@ -139,6 +112,8 @@ import State from './State.vue'
             },
         },
         mounted(){
+            const reponse= index('http://localhost:8000/api/administrateur')
+            reponse.then(res => {this.donnees=res.data})
             this.$emit("pagename","Administrateur")
         }
     }

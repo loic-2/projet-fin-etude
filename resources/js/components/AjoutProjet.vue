@@ -9,10 +9,15 @@
                             <span class="title col-11">Membre (s)</span>
                         </div>
                         <div class="col-1">
-                            <font-awesome-icon icon="fa-solid fa-plus-circle" @click="ajouterEtudiant" v-if="addetudiant"/>
+                            <font-awesome-icon icon="fa-solid fa-plus-circle" @click="numberEtudiant++" v-if="addetudiant"/>
                         </div>
                     </div>
-                    <membre :champs="champs" :parametres="parametres1" titre="Filiere" v-for="nombre in nombrefois" :key="nombre.nombre"></membre>
+                    <membre :champs="etudiant[0]" :parametres="parametres1" titre="Filiere"/>
+                    <membre :champs="etudiant[1]" :parametres="parametres1" titre="Filiere" v-if="numberEtudiant>2"/>
+                    <membre :champs="etudiant[2]" :parametres="parametres1" titre="Filiere" v-if="numberEtudiant>3"/>
+                    <membre :champs="etudiant[3]" :parametres="parametres1" titre="Filiere" v-if="numberEtudiant>4"/>
+                    <membre :champs="etudiant[4]" :parametres="parametres1" titre="Filiere" v-if="numberEtudiant>5"/>
+                    <membre :champs="etudiant[5]" :parametres="parametres1" titre="Filiere" v-if="numberEtudiant>6"/>
                 </div>
             </div>
             <div class="col col-xs-12">
@@ -23,10 +28,11 @@
                             <span class="title col-11">Encadreur (s)</span>
                         </div>
                         <div class="col-1">
-                            <font-awesome-icon icon="fa-solid fa-plus-circle" @click="ajouterEncadreur"/>
+                            <font-awesome-icon icon="fa-solid fa-plus-circle" @click="numberEncadreur++"/>
                         </div>
                     </div>
-                    <membre :champs="champs2" :parametres="parametres2" titre="Type" v-for="nombre in nombrefoisEncadreur" :key="nombre.nombre"></membre>
+                    <membre :champs="champs2" :parametres="parametres2" titre="Type"></membre>
+                    <membre :champs="champs2" :parametres="parametres2" titre="Type" v-if="numberEncadreur>1"/>
                 </div>
             </div>
         </div>
@@ -64,6 +70,7 @@ export default {
     props:{
         addetudiant:Boolean,
         annee: Array,
+        etudiant:Array,
     },
     components:{
       'membre': MembreVue,
@@ -71,17 +78,10 @@ export default {
       'selectcustom': SelectVue,
       'categorie': CategorieVue
     },
-   methods:{
-       ajouterEtudiant(){
-           this.nombrefois.push({nombre:this.nombrefois.length+1})
-       },
-       ajouterEncadreur(){
-           this.nombrefoisEncadreur.push({nombre:this.nombrefoisEncadreur.length+1})
-       }
-   },
     data(){
         return{
-
+            numberEncadreur:1,
+            numberEtudiant:1,
           categories:[
               {
                   text:'Sante',
@@ -103,47 +103,20 @@ export default {
           {
                     text:"Theme",
                     type:"text",
+                    valeur:'',
                     showlabel:true,
                     placeholder:"Entrer le theme",
                     icon:'fa-solid fa-eye-slash',
                     hide:true,
                     id:1
-                },
-          champs:[
-                {
-                    text:"Nom",
-                    type:"text",
-                    placeholder:"Entrer le nom complet",
-                    showlabel:true,
-                    icon:'fa-solid fa-eye-slash',
-                    hide:false,
-                    id:1
-                },
-                {
-                    text:"Matricule",
-                    type:"text",
-                    placeholder:"Entrer le matricule",
-                    showlabel:true,
-                    icon:'fa-solid fa-eye-slash',
-                    hide:true,
-                    id:2,
-                },
-                {
-                    text:"Telephone",
-                    type:"text",
-                    placeholder:"+237",
-                    showlabel:true,
-                    icon:'fa-solid fa-eye-slash',
-                    hide:true,
-                    id:3,
-                },
-            ],
+                },          
             champs2:[
                 {
                     text:"Nom",
                     type:"text",
                     placeholder:"Entrer le nom complet",
                     icon:'fa-solid fa-eye-slash',
+                    valeur:'',
                     showlabel:true,
                     hide:true,
                     id:1
@@ -151,6 +124,7 @@ export default {
                 {
                     text:"Profession",
                     type:"text",
+                    valeur:'',
                     showlabel:true,
                     placeholder:"Entrer la profession",
                     icon:'fa-solid fa-eye-slash',
@@ -181,17 +155,7 @@ export default {
                     value:"Professionnel",
                     id:2,
                 }
-            ],   
-          nombrefois:[
-              {
-                  nombre:1
-              }
-          ],
-          nombrefoisEncadreur:[
-              {
-                  nombre:1
-              }
-          ],
+            ], 
         }
     }
 }

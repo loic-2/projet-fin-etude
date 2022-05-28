@@ -6,7 +6,7 @@
                     <font-awesome-icon id="menu-bar" icon="fa-solid fa-bars" @click="$emit('hide')" v-if="hide"/>
                     <font-awesome-icon id="menu-bar" icon="fa-solid fa-times" @click="$emit('hide')" v-else/>
                     <span>&nbsp;</span><span>&nbsp;</span>
-                    <span class="state">{{namepage}}</span>
+                    <span class="state">{{nom}}</span>
                 </span>
             </div>
             <div class="col text-end">
@@ -29,9 +29,18 @@
     </div>
 </template>
 <script>
+import {store} from '../app'
+import { mapGetters } from 'vuex'
 export default {
+    computed:{
+        getName(){
+            this.nom= store.getters.getBarName
+            console.log(store.getters.getBarName)
+        }
+    },
     data(){
         return{
+            nom:'',
             profile:false
         }
     },
@@ -49,6 +58,9 @@ export default {
         showProfile(){
             this.profile= !this.profile
         }
+    },
+    mounted(){
+        this.getName
     }
 }
 </script>

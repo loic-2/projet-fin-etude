@@ -11,6 +11,9 @@ class Membre extends Model
     protected $table='MEMBRE';
     protected $primaryKey='ID_MEMBRE';
     public $timestamps = false;
+    protected $fillable=[
+        'NOM_MEMBRE','ID_PROJET','FILIERE_MEMBRE','TELEPHONE_MEMBRE'
+    ];
 
     public function encadrement()
     {
