@@ -3,6 +3,7 @@
         <div class="row">
             <div class="col col-xs-12">
                 <inputcustom style="margin-left:15px; margin-right:15px" :champ="intitule"></inputcustom>
+                <inputcustom style="margin-left:15px; margin-right:15px" :champ="file"></inputcustom>
                 <div class="membre ">
                     <div class="row" style="margin-top:10px;">
                         <div class="col-11">
@@ -12,16 +13,16 @@
                             <font-awesome-icon icon="fa-solid fa-plus-circle" @click="numberEtudiant++" v-if="addetudiant"/>
                         </div>
                     </div>
-                    <membre :champs="etudiant[0]" :parametres="parametres1" titre="Filiere"/>
-                    <membre :champs="etudiant[1]" :parametres="parametres1" titre="Filiere" v-if="numberEtudiant>2"/>
-                    <membre :champs="etudiant[2]" :parametres="parametres1" titre="Filiere" v-if="numberEtudiant>3"/>
-                    <membre :champs="etudiant[3]" :parametres="parametres1" titre="Filiere" v-if="numberEtudiant>4"/>
-                    <membre :champs="etudiant[4]" :parametres="parametres1" titre="Filiere" v-if="numberEtudiant>5"/>
-                    <membre :champs="etudiant[5]" :parametres="parametres1" titre="Filiere" v-if="numberEtudiant>6"/>
+                    <membre :valeur_select="valeurs_select[0]" :champs="etudiant[0]" :parametres="parametres1" titre="Filiere"/>
+                    <membre :valeur_select="valeurs_select[1]" :champs="etudiant[1]" :parametres="parametres1" titre="Filiere" v-if="numberEtudiant>2"/>
+                    <membre :valeur_select="valeurs_select[2]" :champs="etudiant[2]" :parametres="parametres1" titre="Filiere" v-if="numberEtudiant>3"/>
+                    <membre :valeur_select="valeurs_select[3]" :champs="etudiant[3]" :parametres="parametres1" titre="Filiere" v-if="numberEtudiant>4"/>
+                    <membre :valeur_select="valeurs_select[4]" :champs="etudiant[4]" :parametres="parametres1" titre="Filiere" v-if="numberEtudiant>5"/>
+                    <membre :valeur_select="valeurs_select[5]" :champs="etudiant[5]" :parametres="parametres1" titre="Filiere" v-if="numberEtudiant>6"/>
                 </div>
             </div>
             <div class="col col-xs-12">
-                <selectcustom :parametres="annee" title="Promotion" style="margin-left:15px; margin-right:15px"></selectcustom>
+                <selectcustom :filiere="valeurs_select[8]" :parametres="annee" title="Promotion" style="margin-left:15px; margin-right:15px"></selectcustom>
                 <div class="encadreur">
                     <div class="row" style="margin-top:10px;">
                         <div class="col-11">
@@ -31,32 +32,15 @@
                             <font-awesome-icon icon="fa-solid fa-plus-circle" @click="numberEncadreur++"/>
                         </div>
                     </div>
-                    <membre :champs="champs2" :parametres="parametres2" titre="Type"></membre>
-                    <membre :champs="champs2" :parametres="parametres2" titre="Type" v-if="numberEncadreur>1"/>
+                    <membre :valeur_select="valeurs_select[6]" :champs="champs2" :parametres="parametres2" titre="Type"></membre>
+                    <membre  :valeur_select="valeurs_select[7]" :champs="champs2" :parametres="parametres2" titre="Type" v-if="numberEncadreur>1"/>
                 </div>
             </div>
         </div>
-        <div class="row" style="margin:0 20px 20px 20px;">
-            <div class="categorie" >
-                <div class="row">
-                    <span>Categorie</span>
-                </div>
-                <div class="row">
-                    <div class="col" v-for="categorie in categories" :key="categorie.id">
-                        <categorie :categorie="categorie"></categorie>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col" v-for="categorie in categories" :key="categorie.id">
-                        <categorie :categorie="categorie"></categorie>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col" v-for="categorie in categories" :key="categorie.id">
-                        <categorie :categorie="categorie"></categorie>
-                    </div>
-                </div>
-            </div>
+        <div class="row" style="margin:0 25px 20px 0;">
+            <label for="categorie">Categorie (s)</label>
+            <vue-multi-select v-model="store.state.categorieSelected" :multiple="true" :searchable="true" :close-on-select="true" 
+            placeholder="Selectionner la/les categorie(s) du projet" :options="test"></vue-multi-select>
         </div>
     </div>
 </template>
@@ -64,52 +48,55 @@
 <script>
 import CategorieVue from './Categorie.vue'
 import InputCustomVue from './InputCustom.vue'
+import VueMultiSelect from 'vue-multiselect'
 import MembreVue from './Membre.vue'
 import SelectVue from './Select.vue'
+import {storeCategorieSelected,store} from '../storage'
 export default {
     props:{
+        valeurs_select:[],
+        parametres1:Array,
+        file:Object,
+        intitule:Object,
         addetudiant:Boolean,
         annee: Array,
         etudiant:Array,
     },
     components:{
       'membre': MembreVue,
+      'vue-multi-select':VueMultiSelect,
       'inputcustom': InputCustomVue,
       'selectcustom': SelectVue,
       'categorie': CategorieVue
     },
     data(){
         return{
+            store,
+            value:[],
             numberEncadreur:1,
             numberEtudiant:1,
+            test:store.getters.getCategorie,
           categories:[
               {
                   text:'Sante',
+                  label:'Sante',
                   background:'#F58F8F',
                   id:1
               },
               {
                   text:'Agriculture',
+                  label:'Agriculture',
                   background:'#F5D699',
                   id:2
               },
               {
                   text:'Telecommunications & TIC',
+                  label:'Telecommunications & TIC',
                   background:'#AAF58F',
                   id:3
               },
           ],
-          intitule:
-          {
-                    text:"Theme",
-                    type:"text",
-                    valeur:'',
-                    showlabel:true,
-                    placeholder:"Entrer le theme",
-                    icon:'fa-solid fa-eye-slash',
-                    hide:true,
-                    id:1
-                },          
+                    
             champs2:[
                 {
                     text:"Nom",
@@ -131,20 +118,6 @@ export default {
                     hide:true,
                     id:2,
                 }
-            ],
-          parametres1:[
-                {
-                    value:"ITT2-IR-CLA",
-                    id:1
-                },
-                {
-                    value:"ITT3-IR-CLA",
-                    id:2,
-                },
-                {
-                    value:"ITT1-IR-CLA",
-                    id:3,
-                },
             ], 
             parametres2:[
                 {
@@ -157,9 +130,10 @@ export default {
                 }
             ], 
         }
-    }
+    },
 }
 </script>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style scoped>
 .row{
     margin: 0;

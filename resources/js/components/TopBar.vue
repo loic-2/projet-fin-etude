@@ -29,7 +29,7 @@
     </div>
 </template>
 <script>
-import {store} from '../app'
+import {store} from '../storage'
 import { mapGetters } from 'vuex'
 export default {
     computed:{

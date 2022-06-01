@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <state :routes="routes"></state>
-        <ajout-projet :etudiant="etudiant" style="margin-top:20px" :addetudiant="false" :annee="annee"></ajout-projet>
+        <ajout-projet :parametres1="parametre1" :intitule="intitule" :file="file" :valeurs_select="valeurs_select" :etudiant="etudiant" style="margin-top:20px" :addetudiant="false" :annee="annee"></ajout-projet>
         <ButtonGroup :buttons="buttons"></ButtonGroup>
     </div>
 </template>
@@ -11,56 +11,49 @@ import AjoutProjet from './AjoutProjet.vue'
 import ButtonCustom from './ButtonCustom.vue'
 import ButtonGroup from './ButtonGroup.vue'
 import State from './State.vue'
-import {store} from '../app'
+import {store} from '../storage'
 export default {
     data(){
         return{
-            routes:[
+            parametre1:store.getters.getFilieresMemoire,
+        intitule:
                 {
-                    Name:"Memoires",
-                    path:"/memoire",
-                    id:1,
-                },
-                {
-                    Name:"Ajout de memoire",
-                    path:"/ajoutmemoire",
-                    id:2,
-                }
-            ],
-            buttons:[
-                {
-                    text:"Annuler",
-                    reference:"annulerMemoire",
-                    icon:"fa-solid fa-undo",
+                    text:"Theme",
+                    type:"text",
+                    valeur:'',
+                    showlabel:true,
+                    placeholder:"Entrer le theme",
+                    icon:'fa-solid fa-eye-slash',
+                    hide:true,
                     id:1
                 },
+            file:
                 {
-                    text:"Enregistrer",
-                    reference:"enregistrerMemoire",
-                    icon:"fa-solid fa-save",
-                    id:2
-                }
-            ],
-            annee:[
-                {
-                    value:"2017 - 2019",
+                    text:"Fichier",
+                    type:"file",
+                    valeur:'',
+                    showlabel:true,
+                    placeholder:"Selectionner le fichier",
+                    icon:'fa-solid fa-eye-slash',
+                    hide:true,
                     id:1
+                }, 
+            valeurs_select:{
+                etudiant1:'',
+                etudiant2:'',
+                etudiant3:'',
+                etudiant4:'',
+                etudiant5:'',
+                etudiant6:'',
+                encadreur1:'',
+                encadreur2:'',
+                promotion:''
                 },
-                {
-                    value:"2018 - 2020",
-                    id:2,
-                }
-                ,
-                {
-                    value:"2019 - 2021",
-                    id:3,
-                }
-            ],
             etudiant:[
                 [{
                     text:"Nom",
                     type:"text",
-                    valeur:'',
+                    valeur:'aa',
                     placeholder:"Entrer le nom complet",
                     showlabel:true,
                     icon:'fa-solid fa-eye-slash',
@@ -70,7 +63,7 @@ export default {
                 {
                     text:"Matricule",
                     type:"text",
-                    valeur:'',
+                    valeur:'aaasd',
                     placeholder:"Entrer le matricule",
                     showlabel:true,
                     icon:'fa-solid fa-eye-slash',
@@ -248,6 +241,33 @@ export default {
                 }
                 ]
             ],
+            routes:[
+                {
+                    Name:"Memoires",
+                    path:"/memoire",
+                    id:1,
+                },
+                {
+                    Name:"Ajout de memoire",
+                    path:"/ajoutmemoire",
+                    id:2,
+                }
+            ],
+            buttons:[
+                {
+                    text:"Annuler",
+                    reference:"annulerMemoire",
+                    icon:"fa-solid fa-undo",
+                    id:1
+                },
+                {
+                    text:"Enregistrer",
+                    reference:"enregistrerMemoire",
+                    icon:"fa-solid fa-save",
+                    id:2
+                }
+            ],
+            annee:store.getters.getPromotionMemoire
         }
     },
     computed:{

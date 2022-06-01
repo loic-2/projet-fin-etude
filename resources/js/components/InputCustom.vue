@@ -4,8 +4,12 @@
             <label :for="champ.text" class="title">{{champ.text}}</label><br>
         </div>
         <div class="input-group mb-3">
-            <input :type="champ.type"  class="valeur form-control" :class="{'erreurborder': !test}" v-model="champ.valeur" :placeholder="champ.placeholder" @input="controle">
-            <span class="input-group-text icon" :class="{'erreurborder': !test}" v-if="!champ.hide"><font-awesome-icon :icon="champ.icon" :style="{'color':color}"/></span>
+            <input required :type="champ.type" style="border-radius:10px"  class="valeur form-control" 
+            :class="[test? 'is-valid': 'is-invalid']" v-model="champ.valeur" 
+            :placeholder="champ.placeholder" @input="controle">
+            <div class="invalid-feedback">
+                {{error_message}}
+            </div>
         </div>
     </div>
 </template>
@@ -14,6 +18,7 @@
 export default {
     data(){
         return{
+            error_message:'',
             test: true,
             color: "#363740"
         }
@@ -37,16 +42,51 @@ export default {
     },
     methods:{
         controle(){
-            console.log(this.champ.valeur)
-            this.champ.hide=false;
-            if (this.champ.valeur.length <=12) {
-                this.champ.icon='fa-solid fa-times'
-                this.color="red"
-                this.test=false
-            }else{
-                this.champ.icon='fa-solid fa-check'
-                this.color="green"
-                this.test= true
+            switch (this.champ.text) {
+                case 'Nom':
+                    if (this.champ.valeur.length<=12) {
+                        this.test=false
+                        this.error_message='12 caracteres au moins'
+                    }else{
+                        this.test=true
+                    }
+                    break;
+                case 'Theme':
+                    if (this.champ.valeur.length<=12 || this.champ.valeur.length>=100) {
+                        this.test=false
+                        this.error_message='Le theme doit contenir au moins 12 caracteres et au plus 100'
+                    }else{
+                        this.test=true
+                    }
+                    break;
+                case 'Matricule':
+                    if (this.champ.valeur.length<=6 || this.champ.valeur.length>=12) {
+                        this.test=false
+                        this.error_message='Matricule invalide(au moins 6 caracteres,au plus 12)'
+                    }else{
+                        this.test=true
+                    }
+                    break;
+                case 'Telephone':
+                    if (!(this.champ.valeur.length==9 && typeof(parseInt(this.champ.valeur))=="number")) {
+                        this.test=false
+                        this.error_message='Le numero n\'est pas valide'
+                    }else{
+                        this.test=true
+                    }
+                    break;
+                case 'Profession':
+                    if (this.champ.valeur.length>=20) {
+                        this.test=false
+                        this.error_message='Nom de metier trop long'
+                    }else{
+                        this.test=true
+                    }
+                    break;
+                case 'Fichier':
+                    break;
+                default:
+                    break;
             }
         },
     },
@@ -60,7 +100,6 @@ input{
     background-color: #ffffff;
     height: 40px;
     width: 100%;
-    border-radius: 10px;
     border: 1px #363740 solid;
 
 }
@@ -69,22 +108,6 @@ input{
     margin-bottom: 3px;
     color:#363740;
 }
-.erreurborder {
-    border: 1px red solid;
-    border-right: none;
-}
 
-.erreurborder:focus{
-    border: 1px red solid;
-}
-.input div span{
-    border-radius: 10px;
-    background-color: #ffffff;
-    border: 1px #363740 solid;
-}
 
-.input div .erreurborder:last-child{
-    border-color: red;
-    border-left: none;
-}
 </style>

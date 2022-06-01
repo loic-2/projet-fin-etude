@@ -1,8 +1,7 @@
 <template>
     <div class="row">
         <state :routes="routes"></state>
-        <Button @click="affiche">test</Button>
-        <ajout-projet style="margin-top:50px" :etudiant="etudiant" :addetudiant="true" :annee="annee"></ajout-projet>
+        <ajout-projet :parametres1="parametre1" :intitule="intitule" :file="file" :valeurs_select="valeurs_select" style="margin-top:50px" :etudiant="etudiant" :addetudiant="true" :annee="annee"></ajout-projet>
         <ButtonGroup :buttons="buttons"></ButtonGroup>
     </div>
 </template>
@@ -12,9 +11,44 @@ import AjoutProjet from './AjoutProjet.vue'
 import ButtonCustom from './ButtonCustom.vue'
 import ButtonGroup from './ButtonGroup.vue'
 import State from './State.vue'
+import {storeStudent,store,storeEncadreur,storeProjet} from '../storage'
 export default {
     data(){
         return{
+            parametre1:store.getters.getFilieresPfe,
+            file:
+                {
+                    text:"Fichier",
+                    type:"file",
+                    valeur:'',
+                    showlabel:true,
+                    placeholder:"Selectionner le fichier",
+                    icon:'fa-solid fa-eye-slash',
+                    hide:true,
+                    id:1
+                },
+        intitule:
+                {
+                    text:"Theme",
+                    type:"text",
+                    valeur:'',
+                    showlabel:true,
+                    placeholder:"Entrer le theme",
+                    icon:'fa-solid fa-eye-slash',
+                    hide:true,
+                    id:1
+                }, 
+            valeurs_select:[
+                'etudiant1',
+                'etudiant2',
+                'etudiant3',
+                'etudiant4',
+                'etudiant5',
+                'etudiant6',
+                'encadreur1',
+                'encadreur2',
+                'promotion'
+            ],
             etudiant:[
                 [{
                     text:"Nom",
@@ -233,25 +267,7 @@ export default {
                     id:2
                 }
             ],
-            annee:[
-                {
-                    value:"2016 - 2019",
-                    id:1
-                },
-                {
-                    value:"2017 - 2020",
-                    id:2
-                },
-                {
-                    value:"2018 - 2021",
-                    id:3,
-                }
-                ,
-                {
-                    value:"2019 - 2022",
-                    id:4,
-                }
-            ],
+            annee:store.getters.getPromotionPfe,
         }
     },
     components: { 
@@ -260,14 +276,18 @@ export default {
       ButtonGroup,
       State
     },
+    computed:{
+        
+    },
     methods:{
+        add(){
+            storeStudent(this.etudiant)
+        },
         affiche(){
             console.log(this.etudiant[0][0].valeur)
         }
-    },
-    mounted(){
-        this.affiche()
     }
+
 }
 </script>
 <style scoped>

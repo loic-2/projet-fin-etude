@@ -1,22 +1,37 @@
 <template>   
    <div class="grp_selection">
        <label for="Filiere" class="title">{{title}}</label><br>
-       <select name="filiere" id="" class="selection form-select">
-            <option value="parametre.value" v-for="parametre in parametres" :key="parametre.id">{{parametre.value}}</option>
+       <select id="" v-model="valeur_selectionner" class="selection form-select" @change="update" >
+            <option :value="parametre.value" v-for="parametre in parametres" :key="parametre.id">{{parametre.value}}</option>
         </select> 
    </div>
 </template>
 <script>
+import { storeSelect } from "../storage"
 export default {
+    data(){
+        return{
+            valeur_selectionner:''
+        }
+    },
     props:{
         title: String,
+        filiere:{
+            type:String
+        },
         parametres:{
             value: String,
             id: String,
 
         }
+    },
+    methods:{
+        update(){
+            storeSelect(this.filiere ,this.valeur_selectionner)
+        }
     }
 }
+
 </script>
 
 <style scoped>
