@@ -32,14 +32,14 @@
                             <font-awesome-icon icon="fa-solid fa-plus-circle" @click="numberEncadreur++"/>
                         </div>
                     </div>
-                    <membre :valeur_select="valeurs_select[6]" :champs="champs2" :parametres="parametres2" titre="Type"></membre>
-                    <membre  :valeur_select="valeurs_select[7]" :champs="champs2" :parametres="parametres2" titre="Type" v-if="numberEncadreur>1"/>
+                    <membre :valeur_select="valeurs_select[6]" :champs="encadreur[0]" :parametres="parametres2" titre="Type"></membre>
+                    <membre  :valeur_select="valeurs_select[7]" :champs="encadreur[1]" :parametres="parametres2" titre="Type" v-if="numberEncadreur>1"/>
                 </div>
             </div>
         </div>
         <div class="row" style="margin:0 25px 20px 0;">
             <label for="categorie">Categorie (s)</label>
-            <vue-multi-select v-model="store.state.categorieSelected" :multiple="true" :searchable="true" :close-on-select="true" 
+            <vue-multi-select label="name" track-by="name" v-model="store.state.categorieSelected" :multiple="true" :searchable="true" :close-on-select="true" 
             placeholder="Selectionner la/les categorie(s) du projet" :options="test"></vue-multi-select>
         </div>
     </div>
@@ -61,6 +61,7 @@ export default {
         addetudiant:Boolean,
         annee: Array,
         etudiant:Array,
+        encadreur:Array,
     },
     components:{
       'membre': MembreVue,
@@ -96,29 +97,6 @@ export default {
                   id:3
               },
           ],
-                    
-            champs2:[
-                {
-                    text:"Nom",
-                    type:"text",
-                    placeholder:"Entrer le nom complet",
-                    icon:'fa-solid fa-eye-slash',
-                    valeur:'',
-                    showlabel:true,
-                    hide:true,
-                    id:1
-                },
-                {
-                    text:"Profession",
-                    type:"text",
-                    valeur:'',
-                    showlabel:true,
-                    placeholder:"Entrer la profession",
-                    icon:'fa-solid fa-eye-slash',
-                    hide:true,
-                    id:2,
-                }
-            ], 
             parametres2:[
                 {
                     value:"Academique",

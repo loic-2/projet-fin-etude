@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Projet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProjetController extends Controller
 {
@@ -24,14 +25,28 @@ class ProjetController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        if (Projet::create($request->all())) {
-            return response()->json([
-                'succes'=>'Categorie bien enregistrer'
-            ]);
+    {   
+        if($request->hasFile('projet')){
+            $path= $request->file('projet')->store('projets');
+            $datas=$request->all();
+            $datas['LIEN_FICHIER_PROJET']=$path;    
+            $name= $request->input('NOM_PROJET');
+            if (Projet::create($datas)) {
+                //recuperer l'id du projet inserer
+                $id = Projet::where('NOM_PROJET',$name)->get()->first();
+                return response()->json([
+                    'succes'=>'Projet bien enregistrer',
+                    'id'=>$id->ID_PROJET
+                ]);
+            }else{
+                return response()->json([
+                    'echec'=>"l'enregistrement n'a pas reussi"
+                ]);
+            }
         }else{
             return response()->json([
-                'echec'=>"l'enregistrement n'a pas reussi"
+                'echec'=>"Aucun fichier envoye",
+                'res' => $request->all()
             ]);
         }
     }
@@ -58,7 +73,7 @@ class ProjetController extends Controller
     {
         if ($projet->update($request->all())) {
             return response()->json([
-                'succes'=>'Categorie bien enregistrer'
+                'succes'=>'Projet bien enregistrer'
             ]);
         }else{
             return response()->json([

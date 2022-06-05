@@ -5,9 +5,10 @@ Vue.use(Vuex)
 
 export const store= new Vuex.Store({
   state:{
+    file:null,
     barName:"Tableau de bord",
     admin:[],
-    projet:[],
+    projet:new FormData(),
     select:[],
     encadreur:[],
     membre:[],
@@ -55,12 +56,18 @@ export const store= new Vuex.Store({
       state.barName=name
     },
     addProjet(state,{name,link,type,promotion}){
-        state.projet.push({
-            NOM_PROJET:name,
-            TYPE_PROJET:type,
-            LIEN_FICHIER_PROJET:link,
-            PROMOTION_PROJET:promotion
-        })
+        state.projet.append('NOM_PROJET',name);
+        state.projet.append('TYPE_PROJET',type);
+        state.projet.append('PROMOTION_PROJET',promotion);
+        state.projet.append('projet',link)
+    },
+    deleteProjet(state){
+        state.projet.delete('NOM_PROJET')
+        state.projet.delete('TYPE_PROJET')
+        state.projet.delete('PROMOTION_PROJET')
+        state.projet.delete('projet')
+        state.encadreur=[]
+        state.membre=[]
     },
     addAdmin(state,{name,email,telephone,login,mdp}){
       state.admin.push({
@@ -95,8 +102,11 @@ export const store= new Vuex.Store({
         state.categorieSelected.push(value)
       }
     },
-    addCategorie(state,{value}){
-      state.categorie.push(value)
+    addCategorie(state,{value,key}){
+      state.categorie.push({
+        name:value,
+        ID_CATEGORIE:key
+      })
     }
   },
   getters:{
@@ -143,7 +153,7 @@ export function storeCategorieSelected(val){
 }
 export function storeSelect(key,val){
   store.commit('addSelect',{value:val,cle:key})
-}
+} 
 
 export function storeStudent(tab=Array)
 {
@@ -165,7 +175,7 @@ function getCategorieData(){
   const promise= index("http://localhost:8000/api/categorie")
   promise.then((res)=>{
     res.data.forEach(objet => {
-      store.commit('addCategorie',{value:objet.NOM_CATEGORIE})
+      store.commit('addCategorie',{value:objet.NOM_CATEGORIE,key:objet.ID_CATEGORIE})
     });
   })
 }
@@ -173,23 +183,29 @@ function getCategorieData(){
 export function storeProjet(tab=Array)
 {
     store.commit('addProjet',{
-        name:tab.title,
-        promotion:tab.promotion,
-        link:tab.lien,
-        type:tab.type
+        name:tab[0],
+        promotion:store.state.select['promotion'],
+        link:store.state.file,
+        type:tab[1]
     })
+}
+
+export function removeProjet(){
+  store.commit('deleteProjet')
 }
 
 export function storeEncadreur(tab=Array)
 {
-    for (let i = 0; i<=tab.length; i++) {
+    for (let i = 0; i<tab.length; i++) {
       let indice=`encadreur${i+1}`
+      if(tab[i][0].valeur !=""){
         store.commit('addEncadreur',{
             name:tab[i][0].valeur,
-            profession:[i][1].valeur,
-            telephone:tab[i][2].valeur,
+            profession:tab[i][1].valeur,
             type:store.state.select[indice],
+            telephone:tab[i][2].valeur,
         })
+      }
     }
 }
 

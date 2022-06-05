@@ -10,6 +10,7 @@ class CategorieProjet extends Model
     use HasFactory;
     protected $table='CATEGORIE_PROJET';
     public $timestamps = false;
+    public $fillable =['ID_CATEGORIE','ID_PROJET'];
 
     public function projet()
     {

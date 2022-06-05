@@ -1,8 +1,13 @@
 <template>
     <div class="row">
         <state :routes="routes"></state>
-        <ajout-projet :parametres1="parametre1" :intitule="intitule" :file="file" :valeurs_select="valeurs_select" style="margin-top:50px" :etudiant="etudiant" :addetudiant="true" :annee="annee"></ajout-projet>
-        <ButtonGroup :buttons="buttons"></ButtonGroup>
+        <ajout-projet :encadreur="encadreur" :parametres1="parametre1" :intitule="intitule" :file="file" :valeurs_select="valeurs_select" style="margin-top:50px" :etudiant="etudiant" :addetudiant="true" :annee="annee"></ajout-projet>
+        <div class="row" style="margin:20px 0 20px 0">
+            <div class="col text-center">
+                <button-custom :button="buttons[0]" style="margin:0 15px 0 15px"></button-custom>
+                <button-custom @enregistrerPfe="enregistre" :button="buttons[1]" style="margin:0 15px 0 15px"></button-custom>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -12,9 +17,12 @@ import ButtonCustom from './ButtonCustom.vue'
 import ButtonGroup from './ButtonGroup.vue'
 import State from './State.vue'
 import {storeStudent,store,storeEncadreur,storeProjet} from '../storage'
+import Loader from './Loader.vue'
+import { createProjet } from '../StrongMethode'
 export default {
     data(){
         return{
+            show:false,
             parametre1:store.getters.getFilieresPfe,
             file:
                 {
@@ -49,6 +57,70 @@ export default {
                 'encadreur2',
                 'promotion'
             ],
+            encadreur:[
+                [{
+                    text:"Nom",
+                    type:"text",
+                    valeur:"",
+                    placeholder:"Entrer le nom complet",
+                    icon:'fa-solid fa-eye-slash',
+                    showlabel:true,
+                    hide:true,
+                    id:1
+                },
+                {
+                    text:"Profession",
+                    type:"text",
+                    valeur:"",
+                    showlabel:true,
+                    placeholder:"Entrer la profession",
+                    icon:'fa-solid fa-eye-slash',
+                    hide:true,
+                    id:2,
+                },
+                {
+                    text:"Telephone",
+                    type:"text",
+                    valeur:"",
+                    showlabel:true,
+                    placeholder:"+237",
+                    icon:'fa-solid fa-eye-slash',
+                    hide:true,
+                    id:3,
+                }],
+                [{
+                    text:"Nom",
+                    type:"text",
+                    valeur:"",
+                    placeholder:"Entrer le nom complet",
+                    icon:'fa-solid fa-eye-slash',
+                    showlabel:true,
+                    hide:true,
+                    id:1
+                },
+                {
+                    text:"Profession",
+                    type:"text",
+                    valeur:"",
+                    showlabel:true,
+                    placeholder:"Entrer la profession",
+                    icon:'fa-solid fa-eye-slash',
+                    hide:true,
+                    id:2,
+                }
+                ,
+                {
+                    text:"Telephone",
+                    type:"text",
+                    valeur:"",
+                    showlabel:true,
+                    placeholder:"+237",
+                    icon:'fa-solid fa-eye-slash',
+                    hide:true,
+                    id:3,
+                }
+                ]
+            ], 
             etudiant:[
                 [{
                     text:"Nom",
@@ -270,21 +342,26 @@ export default {
             annee:store.getters.getPromotionPfe,
         }
     },
-    components: { 
-      AjoutProjet,
-      ButtonCustom,
-      ButtonGroup,
-      State
-    },
+    components: {
+    AjoutProjet,
+    ButtonCustom,
+    ButtonGroup,
+    State,
+    Loader
+},
     computed:{
         
     },
     methods:{
-        add(){
+        storeData(){
             storeStudent(this.etudiant)
+            storeProjet([this.intitule.valeur,'PFE'])
+            storeEncadreur(this.encadreur)
         },
-        affiche(){
-            console.log(this.etudiant[0][0].valeur)
+        enregistre(){
+            this.show=true
+            this.storeData()
+            createProjet()
         }
     }
 

@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <state :routes="routes"></state>
-        <ajout-projet :parametres1="parametre1" :intitule="intitule" :file="file" :valeurs_select="valeurs_select" :etudiant="etudiant" style="margin-top:20px" :addetudiant="false" :annee="annee"></ajout-projet>
+        <ajout-projet :encadreur="encadreur" :parametres1="parametre1" :intitule="intitule" :file="file" :valeurs_select="valeurs_select" :etudiant="etudiant" style="margin-top:20px" :addetudiant="false" :annee="annee"></ajout-projet>
         <ButtonGroup :buttons="buttons"></ButtonGroup>
     </div>
 </template>
@@ -49,6 +49,72 @@ export default {
                 encadreur2:'',
                 promotion:''
                 },
+            encadreur:[
+                [{
+                    text:"Nom",
+                    type:"text",
+                    placeholder:"Entrer le nom complet",
+                    icon:'fa-solid fa-eye-slash',
+                    valeur:'',
+                    showlabel:true,
+                    hide:true,
+                    id:1
+                },
+                {
+                    text:"Profession",
+                    type:"text",
+                    valeur:'',
+                    showlabel:true,
+                    placeholder:"Entrer la profession",
+                    icon:'fa-solid fa-eye-slash',
+                    hide:true,
+                    id:2,
+                }
+                ,
+                {
+                    text:"Telephone",
+                    type:"text",
+                    valeur:'',
+                    showlabel:true,
+                    placeholder:"+237",
+                    icon:'fa-solid fa-eye-slash',
+                    hide:true,
+                    id:3,
+                }],
+                [
+                    {
+                    text:"Nom",
+                    type:"text",
+                    placeholder:"Entrer le nom complet",
+                    icon:'fa-solid fa-eye-slash',
+                    valeur:'',
+                    showlabel:true,
+                    hide:true,
+                    id:1
+                },
+                {
+                    text:"Profession",
+                    type:"text",
+                    valeur:'',
+                    showlabel:true,
+                    placeholder:"Entrer la profession",
+                    icon:'fa-solid fa-eye-slash',
+                    hide:true,
+                    id:2,
+                }
+                ,
+                {
+                    text:"Telephone",
+                    type:"text",
+                    valeur:'',
+                    showlabel:true,
+                    placeholder:"+237",
+                    icon:'fa-solid fa-eye-slash',
+                    hide:true,
+                    id:3,
+                }
+                ]
+            ],
             etudiant:[
                 [{
                     text:"Nom",

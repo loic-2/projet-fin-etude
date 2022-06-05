@@ -26,3 +26,5 @@ Route::apiResource('projet','App\Http\Controllers\ProjetController');
 Route::apiResource('membre','App\Http\Controllers\MembreController');
 Route::apiResource('encadreur','App\Http\Controllers\EncadreurController');
 Route::apiResource('administrateur','App\Http\Controllers\AdministrateurController');
+Route::apiResource('encadrement','App\Http\Controllers\EncadrementController');
+Route::apiResource('categorie_projet','App\Http\Controllers\CategorieProjetController');

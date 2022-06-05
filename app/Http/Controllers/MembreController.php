@@ -25,9 +25,12 @@ class MembreController extends Controller
      */
     public function store(Request $request)
     {
+        $name=$request->input('NOM_MEMBRE');
         if (Membre::create($request->all())) {
+            $membre= Membre::where('NOM_MEMBRE',$name)->get()->first();
             return response()->json([
-                'succes'=>'Categorie bien enregistrer'
+                'succes'=>'Etudiant bien enregistrer',
+                'id'=>$membre->ID_MEMBRE
             ]);
         }else{
             return response()->json([
@@ -58,7 +61,7 @@ class MembreController extends Controller
     {
         if ($membre->update($request->all())) {
             return response()->json([
-                'succes'=>'Categorie bien enregistrer'
+                'succes'=>'Membre bien enregistrer'
             ]);
         }else{
             return response()->json([

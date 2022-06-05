@@ -25,9 +25,12 @@ class EncadreurController extends Controller
      */
     public function store(Request $request)
     {
+        $name= $request->input('NOM_ENCADREUR');
         if (Encadreur::create($request->all())) {
+            $encadreur= Encadreur::where('NOM_ENCADREUR',$name)->get()->first();
             return response()->json([
-                'succes'=>'Categorie bien enregistrer'
+                'succes'=>'Encadreur bien enregistrer',
+                'id'=>$encadreur->ID_ENCADREUR
             ]);
         }else{
             return response()->json([
@@ -58,7 +61,7 @@ class EncadreurController extends Controller
     {
         if ($encadreur->update($request->all())) {
             return response()->json([
-                'succes'=>'Categorie bien enregistrer'
+                'succes'=>'Encadreur bien enregistrer'
             ]);
         }else{
             return response()->json([

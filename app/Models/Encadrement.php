@@ -10,6 +10,8 @@ class Encadrement extends Model
     use HasFactory;
     protected $table='ENCADREMENT';
     public $timestamps = false;
+    public $fillable = ['ID_PROJET','ID_MEMBRE','ID_ENCADREUR','TYPE_ENCADREMENT',
+    'ANNEE_ENCADREMENT'];
 
     public function projet()
     {

@@ -14,7 +14,8 @@
     </div>
 </template>
 
-<script>
+<script>import { store } from "../storage"
+
 export default {
     data(){
         return{
@@ -41,7 +42,7 @@ export default {
         },
     },
     methods:{
-        controle(){
+        controle(e){
             switch (this.champ.text) {
                 case 'Nom':
                     if (this.champ.valeur.length<=12) {
@@ -84,6 +85,15 @@ export default {
                     }
                     break;
                 case 'Fichier':
+                    let extension= e.target.files[0].name.split('.')
+                    let i=extension.length-1
+                    if (extension[i] == 'pdf') {
+                        this.test=true
+                        store.state.file=e.target.files[0]
+                    } else {
+                        this.test=false
+                        this.error_message='Seul les fichiers d\'extension .pdf sont autorises'
+                    }
                     break;
                 default:
                     break;
