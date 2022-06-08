@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <table class="table">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th><input type="checkbox" name="allChecked" v-model="coche"  id="allChecked" @change="[coche? addAll(donnees):removeAll(donnees)]"></th>
@@ -12,7 +12,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="donnee in donnees" :key="donnee[0]">
+                <tr v-for="donnee in donnees" :key="donnee[0]" @click="goto(donnee[0])">
                     <td><input type="checkbox" v-model="donnee.check" name="allChecked" @change="[donnee.check? add(donnee):remove(donnee)]"></td>
                     <td v-for="colonne in colonnes" :key="colonne.key">
                         {{donnee[colonne.reference]}}
@@ -48,6 +48,9 @@ export default {
         donnees:Array,
     },
     methods:{
+        goto(val){
+          console.log(val)  
+        },
         view(){
             console.log(this.lignesAsupprimes)
         },

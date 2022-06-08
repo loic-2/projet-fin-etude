@@ -68,6 +68,7 @@ export const store= new Vuex.Store({
         state.projet.delete('projet')
         state.encadreur=[]
         state.membre=[]
+        state.file=null
     },
     addAdmin(state,{name,email,telephone,login,mdp}){
       state.admin.push({
@@ -219,6 +220,9 @@ export function storeAdmin(tab=Array)
         mdp:tab[4]
     })
 }
+
+
+
 getCategorieData()
 global.store=store
 storeAdmin(['Ganno Loic','loicganno@gmail.com',"655084085","loic","sdnjhgtyui"])

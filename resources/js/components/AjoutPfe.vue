@@ -8,7 +8,10 @@
                 <button-custom @enregistrerPfe="enregistre" :button="buttons[1]" style="margin:0 15px 0 15px"></button-custom>
             </div>
         </div>
+        <Loader v-if="show"></Loader>
     </div>
+
+
 </template>
 
 <script>
@@ -358,10 +361,12 @@ export default {
             storeProjet([this.intitule.valeur,'PFE'])
             storeEncadreur(this.encadreur)
         },
-        enregistre(){
+        async enregistre(){
             this.show=true
-            this.storeData()
-            createProjet()
+            this.storeData();
+            await createProjet().then(res => {
+                this.show=false
+            })
         }
     }
 
