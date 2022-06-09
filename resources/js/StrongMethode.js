@@ -1,6 +1,8 @@
 import { removeProjet, store } from "./storage";
-import { stocker, storage } from "./api";
+import { show, stocker, storage } from "./api";
 import Swal from 'sweetalert2'
+import 'sweetalert2/src/sweetalert2.js'
+import Vue from "vue";
 
 let projet_id=null
 let encadreur_id=[]
@@ -8,6 +10,7 @@ let encadreur_id=[]
 function succes(msg=String){
     Swal.fire({
         title:'Succes',
+        allowOutsideClick:false,
         text:msg,
         icon:'success',
         confirmButtonText:'Fermer',
@@ -16,6 +19,7 @@ function succes(msg=String){
 function error(msg=String){
     Swal.fire({
         title:'Erreur',
+        allowOutsideClick:false,
         text:msg,
         icon:'error',
         confirmButtonText:'Fermer'
@@ -80,4 +84,30 @@ async function saveData(){
             error('Impossible de contacter le serveur, veillez reesayer plustard')
         })
     });
+}
+
+export function showAdmin(admin=Object){
+    let id= admin.ID_ADMINISTRATEUR;
+    console.log(admin)
+    Swal.fire({
+        iconHtml:'<i class="fa-solid fa-user-tie"></i>',
+        html:'<h6>'+admin.NOM_ADMINISTRATEUR+'</h6><div style="padding: 0 0 0 135px" class="container text-start">'+
+                '<p>'+'<i class="fa-solid fa-phone"></i><span>&nbsp;</span>'+admin.TELEPHONE_ADMINISTRATEUR+'</p>'+
+                '<p>'+'<i class="fa-solid fa-envelope"></i><span>&nbsp;</span>'+admin.EMAIL_ADMINISTRATEUR+'</p>'+
+                '<p>'+'<i class="fa-solid fa-user"></i><span>&nbsp;</span>'+admin.LOGIN_ADMINISTRATEUR+'</p>'+
+            '</div>',
+        allowOutsideClick:false,
+        showClass:{
+            popup: 'swal2-show',
+            backdrop: 'swal2-backdrop-show',
+            icon: 'swal2-icon-show'
+          }
+    })
+}
+export function showProjet(projet=Object){
+    let id= projet.ID_PROJET;
+    console.log(id)
+    const res =show(`http://localhost:8000/api/lien/${id}`)
+    res.then(res => {console.log(res.data.membres)})
+    .catch(err => {console.log(err)})
 }

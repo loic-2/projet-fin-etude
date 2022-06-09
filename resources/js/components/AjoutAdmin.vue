@@ -12,14 +12,15 @@
 
 <script>
 import State from "./State.vue";
+import { change } from "../storage";
 import InputCustom from "./InputCustom.vue";
 import ButtonGroup from "./ButtonGroup.vue";
 export default {
     components: {
-    State,
-    InputCustom,
-    ButtonGroup
-},
+                    State,
+                    InputCustom,
+                    ButtonGroup
+                },
     data(){
         return{
             val:"sss",

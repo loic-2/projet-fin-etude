@@ -35,7 +35,6 @@ export default {
     computed:{
         getName(){
             this.nom= store.getters.getBarName
-            console.log(store.getters.getBarName)
         }
     },
     data(){

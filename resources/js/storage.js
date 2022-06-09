@@ -149,6 +149,11 @@ export const store= new Vuex.Store({
     }
   }
 })
+
+export function change(val){
+  store.commit('changeBarName',{name:val})
+}
+
 export function storeCategorieSelected(val){
   store.commit('addCategorieSelected',{value:val})
 }

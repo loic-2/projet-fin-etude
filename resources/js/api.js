@@ -20,9 +20,7 @@ export async function stocker($url,$data){
 
 export async function show($url){
     await axios.get('/sanctum/csrf-cookie');
-    await axios.get($url)
-    .then(res => {return res})
-    .catch(err => {return err});
+    return await axios.get($url);
 }
 
 export async function index($url){

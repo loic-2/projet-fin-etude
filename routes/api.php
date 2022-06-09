@@ -22,6 +22,7 @@ Route::apiResource('categorie','App\Http\Controllers\CategorieController');
 Route::apiResource('utilisateur','App\Http\Controllers\UtilisateurController');
 Route::apiResource('historique','App\Http\Controllers\HistoriqueController');
 Route::apiResource('visite','App\Http\Controllers\VisiteController');
+Route::apiResource('lien','App\Http\Controllers\LienController');
 Route::apiResource('projet','App\Http\Controllers\ProjetController');
 Route::apiResource('membre','App\Http\Controllers\MembreController');
 Route::apiResource('encadreur','App\Http\Controllers\EncadreurController');

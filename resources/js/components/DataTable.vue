@@ -12,7 +12,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="donnee in donnees" :key="donnee[0]" @click="goto(donnee[0])">
+                <tr v-for="donnee in donnees" :key="donnee[0]" @click="goto(donnee)">
                     <td><input type="checkbox" v-model="donnee.check" name="allChecked" @change="[donnee.check? add(donnee):remove(donnee)]"></td>
                     <td v-for="colonne in colonnes" :key="colonne.key">
                         {{donnee[colonne.reference]}}
@@ -29,6 +29,7 @@
 <script>
 
 import VueAdsPagination, { VueAdsPageButton } from 'vue-ads-pagination';
+import { showAdmin, showProjet } from '../StrongMethode';
 export default {
     components:{
         VueAdsPageButton,
@@ -36,6 +37,7 @@ export default {
     },
     data(){
         return{
+            route:null,
             coche:false,
             lignesAsupprimes:[],
             sort:true
@@ -49,7 +51,22 @@ export default {
     },
     methods:{
         goto(val){
-          console.log(val)  
+          switch (this.$router.currentRoute.path) {
+              case '/admin':
+                  showAdmin(val)
+                  break;
+
+              case '/pfe':
+                  showProjet(val)
+                  break;
+
+              case '/memoire':
+                  showProjet(val)
+                  break;
+
+              default:
+                  break;
+          } 
         },
         view(){
             console.log(this.lignesAsupprimes)
