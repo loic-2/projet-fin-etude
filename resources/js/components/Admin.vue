@@ -82,13 +82,6 @@ import { index } from '../api';
                         sortable:true
                     },
                     {
-                        nom:"Mot de passe",
-                        reference:"MOT_DE_PASSE_ADMINISTRATEUR",
-                        type:"String",
-                        key:3,
-                        sortable:false
-                    },
-                    {
                         nom:"Date Ajout",
                         reference:"DATE_CREATION_ADMINISTRATEUR",
                         type:"String",

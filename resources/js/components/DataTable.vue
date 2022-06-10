@@ -1,10 +1,11 @@
 <template>
     <div class="row">
+        <PopProjet @fermer="fermer" :projet="projet" :categories="categories" :encadreurs="encadreurs" :membres="membres" v-if="show"></PopProjet>
         <table class="table table-hover">
             <thead>
                 <tr>
                     <th><input type="checkbox" name="allChecked" v-model="coche"  id="allChecked" @change="[coche? addAll(donnees):removeAll(donnees)]"></th>
-                    <th v-for="colonne in colonnes" :key="colonne.key">
+                    <th class="col" v-for="colonne in colonnes" :key="colonne.key">
                         {{colonne.nom}}
                         <font-awesome-icon icon="fas-solid fa-sort" v-if="colonne.sortable" @click="sortBy(colonne.reference)"/>
                     </th>
@@ -17,7 +18,10 @@
                     <td v-for="colonne in colonnes" :key="colonne.key">
                         {{donnee[colonne.reference]}}
                     </td>
-                    <td><font-awesome-icon icon="fas fa-pen" v-if="edit"/><span>&nbsp;</span><span>&nbsp;</span><font-awesome-icon icon="fas fa-trash" v-if="trash" @click="add(donnee)"/></td>
+                    <td><button class="btn btn-primary"><font-awesome-icon icon="fas fa-pen" v-if="edit"/></button>
+                        <span>&nbsp;</span><span>&nbsp;</span>
+                        <button class="btn btn-danger"><font-awesome-icon icon="fas fa-trash" v-if="trash" @click="add(donnee)"/></button>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -27,16 +31,22 @@
     </div>
 </template>
 <script>
-
 import VueAdsPagination, { VueAdsPageButton } from 'vue-ads-pagination';
 import { showAdmin, showProjet } from '../StrongMethode';
+import PopProjet from './PopProjet.vue';
 export default {
     components:{
-        VueAdsPageButton,
-        VueAdsPagination
-    },
+    VueAdsPageButton,
+    VueAdsPagination,
+    PopProjet,
+},
     data(){
         return{
+            show:false,
+            membres:Array,
+            encadreurs:Array,
+            categories:Array,
+            projet:[],
             route:null,
             coche:false,
             lignesAsupprimes:[],
@@ -50,6 +60,20 @@ export default {
         donnees:Array,
     },
     methods:{
+        fermer(){
+            this.show=false;
+        },
+        showPop(val){
+            const res=showProjet(val)
+                  res.then(res => {
+                    this.show=true;
+                    this.membres=res.data.membres;
+                    this.encadreurs=res.data.encadreurs;
+                    this.categories=res.data.categories;
+                    this.projet=val;
+                    console.log(res.data)
+                  })
+        },
         goto(val){
           switch (this.$router.currentRoute.path) {
               case '/admin':
@@ -57,11 +81,11 @@ export default {
                   break;
 
               case '/pfe':
-                  showProjet(val)
+                  this.showPop(val)
                   break;
 
               case '/memoire':
-                  showProjet(val)
+                  this.showPop(val)
                   break;
 
               default:
@@ -131,6 +155,7 @@ table thead{
 }
 table{
     margin: 0;
+    width: 100%;
     border-radius: 20px 20px 0 0;
     border-collapse: collapse;
 }
@@ -139,6 +164,7 @@ table tr td{
 }
 table tr th{
     text-transform: capitalize;
+    width:10%;
 }
 table tbody tr td:last-child{
     text-align: center;

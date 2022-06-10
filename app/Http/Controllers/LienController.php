@@ -39,7 +39,7 @@ class LienController extends Controller
         return response()->json([
             'membres'=> Projet::find($id)->membres,
             'encadreurs' => Projet::find($id)->encadreurs,
-            'categorie' => Projet::find($id)->categories
+            'categories' => Projet::find($id)->categories
         ]);
     }
 

@@ -55,9 +55,11 @@ export default {
                 case 'Theme':
                     if (this.champ.valeur.length<=12 || this.champ.valeur.length>=100) {
                         this.test=false
+                        this.$emit('good',this.test)
                         this.error_message='Le theme doit contenir au moins 12 caracteres et au plus 100'
                     }else{
                         this.test=true
+                        this.$emit('good',this.test)
                     }
                     break;
                 case 'Matricule':

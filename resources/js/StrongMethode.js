@@ -2,7 +2,6 @@ import { removeProjet, store } from "./storage";
 import { show, stocker, storage } from "./api";
 import Swal from 'sweetalert2'
 import 'sweetalert2/src/sweetalert2.js'
-import Vue from "vue";
 
 let projet_id=null
 let encadreur_id=[]
@@ -88,7 +87,6 @@ async function saveData(){
 
 export function showAdmin(admin=Object){
     let id= admin.ID_ADMINISTRATEUR;
-    console.log(admin)
     Swal.fire({
         iconHtml:'<i class="fa-solid fa-user-tie"></i>',
         html:'<h6>'+admin.NOM_ADMINISTRATEUR+'</h6><div style="padding: 0 0 0 135px" class="container text-start">'+
@@ -97,6 +95,11 @@ export function showAdmin(admin=Object){
                 '<p>'+'<i class="fa-solid fa-user"></i><span>&nbsp;</span>'+admin.LOGIN_ADMINISTRATEUR+'</p>'+
             '</div>',
         allowOutsideClick:false,
+        confirmButtonText:'Modifier',
+        cancelButtonText:'Fermer',
+        denyButtonText:'Supprimer',
+        showCancelButton:true,
+        showDenyButton:true,
         showClass:{
             popup: 'swal2-show',
             backdrop: 'swal2-backdrop-show',
@@ -104,10 +107,45 @@ export function showAdmin(admin=Object){
           }
     })
 }
-export function showProjet(projet=Object){
+
+export function showMembre(membre=Object){
+    Swal.fire({
+
+        iconHtml:'<i class="fa-solid fa-graduation-cap"></i>',
+        html:'<h6>'+membre.NOM_MEMBRE+'</h6><div style="padding: 0 0 0 135px" class="container text-start">'+
+                '<p>'+'<i class="fa-solid fa-phone"></i><span>&nbsp;</span>'+membre.TELEPHONE_MEMBRE+'</p>'+
+                '<p>'+'<i class="fa-solid fa-school"></i><span>&nbsp;</span>'+membre.FILIERE_MEMBRE+'</p>'+
+            '</div>',
+        showCancelButton:true,
+        showDenyButton:true,
+        confirmButtonText:'Modifier',
+        denyButtonText:'Supprimer',
+        cancelButtonText:'Fermer',
+    })
+}
+
+export function showEncadreur(encadreur=Object){
+    Swal.fire({
+        iconHtml:'<i class="fa-solid fa-user-tie"></i>',
+        html:'<h6>'+encadreur.NOM_ENCADREUR+'</h6><div style="padding: 0 0 0 135px" class="container text-start">'+
+                '<p>'+'<i class="fa-solid fa-phone"></i><span>&nbsp;</span>'+encadreur.TELEPHONE_ENCADREUR+'</p>'+
+                '<p>'+'<i class="fa-solid fa-user-helmet-safety"></i><span>&nbsp;</span>'+encadreur.PROFESSION_ENCADREUR+'</p>'+
+            '</div>',
+        showCancelButton:true,
+        showDenyButton:true,
+        confirmButtonText:'Modifier',
+        denyButtonText:'Supprimer',
+        cancelButtonText:'Fermer',
+    })
+}
+
+export async function showProjet(projet=Object){
     let id= projet.ID_PROJET;
     console.log(id)
     const res =show(`http://localhost:8000/api/lien/${id}`)
-    res.then(res => {console.log(res.data.membres)})
-    .catch(err => {console.log(err)})
+    try {
+        return await res;
+    } catch (err) {
+        console.log(err);
+    }
 }
