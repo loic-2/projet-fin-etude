@@ -1,6 +1,7 @@
 <template>
     <div class="container-flex">
-        <div class="row ">
+        <Login v-if="!store.getters.getAuthenticate" @authenticate="home"></Login>
+        <div class="row " v-if="store.getters.getAuthenticate">
             <div class="position-fixed" :class="[hide? 'hide':'col-md-3 col-lg-2 col-sm-0']">
                 <navbar />
             </div>
@@ -18,9 +19,12 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import NavbarVue from './Navbar.vue'
 import Pfe from './Pfe.vue'
 import TopBar from './TopBar.vue'
+import Login from './login.vue'
+import { authentication, store } from '../storage'
 export default {
     data(){
         return{
+            store,
             hide: true,
             namepage:"Tableau de bord"
         }
@@ -29,9 +33,23 @@ export default {
     "navbar": NavbarVue,
     "font-awesome-icon": FontAwesomeIcon,
     "pfe": Pfe,
-    TopBar
-    },
+    TopBar,
+    Login
+},
     methods:{
+        home(){
+            authentication(true);
+            this.$router.push('/dashboard');
+            this.$swal.fire({
+                text:`Salut ${store.getters.getUsername}, content de vous revoir`,
+                toast:true,
+                showConfirmButton:false,
+                timer:2000,
+                position:'top',
+                iconColor:'#ffffff',
+                iconHtml:'<i style="color:gold;" class="fa-solid fa-hand" ></i>'
+            })
+        },
         masquer(){
             this.hide=!this.hide 
             console.log(this.hide)

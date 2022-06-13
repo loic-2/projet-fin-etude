@@ -12,6 +12,8 @@ export const store= new Vuex.Store({
     select:[],
     encadreur:[],
     membre:[],
+    username:null,
+    authenticate:false,
 
     filieresPfe:[{value:"ITT3-IR-CLA",id:1},{value:"ITT3-IR-ALT",id:2},{value:"ITT3-RC-CLA",id:3},
     {value:"ITT3-RC-ALT",id:4},{value:"ITT3-RT-CLA",id:5},{value:"ITT3-RT-ALT",id:6}],
@@ -52,6 +54,9 @@ export const store= new Vuex.Store({
     categorieSelected:[]
   },
   mutations:{
+    setAuthentication(state,value){
+      state.authenticate=value
+    },
     changeBarName(state,name){
       state.barName=name
     },
@@ -111,6 +116,12 @@ export const store= new Vuex.Store({
     }
   },
   getters:{
+    getUsername(state){
+      return state.username
+    },
+    getAuthenticate(state){
+      return state.authenticate
+    },
     getSelect(state){
       return state.select
     },
@@ -149,6 +160,12 @@ export const store= new Vuex.Store({
     }
   }
 })
+export function setUsername(val){
+  store.state.username=val;
+}
+export function authentication(val){
+  store.commit('setAuthentication',{value:val})
+}
 
 export function change(val){
   store.commit('changeBarName',{name:val})

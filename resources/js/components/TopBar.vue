@@ -13,7 +13,7 @@
                 <div>
                     <font-awesome-icon icon="fa-solid fa-bell" />
                     <span class="vertical-line"></span>
-                    <span class="name">Ganno Loic</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span>
+                    <span class="name">{{username}}</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span>
                     <font-awesome-icon class="icon" id="compte" icon="fa-solid fa-circle-user" @click="showProfile"/>
                 </div>
             </div>
@@ -21,17 +21,18 @@
         <div class="row justify-content-end"  v-if="profile">
             <div class="col-4  profile align-self-end" style="background-color:#ffffff">
                 <ul>
-                    <li><router-link to="/profile">Profile</router-link></li>
-                    <li><router-link to="/connexion">Deconnexion</router-link></li>
+                    <li @click="profile">Profile</li>
+                    <li @click="logout">Deconnexion</li>
                 </ul>
             </div>
         </div>
     </div>
 </template>
 <script>
-import {store} from '../storage'
+import {authentication, store} from '../storage'
 import { mapGetters } from 'vuex'
-export default {
+import { logout } from '../StrongMethode'
+export default { 
     computed:{
         getName(){
             this.nom= store.getters.getBarName
@@ -39,6 +40,7 @@ export default {
     },
     data(){
         return{
+            username:store.getters.getUsername,
             nom:'',
             profile:false
         }
@@ -54,6 +56,9 @@ export default {
         }
     },
     methods:{
+        logout(){
+            logout();
+        },
         showProfile(){
             this.profile= !this.profile
         }
@@ -109,6 +114,7 @@ export default {
 
 .profile ul li:hover{
     border-left: 3px #363740 solid;
+    cursor: pointer;
     border-radius: 5px;
     background-color: rgba(54, 55, 64, .3);
 }

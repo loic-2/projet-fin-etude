@@ -1,5 +1,5 @@
 const axios=require('axios')
-axios.defaults.withCredentials = true;
+axios.default.withCredentials = true;
 
 
 export async function storage($url,$data){
