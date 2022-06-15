@@ -18,6 +18,11 @@ export async function stocker($url,$data){
     return promise;
 }
 
+export async function lockout($url,$data){
+    const promise= await axios.post($url,$data)
+    return promise;
+}
+
 export async function show($url){
     await axios.get('/sanctum/csrf-cookie');
     return await axios.get($url);

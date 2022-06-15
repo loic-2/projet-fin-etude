@@ -21,7 +21,7 @@
         <div class="row justify-content-end"  v-if="profile">
             <div class="col-4  profile align-self-end" style="background-color:#ffffff">
                 <ul>
-                    <li @click="profile">Profile</li>
+                    <li @click="adminProfile">Profile</li>
                     <li @click="logout">Deconnexion</li>
                 </ul>
             </div>
@@ -58,9 +58,18 @@ export default {
     methods:{
         logout(){
             logout();
+            window.location.href="http://localhost:8000/login";
         },
         showProfile(){
             this.profile= !this.profile
+        },
+        adminProfile(){
+            this.$swal.fire({
+                title: store.getters.getAuthenticate,
+                confirmButtonText:'Modifier',
+                cancelButtonText:'Fermer',
+                showCancelButton:true,
+            })
         }
     },
     mounted(){

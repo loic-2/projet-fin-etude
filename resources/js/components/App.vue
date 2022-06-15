@@ -21,6 +21,7 @@ import Pfe from './Pfe.vue'
 import TopBar from './TopBar.vue'
 import Login from './login.vue'
 import { authentication, store } from '../storage'
+import ForgotPassword from './ForgotPassword.vue'
 export default {
     data(){
         return{
@@ -34,7 +35,8 @@ export default {
     "font-awesome-icon": FontAwesomeIcon,
     "pfe": Pfe,
     TopBar,
-    Login
+    Login,
+    ForgotPassword
 },
     methods:{
         home(){

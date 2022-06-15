@@ -1,5 +1,5 @@
-import { authentication, removeProjet, store } from "./storage";
-import { show, stocker, storage } from "./api";
+import { removeProjet, store } from "./storage";
+import { lockout, show, stocker, storage } from "./api";
 import Swal from 'sweetalert2'
 import 'sweetalert2/src/sweetalert2.js'
 
@@ -105,9 +105,8 @@ export async function registerAdmin(data){
 }
 
 export async function logout(){
-    const res = stocker('http://localhost:8000/logout');
+    const res = lockout('http://localhost:8000/logout');
     res.then(res => {
-        authentication(false);
         console.log(res);
     }).catch(err => {
         console.log(err);

@@ -6,7 +6,9 @@ import routes from './routes'
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import App from './components/App';
-import PopProjet from './components/PopProjet.vue';
+import NotFound from './components/NotFound';
+import ForgotPassword from './components/ForgotPassword'
+import PasswordReset from './components/PasswordReset'
 import { library } from '@fortawesome/fontawesome-svg-core'
 
 import { BootstrapVue, } from 'bootstrap-vue'
@@ -36,11 +38,25 @@ let app = new Vue({
       'app': App,
       'font-awesome-icon':FontAwesomeIcon
     },
-    methods: {
-        showAlert() {
-          // Use sweetalert2
-          this.$swal('Hello Vue world!!!');
-        },
-      },
     router: new VueRouter(routes)
 });
+let forgot= new Vue({
+  el:'#forgot',
+  components:{
+    'forgot':ForgotPassword,
+  }
+})
+
+let reset= new Vue({
+  el:'#reset',
+  components:{
+    'reset':PasswordReset,
+  }
+})
+
+let notfound= new Vue({
+  el:'#notfound',
+  components:{
+    'notfound':NotFound,
+  }
+})

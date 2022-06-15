@@ -7,7 +7,7 @@
         </span>
         </div>
         <div class="col text-end">
-            <font-awesome-icon class="retour" icon="fa fa-arrow-alt-circle-left" @click="goto(routes.length-1,routes)"/>
+            <font-awesome-icon class="retour" icon="fa fa-arrow-alt-circle-left" @click="goto()"/>
         </div>
     </div>
 </template>
@@ -19,12 +19,8 @@ export default {
         }
     },
     methods:{
-        goto(val,routes){
-            if (val==0) {
-                this.$router.push("/dashboard");
-            } else {
-                this.$router.push(routes[val-1].path);
-            }
+        goto(){
+            this.$router.back();
         }
     }
 }

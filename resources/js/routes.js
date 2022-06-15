@@ -1,6 +1,7 @@
 
 import Memoire from './components/Memoire'
 import Pfe from './components/Pfe'
+import NotFound from './components/NotFound'
 import Board from './components/Board'
 import Admin from './components/Admin'
 import AjoutMemoire from './components/AjoutMemoire'
@@ -17,7 +18,7 @@ export default{
         },
         {
             path:'/dashboard',
-            component: Board
+            component: Board,
         },
         {
             path:'/pfe',
@@ -38,6 +39,10 @@ export default{
         {
             path:'/ajoutadmin',
             component: AjoutAdmin
+        },
+        {
+            path:'*',
+            component: NotFound
         }
     ]
 }

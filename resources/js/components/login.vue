@@ -1,40 +1,43 @@
 <template>
-        <div class="login row align-flex-center">
-            <div class="form" id="form">
-                <div class="row mt-2 mb-3 text-center">
-                    <h4>Connectez-vous</h4>
+        <div class="container-flex box">
+            <div class=" row align-flex-center">
+                <div class="form" id="form">
+                    <div class="row mt-2 mb-3 text-center">
+                        <h4>Connectez-vous</h4>
+                    </div>
+                        <div class="mb-2">
+                            <label for="" class="form-label">Login</label>
+                            <input type="text" :class="{'is-invalid':test}" class="form-control" v-model="donnee.email">
+                            <div class="invalid-feedback">
+                                {{error_message}}
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <label for="" class="form-label">Mot de passe </label>
+                            <input type="password" :class="{'is-invalid':test}" class="form-control" v-model="donnee.password">
+                            <div class="invalid-feedback">
+                                {{error_message}}
+                            </div>
+                        </div>
+                        <div class="row mb-2 option">
+                            <div class="form-check col form-switch">
+                                <input class="form-check-input" v-model="donnee.remember" type="checkbox">
+                                <label for="">Se souvenir de moi</label>
+                            </div>
+                            <div class="col text-end">
+                                <span @click="forgotPassword">Mot de passe oublie?</span>
+                            </div>
+                        </div>
+                        <div class="row mb-3 text-center">
+                            <input @click="login" type="submit" class="btn offset-4 col-4 btn-primary" value="Se connecter">
+                        </div>
                 </div>
-                    <div class="mb-2">
-                        <label for="" class="form-label">Login</label>
-                        <input type="text" :class="{'is-invalid':test}" class="form-control" v-model="donnee.email">
-                        <div class="invalid-feedback">
-                            {{error_message}}
-                        </div>
-                    </div>
-                    <div class="mb-2">
-                        <label for="" class="form-label">Mot de passe </label>
-                        <input type="password" :class="{'is-invalid':test}" class="form-control" v-model="donnee.password">
-                        <div class="invalid-feedback">
-                            {{error_message}}
-                        </div>
-                    </div>
-                    <div class="row mb-2 option">
-                        <div class="form-check col form-switch">
-                            <input class="form-check-input" v-model="donnee.remember" type="checkbox">
-                            <label for="">Se souvenir de moi</label>
-                        </div>
-                        <div class="col">
-                            <a href="#">Mot de passe oublie?</a>
-                        </div>
-                    </div>
-                    <div class="row mb-3 text-center">
-                        <input @click="login" type="submit" class="btn offset-4 col-4 btn-primary" value="Se connecter">
-                    </div>
             </div>
         </div>
 </template>
-<script>import { show, stocker } from "../api"
-import { setUsername } from '../storage'
+<script>
+import { show, stocker } from "../api"
+import { authentication, setUsername } from '../storage'
 
 export default {
     data(){
@@ -50,16 +53,20 @@ export default {
         }
     },
     methods:{
+        forgotPassword(){
+            window.location.href='/forgot-password';
+        },
         login(){
             console.log(this.donnee)
             stocker('http://localhost:8000/login',this.donnee)
             .then(res => {
                 setUsername(res.data.user_details.name);
+                authentication(res.data.user_details);
                 this.$emit('authenticate')
                 })
             .catch(err => {
                 console.log(err)
-                this.error_message="Identifiants incorrects";
+                this.error_message=err.response.data.message;
                 this.test=true;
                 });
         }
@@ -70,16 +77,20 @@ export default {
 .row{
     margin: 0;
 }
-.login{
-    margin: 0;
-    padding: 10% 30% 0 30%;
+.box{
     background-color: rgba(202, 196, 194, 0.6);
+    height: 100vh;
     width: 100%;
 }
 .form{
+    position: fixed;
     background-color: #ffffff;
     border-radius: 15px;
-    margin: 20px;
+    width: 40%;
+    left: 30%;
+    top:25%;
 }
-
+span{
+    cursor: pointer;
+}
 </style>
