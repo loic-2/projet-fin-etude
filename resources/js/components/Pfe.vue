@@ -8,12 +8,17 @@
                     <ButtonCustom :button="supprimer" @supPfe="supprimerDonnee"></ButtonCustom>
                 </div>
                 <div class="col-3">
-                    <InputCustom :champ="recherche"></InputCustom>
+                    <InputCustom @search="resultatRecherche" :champ="recherche"></InputCustom>
                 </div>
             </div>
             <div class="row">
-                <div class="col text-end">
-                    <ButtonCustom :button="filtre"></ButtonCustom>
+                <div class="col-3 offset-9 text-end">
+                    <select name="" id="" title="Choisir le mode de recherche" class="form-select" v-model="mode">
+                        <option value="projet" selected>Projet</option>
+                        <option value="membre">Membre</option>
+                        <option value="encadreur">Encadreur</option>
+                        <option value="categorie">Categorie</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -32,6 +37,7 @@ import { store } from '../storage';
     export default {
         data() {
             return {
+                mode:'',
                 routes:[
                 {
                     Name:"Projets de fin d'etudes",
@@ -63,6 +69,7 @@ import { store } from '../storage';
                     text:"",
                     type:"text",
                     placeholder:"Rechercher...",
+                    valeur:"",
                     icon:'fa-solid fa-magnifying-glass',
                     showlabel:false,
                     hide:true
@@ -113,6 +120,15 @@ import { store } from '../storage';
             actualise(){
                 const reponse= index('http://localhost:8000/api/projet')
                 reponse.then(res => {this.donnees=res.data})
+            },
+            resultatRecherche(){
+                if (this.recherche.valeur==="") {
+                    this.actualise();
+                } else {
+                    const reponse= index(`http://localhost:8000/api/searchprojet/?colonne=${this.mode}&
+                    valeur=${this.recherche.valeur}`)
+                    reponse.then(res => {this.donnees=res.data})
+                }
             },
             supprimerDonnee(){
                if (verifyToDelete(this.$router)) {

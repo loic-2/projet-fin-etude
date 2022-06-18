@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\ProjetController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,5 +30,9 @@ Route::apiResource('projet','App\Http\Controllers\ProjetController');
 Route::apiResource('membre','App\Http\Controllers\MembreController');
 Route::apiResource('encadreur','App\Http\Controllers\EncadreurController');
 Route::apiResource('administrateur','App\Http\Controllers\AdministrateurController');
+Route::apiResource('users','App\Http\Controllers\UserController');
 Route::apiResource('encadrement','App\Http\Controllers\EncadrementController');
 Route::apiResource('categorie_projet','App\Http\Controllers\CategorieProjetController');
+Route::get('searchprojet',[ProjetController::class,'search']);
+Route::get('searchadmin',[UserController::class,'search']);
+Route::get('searchcategorie',[CategorieController::class,'search']);

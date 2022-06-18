@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categorie;
 use App\Models\CategorieProjet;
 use App\Models\Encadrement;
+use App\Models\Encadreur;
 use App\Models\Membre;
 use App\Models\Projet;
 use Exception;
@@ -84,27 +86,30 @@ class ProjetController extends Controller
      */
     public function update(Request $request, Projet $projet)
     {
-        $categories=$request->input('categories');
+        $categories1= CategorieProjet::where('ID_PROJET',$projet->ID_PROJET)->get();
+        $categories=$request->collect('categories');
         DB::beginTransaction();
-        try {
-            foreach ($categories as $value) {
-                if (CategorieProjet::find($value->ID_CATEGORIE)->count()) {
-                    CategorieProjet::find($value->ID_CATEGORIE)->update($value);
-                } else {
-                    $value['ID_PROJET']=$projet->ID_PROJET;
-                    CategorieProjet::create($value);
+        try{
+            if ($categories1->count() >0) {
+                foreach ($categories1 as $value) {
+                    CategorieProjet::where('ID_PROJET',$value->ID_PROJET)->where('ID_CATEGORIE',
+                    $value->ID_CATEGORIE)->delete();
                 }
+            }
+            foreach ($categories as $value) {   
+                $value['ID_PROJET']=$projet['ID_PROJET'];
+                CategorieProjet::create($value);
             }
             $projet->update($request->input('projet'));
             DB::commit();
             return response()->json([
-                'succes'=>'Projet bien enregistrer'
+                'succes'=>'Projet bien modifier'
                 ]);
-        } catch (\Throwable $th) {
+        }catch(\Throwable $th){
             DB::rollBack();
             return response()->json([
-                'echec'=>"la modification n'a pas reussi"
-            ]);
+                'echec'=>'Echec de la modification'
+                ]);
         }
     }
 
@@ -152,5 +157,58 @@ class ProjetController extends Controller
                     'echec'=>'Une erreur c\'est produite veillez essayez plus tard'
                 ]);
             }
+    }
+    /**
+     * Search Projet
+     * 
+     */
+    public function search(Request $request){
+        $value=$request->input('valeur');
+        $column=$request->input('colonne');
+        $listToReturn=array();
+        switch ($column) {
+            case 'categorie':
+                $categories= Categorie::where('NOM_CATEGORIE','like','%'.$value.'%')->get();
+                foreach ($categories as $categorie) {
+                    $projets= $categorie->projets;
+                    foreach ($projets as $projet) {
+                        if (!in_array($projet,$listToReturn)) {
+                            array_push($listToReturn,$projet);
+                        }
+                    }
+                }
+                break;
+
+            case 'encadreur':
+                $encadreurs= Encadreur::where('NOM_ENCADREUR','like','%'.$value.'%')->get();
+                foreach ($encadreurs as $encadreur) {
+                    $projets= $encadreur->projets;
+                    foreach ($projets as $projet) {
+                        if (!in_array($projet,$listToReturn)) {
+                            array_push($listToReturn,$projet);
+                            }
+                    }
+                }
+                    break;
+                
+            case 'membre':
+                $membres= Membre::where('NOM_MEMBRE','like','%'.$value.'%')->get();
+                foreach ($membres as $membre) {
+                    $projet= $membre->projet;
+                    if (!in_array($projet,$listToReturn)) {
+                        array_push($listToReturn,$projet);
+                        }
+                }
+                break;
+
+            case 'projet':
+                $listToReturn= Projet::where('NOM_PROJET','like','%'.$value.'%')->get();
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+        return $listToReturn;
     }
 }

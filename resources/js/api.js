@@ -36,9 +36,7 @@ export async function index($url){
 
 export async function update($url,$data){
     await axios.get('/sanctum/csrf-cookie');
-    await axios.put($url,$data)
-    .then(res => {return res})
-    .catch(err => {return err});
+    return await axios.put($url,$data);
 }
 
 export async function ElementDrop($url){

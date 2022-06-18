@@ -97,6 +97,9 @@ export default {
                         this.error_message='Seul les fichiers d\'extension .pdf sont autorises'
                     }
                     break;
+                case '':
+                    this.$emit('search');
+                    break;
                 default:
                     break;
             }

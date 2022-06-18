@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <PopProjet @fermer="fermer" :projet="projet" :categories="categories" :encadreurs="encadreurs" :membres="membres" v-if="show"></PopProjet>
+        <PopProjet @fermer="fermer" @actualise="actualise" :projet="projet" :categories="categories" :encadreurs="encadreurs" :membres="membres" v-if="show"></PopProjet>
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -32,7 +32,7 @@
 </template>
 <script>
 import VueAdsPagination, { VueAdsPageButton } from 'vue-ads-pagination';
-import { showAdmin, showProjet, deleteProjet } from '../StrongMethode';
+import { showAdmin, showProjet, deleteProjet, deleteAdmin } from '../StrongMethode';
 import PopProjet from './PopProjet.vue';
 import { store } from '../storage';
 export default {
@@ -129,11 +129,12 @@ export default {
                     if (res.isDenied) {
                         switch (this.$router.currentRoute.path) {
                             case '/admin':
-                                showAdmin(val)
+                                console.log(val)
+                                deleteAdmin([val])
                                 break;
 
                             case '/pfe':
-                                deleteProjet([val]).then(res => {this.$emit('actualise')})
+                                deleteProjet([val])
                                 break;
 
                             case '/memoire':
@@ -141,10 +142,14 @@ export default {
                                 break;
 
                             default:
+                                this.actualise()
                                 break;
                         }
                     }
                 })
+        },
+        actualise(){
+            this.$emit('actualise')
         },
         /**
          * Permet d'ajouter un element a la liste des elements a supprimer

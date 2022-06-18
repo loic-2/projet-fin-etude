@@ -41,7 +41,7 @@
                 <div class="row" style="margin:20px 0 0 0">
                     <div class="boutons text-center">
                         <button class="btn btn-primary" @click="editer">Modifier</button>
-                        <button class="btn btn-danger" @click="supprimer">Supprimer</button>
+                        <button class="btn btn-danger" @click="supprimer(projet)">Supprimer</button>
                         <button class="btn btn-secondary" @click="fermer">Fermer</button>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                 <div class="row">
                     <label for="promotion">Promotion</label>
                     <select class="form-select" name="" style="margin-left:10px" v-model="promo" id="">
-                        <option value="option.value" v-for="option in options" :key="option.id">{{option.value}}</option>
+                        <option :value="option.value" v-for="option in options" :key="option.id">{{option.value}}</option>
                     </select>
                 </div>
                 <InputCustom @good="good($event)" :champ="projet_name"></InputCustom>
@@ -68,7 +68,7 @@
     </div>
 </template>
 <script>
-import { showEncadreur, showMembre } from "../StrongMethode";
+import { deleteProjet, showEncadreur, showMembre, updateProjet } from "../StrongMethode";
 import Categorie from "./Categorie.vue"
 import InputCustom from "./InputCustom.vue";
 import Select from "./Select.vue";
@@ -105,17 +105,17 @@ export default {
     },
     methods: {
         save(){
-            this.view()
-            if(this.well){
-                this.$swal.fire({
-                    title:'succes',
-                    text:'Modification reussi',
-                    icon:'success'
-                })
-            }
+            this.projet.PROMOTION_PROJET=this.promo;
+            this.projet.NOM_PROJET=this.projet_name.valeur
+            updateProjet(this.projet,this.categoriesSelected).then(res =>{
+                this.view();
+                this.$emit('actualise')
+            })
         },
-        supprimer(){
-
+        supprimer(val){
+            deleteProjet([val]).then(res => {this.$emit('actualise')})
+            this.view()
+            this.fermer()
         },
         good(val){
             this.well=val;

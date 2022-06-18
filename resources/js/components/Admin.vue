@@ -5,15 +5,19 @@
             <div class="row action" style="margin-bottom:10px">
                 <div class="col">
                     <ButtonCustom :button="ajouter" @ajoutAdmin="showAlert"></ButtonCustom>
-                    <ButtonCustom :button="supprimer"></ButtonCustom>
+                    <ButtonCustom @supAdmin="supprimerAdmin" :button="supprimer"></ButtonCustom>
                 </div>
                 <div class="col-3">
-                    <InputCustom :champ="recherche"></InputCustom>
+                    <InputCustom @search="resultatRecherche" :champ="recherche"></InputCustom>
                 </div>
             </div>
             <div class="row">
-                <div class="col text-end">
-                    <ButtonCustom :button="filtre"></ButtonCustom>
+                <div class="col-3 offset-9 text-end">
+                    <select name="" id="" title="Choisir le mode de recherche" class="form-select" v-model="mode">
+                        <option value="NOM_ADMINISTRATEUR">Nom</option>
+                        <option value="name">Login</option>
+                        <option value="email">Email</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -28,9 +32,11 @@ import InputCustom from './InputCustom.vue';
 import State from './State.vue'
 import { index } from '../api';
 import { store } from '../storage';
+import { verifyToDelete } from '../StrongMethode';
     export default {
         data() {
             return {
+                mode:"",
                 routes:[
                     {
                         Name:"Administrateur",
@@ -61,6 +67,7 @@ import { store } from '../storage';
                 recherche:{
                     text:"",
                     type:"text",
+                    valeur:"",
                     placeholder:"Rechercher...",
                     icon:'fa-solid fa-magnifying-glass',
                     showlabel:false,
@@ -77,14 +84,21 @@ import { store } from '../storage';
                     },
                     {
                         nom:"Login",
-                        reference:"LOGIN_ADMINISTRATEUR",
+                        reference:"name",
                         type:"String",
                         key:2,
                         sortable:true
                     },
                     {
+                        nom:"Email",
+                        reference:"email",
+                        type:"String",
+                        key:3,
+                        sortable:true
+                    },
+                    {
                         nom:"Date Ajout",
-                        reference:"DATE_CREATION_ADMINISTRATEUR",
+                        reference:"created_at",
                         type:"String",
                         key:4,
                         sortable:true
@@ -104,11 +118,29 @@ import { store } from '../storage';
             this.$router.push('/ajoutadmin')
             //this.$swal('Hello Vue world!!!');
             },
+            actualise(){
+                const reponse= index('http://localhost:8000/api/users')
+                reponse.then(res => {this.donnees=res.data})
+            },
+            resultatRecherche(){
+                if (this.recherche.valeur==="") {
+                    this.actualise()
+                } else {
+                    const reponse= index(`http://localhost:8000/api/searchadmin/?valeur=${this.recherche.valeur}&mode=
+                    ${this.mode}`)
+                    reponse.then(res => {this.donnees=res.data})
+                    
+                }
+            },
+            supprimerAdmin(){
+                if (verifyToDelete(this.$router)) {
+                    this.actualise()
+                }
+            }
         },
         mounted(){
             store.state.suppressList=[];
-            const reponse= index('http://localhost:8000/api/administrateur')
-            reponse.then(res => {this.donnees=res.data})
+            this.actualise()
             this.$emit("pagename","Administrateur")
         }
     }

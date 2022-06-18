@@ -1,5 +1,5 @@
 import { removeProjet, store } from "./storage";
-import { lockout, show, stocker, storage,ElementDrop } from "./api";
+import { lockout, show, stocker, storage,ElementDrop, update } from "./api";
 import Swal from 'sweetalert2'
 import 'sweetalert2/src/sweetalert2.js'
 
@@ -118,8 +118,8 @@ export function showAdmin(admin=Object){
         iconHtml:'<i class="fa-solid fa-user-tie"></i>',
         html:'<h6>'+admin.NOM_ADMINISTRATEUR+'</h6><div style="padding: 0 0 0 135px" class="container text-start">'+
                 '<p>'+'<i class="fa-solid fa-phone"></i><span>&nbsp;</span>'+admin.TELEPHONE_ADMINISTRATEUR+'</p>'+
-                '<p>'+'<i class="fa-solid fa-envelope"></i><span>&nbsp;</span>'+admin.EMAIL_ADMINISTRATEUR+'</p>'+
-                '<p>'+'<i class="fa-solid fa-user"></i><span>&nbsp;</span>'+admin.LOGIN_ADMINISTRATEUR+'</p>'+
+                '<p>'+'<i class="fa-solid fa-envelope"></i><span>&nbsp;</span>'+admin.email+'</p>'+
+                '<p>'+'<i class="fa-solid fa-user"></i><span>&nbsp;</span>'+admin.name+'</p>'+
             '</div>',
         allowOutsideClick:false,
         confirmButtonText:'Modifier',
@@ -136,7 +136,7 @@ export function showAdmin(admin=Object){
 }
 
 export function showMembre(membre=Object){
-    Swal.fire({
+    const res= Swal.fire({
 
         iconHtml:'<i class="fa-solid fa-graduation-cap"></i>',
         html:'<h6>'+membre.NOM_MEMBRE+'</h6><div style="padding: 0 0 0 135px" class="container text-start">'+
@@ -145,14 +145,31 @@ export function showMembre(membre=Object){
             '</div>',
         showCancelButton:true,
         showDenyButton:true,
-        confirmButtonText:'Modifier',
+        showConfirmButton:false,
         denyButtonText:'Supprimer',
         cancelButtonText:'Fermer',
+    })
+    res.then(res =>{
+        if (res.isDenied) {
+            ElementDrop(`http://localhost:8000/api/membre/${membre.ID_MEMBRE}`)
+            .then(res => {
+
+                Swal.fire({
+                    icon:'success',
+                    title:res.data.message
+                })
+            }).catch(err =>{
+                Swal.fire({
+                    icon:'error',
+                    title:res.response.data.message
+                })
+            })
+        }
     })
 }
 
 export function showEncadreur(encadreur=Object){
-    Swal.fire({
+    const res=Swal.fire({
         iconHtml:'<i class="fa-solid fa-user-tie"></i>',
         html:'<h6>'+encadreur.NOM_ENCADREUR+'</h6><div style="padding: 0 0 0 135px" class="container text-start">'+
                 '<p>'+'<i class="fa-solid fa-phone"></i><span>&nbsp;</span>'+encadreur.TELEPHONE_ENCADREUR+'</p>'+
@@ -160,9 +177,26 @@ export function showEncadreur(encadreur=Object){
             '</div>',
         showCancelButton:true,
         showDenyButton:true,
-        confirmButtonText:'Modifier',
+        showConfirmButton:false,
         denyButtonText:'Supprimer',
         cancelButtonText:'Fermer',
+    })
+    res.then(res =>{
+        if (res.isDenied) {
+            ElementDrop(`http://localhost:8000/api/encadreur/${encadreur.ID_ENCADREUR}`)
+            .then(res => {
+
+                Swal.fire({
+                    icon:'success',
+                    title:res.data.message
+                })
+            }).catch(err =>{
+                Swal.fire({
+                    icon:'error',
+                    title:res.response.data.message
+                })
+            })
+        }
     })
 }
 
@@ -177,6 +211,19 @@ export async function showProjet(projet=Object){
     }
 }
 
+export async function updateProjet(projet,categories){
+    const res= update(`http://localhost:8000/api/projet/${projet.ID_PROJET}`,{
+        'categories':categories,
+        'projet':projet
+    })
+    res.then(res => {
+        Swal.fire({
+            icon:'success',
+            title:'Projet modifier avec succes'
+        });
+   })
+}
+
 export async function deleteProjet(projets=Array){
     projets.forEach(projet => {
        const res= ElementDrop('http://localhost:8000/api/projet/'+projet.ID_PROJET)
@@ -187,6 +234,30 @@ export async function deleteProjet(projets=Array){
             });
        })
     });
+}
+
+export function deleteAdmin(admins=Array){
+    admins.forEach(admin => {
+        const res= ElementDrop('http://localhost:8000/api/users/'+admin.id)
+        res.then(res => {
+             Swal.fire({
+                 icon:'success',
+                 title:'Administrateur supprimer avec succes'
+             });
+        })
+     });
+}
+
+export function deleteCategorie(categories=Array){
+    categories.forEach(categorie => {
+        const res= ElementDrop('http://localhost:8000/api/users/'+categorie.ID_CATEGORIE)
+        res.then(res => {
+             Swal.fire({
+                 icon:'success',
+                 title:'Categorie supprimer avec succes'
+             });
+        })
+     });
 }
 
 export function verifyToDelete(val) {
@@ -203,6 +274,7 @@ export function verifyToDelete(val) {
             if (res.isDenied) {
                 switch (val.currentRoute.path) {
                     case '/admin':
+                        deleteAdmin(store.state.suppressList)
                         break;
 
                     case '/pfe':
@@ -212,7 +284,7 @@ export function verifyToDelete(val) {
                     case '/memoire':
                         deleteProjet(store.state.suppressList)
                         break;
-
+                    
                     default:
                         break;
                 }
