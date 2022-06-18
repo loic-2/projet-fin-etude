@@ -15,7 +15,6 @@ class EncadrementFactory extends Factory
     {
         return [
             'ID_PROJET' => $this->faker->optional($weight=100)->unique(true)->numberBetween(1,60),
-            'ID_MEMBRE' => $this->faker->optional($weight=100)->unique(true)->numberBetween(1,60),
             'ID_ENCADREUR' => $this->faker->optional($weight=100)->unique(true)->numberBetween(1,60),
             'TYPE_ENCADREMENT' => $this->faker->word(),
             'ANNEE_ENCADREMENT' => $this->faker->date()

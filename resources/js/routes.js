@@ -14,7 +14,8 @@ export default{
     routes: [
         {
             path:'/memoire',
-            component: Memoire
+            component: Memoire,
+            name:'memoires'
         },
         {
             path:'/dashboard',
@@ -22,11 +23,13 @@ export default{
         },
         {
             path:'/pfe',
-            component: Pfe
+            component: Pfe,
+            name:'projet de fin d\'etude'
         },
         {
             path:'/admin',
-            component: Admin
+            component: Admin,
+            name:'administrateurs'
         },
         {
             path:'/ajoutpfe',

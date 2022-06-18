@@ -1,5 +1,5 @@
 import { removeProjet, store } from "./storage";
-import { lockout, show, stocker, storage } from "./api";
+import { lockout, show, stocker, storage,ElementDrop } from "./api";
 import Swal from 'sweetalert2'
 import 'sweetalert2/src/sweetalert2.js'
 
@@ -27,11 +27,14 @@ function error(msg=String){
 
 export async function createProjet(){
     
-    const res = storage('http://localhost:8000/api/projet',store.getters.getProjet)
-    res.then(res => {console.log(res);
+    const res = storage(`http://localhost:8000/api/projet?membres=${store.getters.getMembre}
+    &encadreurs=${store.getters.getEncadreur}&categories=${store.getters.getCategorieSelected}`,store.getters.getProjet)
+    res.then(res => {console.log(res.data.id);
         projet_id=res.data.id;
         if (projet_id !=null) {
             saveData();
+        }else{
+            error(res.data.echec)
         }
         })
         .catch(err => {
@@ -43,7 +46,18 @@ export async function createProjet(){
 async function saveData(){
     await store.getters.getEncadreur.forEach(encadreur => {
         const res = stocker('http://localhost:8000/api/encadreur',encadreur)
-        res.then(res => {encadreur_id[encadreur_id.length]=res.data.id})
+        res.then(res => {
+            const res1 = stocker('http://localhost:8000/api/encadrement',{
+                    ID_PROJET:projet_id,
+                    ID_ENCADREUR: res.data.id,
+                })
+            res1.then(res => {
+                removeProjet();
+            })
+            .catch(err => {
+                error('Impossible de contacter le serveur, veillez reesayer plustard')
+            })
+        })
         .catch(err => {
             error('Impossible de contacter le serveur, veillez reesayer plustard')
         })
@@ -53,23 +67,8 @@ async function saveData(){
         const res= stocker('http://localhost:8000/api/membre',membre)
         res.then(res => {
             let id= res.data.id;
-            for (let index = 0; index < encadreur_id.length; index++) {
-                const element = encadreur_id[index];
-                const res1 = stocker('http://localhost:8000/api/encadrement',{
-                    ID_PROJET:projet_id,
-                    ID_ENCADREUR: element,
-                    ID_MEMBRE: id
-                })
-                .then(res => {
-                    succes('Projet Bien enregistre');
-                    encadreur_id=[];
-                    projet_id=null;
-                    removeProjet();
-                })
-                .catch(err => {
-                    error('Impossible de contacter le serveur, veillez reesayer plustard')
-                })
-            }
+            console.log(id)
+            succes('Projet Bien enregistre');
         })
         .catch(err => { 
             error('Impossible de contacter le serveur, veillez reesayer plustard')
@@ -175,5 +174,57 @@ export async function showProjet(projet=Object){
         return await res;
     } catch (err) {
         console.log(err);
+    }
+}
+
+export async function deleteProjet(projets=Array){
+    projets.forEach(projet => {
+       const res= ElementDrop('http://localhost:8000/api/projet/'+projet.ID_PROJET)
+       res.then(res => {
+            Swal.fire({
+                icon:'success',
+                title:'Projet supprimer avec succes'
+            });
+       })
+    });
+}
+
+export function verifyToDelete(val) {
+    if (store.state.suppressList!=0) {
+        Swal.fire({
+            icon:'question',
+            title:`Voulez-vous vraimment supprimmez ce${store.state.suppressList>1? 's ':' '}`+
+            store.state.suppressList.length+' '+val.currentRoute.name+
+            `${store.state.suppressList>1? 's':''}`,
+            confirmButtonText:'Non',
+            denyButtonText:'Oui',
+            showDenyButton:true
+        }).then(res => {
+            if (res.isDenied) {
+                switch (val.currentRoute.path) {
+                    case '/admin':
+                        break;
+
+                    case '/pfe':
+                        deleteProjet(store.state.suppressList)
+                        break;
+
+                    case '/memoire':
+                        deleteProjet(store.state.suppressList)
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            store.state.suppressList=[];
+            return true;
+        })
+    } else {
+        Swal.fire({
+            icon:'info',
+            title:'Oups!!',
+            text:'Vous n\'avez selectionner aucun element' 
+        })
     }
 }

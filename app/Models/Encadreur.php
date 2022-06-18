@@ -20,12 +20,6 @@ class Encadreur extends Model
        return $this->hasMany('App\Models\Encadrement');
     }
 
-    public function membres()
-    {
-       return $this->belongsToMany('App\Models\Membre','ENCADREMENT','ID_ENCADREUR','ID_MEMBRE')->withPivot(
-            'ANNEE_ENCADREMENT','TYPE_ENCADREMENT');
-    }
-
     public function projets()
     {
        return $this->belongsToMany('App\Models\Projet','ENCADREMENT','ID_ENCADREUR','ID_PROJET')->withPivot(

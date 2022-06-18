@@ -31,7 +31,7 @@
 <script>
 import {authentication, store} from '../storage'
 import { mapGetters } from 'vuex'
-import { logout } from '../StrongMethode'
+import { logout, showAdmin } from '../StrongMethode'
 export default { 
     computed:{
         getName(){
@@ -64,12 +64,7 @@ export default {
             this.profile= !this.profile
         },
         adminProfile(){
-            this.$swal.fire({
-                title: store.getters.getAuthenticate,
-                confirmButtonText:'Modifier',
-                cancelButtonText:'Fermer',
-                showCancelButton:true,
-            })
+            showAdmin(store.getters.getUser);
         }
     },
     mounted(){

@@ -14,6 +14,8 @@ export const store= new Vuex.Store({
     membre:[],
     username:null,
     authenticate:false,
+    suppressList:[],
+    user:Object,
 
     filieresPfe:[{value:"ITT3-IR-CLA",id:1},{value:"ITT3-IR-ALT",id:2},{value:"ITT3-RC-CLA",id:3},
     {value:"ITT3-RC-ALT",id:4},{value:"ITT3-RT-CLA",id:5},{value:"ITT3-RT-ALT",id:6}],
@@ -59,6 +61,9 @@ export const store= new Vuex.Store({
     },
     changeBarName(state,name){
       state.barName=name
+    },
+    setUser(state,{value}){
+      state.user=value
     },
     addProjet(state,{name,link,type,promotion}){
         state.projet.append('NOM_PROJET',name);
@@ -118,6 +123,9 @@ export const store= new Vuex.Store({
   getters:{
     getUsername(state){
       return state.username
+    },
+    getUser(state){
+      return state.user
     },
     getAuthenticate(state){
       return state.authenticate

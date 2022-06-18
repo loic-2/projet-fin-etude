@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CategorieProjet;
+use App\Models\Encadrement;
+use App\Models\Membre;
 use App\Models\Projet;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -26,27 +30,36 @@ class ProjetController extends Controller
      */
     public function store(Request $request)
     {   
-        if($request->hasFile('projet')){
-            $path= $request->file('projet')->store('projets');
-            $datas=$request->all();
-            $datas['LIEN_FICHIER_PROJET']=$path;    
-            $name= $request->input('NOM_PROJET');
-            if (Projet::create($datas)) {
-                //recuperer l'id du projet inserer
-                $id = Projet::where('NOM_PROJET',$name)->get()->first();
-                return response()->json([
-                    'succes'=>'Projet bien enregistrer',
-                    'id'=>$id->ID_PROJET
-                ]);
+        DB::beginTransaction();
+        try {
+            if($request->hasFile('projet')){
+                $path= $request->file('projet')->store('projets');
+                $datas=$request->all();
+                $datas['LIEN_FICHIER_PROJET']=$path;    
+                $name= $request->input('NOM_PROJET');
+                if (Projet::create($datas)) {
+                    //recuperer l'id du projet inserer
+                    $id = Projet::where('NOM_PROJET',$name)->get()->first();
+                    DB::commit();
+                    return response()->json([
+                        'succes'=>'Projet bien enregistrer',
+                        'id'=>$id->ID_PROJET
+                    ]);
+                }else{
+                    return response()->json([
+                        'echec'=>"l'enregistrement n'a pas reussi"
+                    ]);
+                }
             }else{
                 return response()->json([
-                    'echec'=>"l'enregistrement n'a pas reussi"
+                    'echec'=>"Aucun fichier envoye",
+                    'res' => $request->all()
                 ]);
             }
-        }else{
+        } catch (\Throwable $th) {
+            DB::rollBack();
             return response()->json([
-                'echec'=>"Aucun fichier envoye",
-                'res' => $request->all()
+                'echec'=>"Une erreur s'est produite, veillez resseayez plustard",
             ]);
         }
     }
@@ -71,13 +84,26 @@ class ProjetController extends Controller
      */
     public function update(Request $request, Projet $projet)
     {
-        if ($projet->update($request->all())) {
+        $categories=$request->input('categories');
+        DB::beginTransaction();
+        try {
+            foreach ($categories as $value) {
+                if (CategorieProjet::find($value->ID_CATEGORIE)->count()) {
+                    CategorieProjet::find($value->ID_CATEGORIE)->update($value);
+                } else {
+                    $value['ID_PROJET']=$projet->ID_PROJET;
+                    CategorieProjet::create($value);
+                }
+            }
+            $projet->update($request->input('projet'));
+            DB::commit();
             return response()->json([
                 'succes'=>'Projet bien enregistrer'
-            ]);
-        }else{
+                ]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
             return response()->json([
-                'echec'=>"l'enregistrement n'a pas reussi"
+                'echec'=>"la modification n'a pas reussi"
             ]);
         }
     }
@@ -90,9 +116,41 @@ class ProjetController extends Controller
      */
     public function destroy(Projet $projet)
     {
-        $retVal = ($projet->delete()) ? "Supression reussi" : "Echec de la supression";
-        return response()->json([
-            'message'=>$retVal
-        ]);
+        $categories= CategorieProjet::where('ID_PROJET',$projet->ID_PROJET)->get();
+        $membres=Membre::where('ID_PROJET',$projet->ID_PROJET)->get();
+        $encadreurs=Encadrement::where('ID_PROJET',$projet->ID_PROJET)->get();
+        
+            DB::beginTransaction();
+            try {
+                if ($categories->count() >0) {
+                    foreach ($categories as $value) {
+                        CategorieProjet::where('ID_PROJET',$value->ID_PROJET)->where('ID_CATEGORIE',
+                        $value->ID_CATEGORIE)->delete();
+                    }
+                }
+                if ($membres->count() >0) {
+                    foreach ($membres as $value) {
+                        Membre::where('ID_PROJET',$value->ID_PROJET)->delete();
+                    }
+                }
+                
+                if ($encadreurs->count() >0) {
+                    foreach ($encadreurs as $value) {
+                        Encadrement::where('ID_PROJET',$projet->ID_PROJET)->where('ID_ENCADREUR',
+                        $value->ID_ENCADREUR)->delete();
+                    }
+                }
+
+                $retVal = ($projet->delete()) ? "Supression reussi" : "Echec de la supression";
+                DB::commit();
+                return response()->json([
+                    'message'=>$retVal
+                ]);
+            } catch (\Throwable $th) {
+                DB::rollBack();
+                return response()->json([
+                    'echec'=>'Une erreur c\'est produite veillez essayez plus tard'
+                ]);
+            }
     }
 }

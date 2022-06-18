@@ -364,9 +364,11 @@ export default {
         async enregistre(){
             this.show=true
             this.storeData();
-            await createProjet().then(res => {
+            setTimeout(() => {
+                createProjet().then(res => {
                 this.show=false
             })
+            }, 20000);
         }
     }
 

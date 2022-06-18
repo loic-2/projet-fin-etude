@@ -13,14 +13,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="donnee in donnees" :key="donnee[0]" @click="goto(donnee)">
+                <tr v-for="donnee in donnees" :key="donnee[0]">
                     <td><input type="checkbox" v-model="donnee.check" name="allChecked" @change="[donnee.check? add(donnee):remove(donnee)]"></td>
                     <td v-for="colonne in colonnes" :key="colonne.key">
                         {{donnee[colonne.reference]}}
                     </td>
-                    <td><button class="btn btn-primary"><font-awesome-icon icon="fas fa-pen" v-if="edit"/></button>
+                    <td><button class="btn btn-primary" @click="goto(donnee)"><font-awesome-icon icon="fas fa-pen" v-if="edit"/></button>
                         <span>&nbsp;</span><span>&nbsp;</span>
-                        <button class="btn btn-danger"><font-awesome-icon icon="fas fa-trash" v-if="trash" @click="add(donnee)"/></button>
+                        <button class="btn btn-danger" @click="deleteItem(donnee)"><font-awesome-icon icon="fas fa-trash" v-if="trash"/></button>
                     </td>
                 </tr>
             </tbody>
@@ -32,8 +32,9 @@
 </template>
 <script>
 import VueAdsPagination, { VueAdsPageButton } from 'vue-ads-pagination';
-import { showAdmin, showProjet } from '../StrongMethode';
+import { showAdmin, showProjet, deleteProjet } from '../StrongMethode';
 import PopProjet from './PopProjet.vue';
+import { store } from '../storage';
 export default {
     components:{
     VueAdsPageButton,
@@ -60,9 +61,15 @@ export default {
         donnees:Array,
     },
     methods:{
+        /**
+         * fermer le popup
+         */
         fermer(){
             this.show=false;
         },
+        /**
+         * permet d'afficher le popup
+         */
         showPop(val){
             const res=showProjet(val)
                   res.then(res => {
@@ -74,6 +81,9 @@ export default {
                     console.log(res.data)
                   })
         },
+        /**
+         * Affiche un boite de dialogue presentant l'element ainsi que les differents actions possibles
+         */
         goto(val){
           switch (this.$router.currentRoute.path) {
               case '/admin':
@@ -93,32 +103,79 @@ export default {
           } 
         },
         view(){
-            console.log(this.lignesAsupprimes)
+            console.log(store.state.suppressList)
         },
+        /**
+         * Retire l'element selectionner de la liste des elements asupprimer
+         */
         remove(val){
-            if (this.lignesAsupprimes.includes(val)) {
-                this.lignesAsupprimes.splice(this.lignesAsupprimes.indexOf(val),1)
+            if (store.state.suppressList.includes(val)) {
+                store.state.suppressList.splice(this.lignesAsupprimes.indexOf(val),1)
                 this.view()
             }
         },
+        /**
+         * Permet de supprimer un element de la table
+         */
+        deleteItem(val){
+
+                this.$swal.fire({
+                    icon:'question',
+                    title:`Voulez-vous vraimment supprimmez ce `+this.$router.currentRoute.name,
+                    confirmButtonText:'Non',
+                    denyButtonText:'Oui',
+                    showDenyButton:true
+                }).then(res => {
+                    if (res.isDenied) {
+                        switch (this.$router.currentRoute.path) {
+                            case '/admin':
+                                showAdmin(val)
+                                break;
+
+                            case '/pfe':
+                                deleteProjet([val]).then(res => {this.$emit('actualise')})
+                                break;
+
+                            case '/memoire':
+                                deleteProjet([val])
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+                })
+        },
+        /**
+         * Permet d'ajouter un element a la liste des elements a supprimer
+         */
         add(val){
-            if (!this.lignesAsupprimes.includes(val)) {
-                this.lignesAsupprimes.push(val)
+            if (!store.state.suppressList.includes(val)) {
+                store.state.suppressList.push(val)
                 this.view()
             }
         },
+        /**
+         * Ajoute tous les elements a la liste des elements a supprimmer
+         */
         addAll(val){
             val.forEach(element => {
                 element.check=true
                 this.add(element)
             });
         },
+        /**
+         * retirer tous les elements de la suppress list
+         */
         removeAll(val){
             val.forEach(element => {
                 element.check=false
                 this.remove(element)
             });
         },
+        /**
+         * Fait le tri suivant la colonne ou elle a ete cliquer
+         */
         sortBy(val){
             if (this.sort) {
                 this.donnees.sort(function(a,b){

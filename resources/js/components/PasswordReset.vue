@@ -1,5 +1,6 @@
 <template>
-    <div class="cantainer-flex box">
+    <div class="cantainer-flex box" style="background-image: url('/storage/img/background2.png');width:100%;
+    background-size:cover">
         <div class="form row">
             <div class="mb-2 mt-3">
                 <label for="" class="form-label">Email</label>

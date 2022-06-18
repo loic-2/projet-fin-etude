@@ -4,8 +4,8 @@
         <div class="row group-box">
             <div class="row action" style="margin-bottom:10px">
                 <div class="col">
-                    <ButtonCustom :button="ajouter" @ajoutMemoire="showAlert"></ButtonCustom>
-                    <ButtonCustom :button="supprimer"></ButtonCustom>
+                    <ButtonCustom :button="ajouter" @ajoutPfe="ajouterDonnee"></ButtonCustom>
+                    <ButtonCustom :button="supprimer" @supPfe="supprimerDonnee"></ButtonCustom>
                 </div>
                 <div class="col-3">
                     <InputCustom :champ="recherche"></InputCustom>
@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-        <DataTable :colonnes="colonnes" :edit="true" :trash="true" :donnees="donnees" class="tableau"></DataTable>
+        <DataTable @actualise="actualise" :colonnes="colonnes" :edit="true" :trash="true" :donnees="donnees" class="tableau"></DataTable>
     </div>
 </template>
 
@@ -27,6 +27,8 @@ import ButtonCustom from './ButtonCustom.vue';
 import InputCustom from './InputCustom.vue';
 import State from './State.vue';
 import { index } from '../api';
+import { verifyToDelete } from '../StrongMethode';
+import { store } from '../storage';
     export default {
         data() {
             return {
@@ -40,13 +42,13 @@ import { index } from '../api';
                 ajouter:{
                     text:"Ajouter",
                     style:'btn-alert',
-                    reference:'ajoutMemoire',
+                    reference:'ajoutPfe',
                     textColor:'#363740',
                     icon:'fa-solid fa-plus',
                 },
                 supprimer:{
                     text:"Supprimer",
-                    reference:'supMemoire',
+                    reference:'supPfe',
                     style:'btn-alert',
                     textColor:'#363740',
                     icon:'fa-solid fa-times',
@@ -105,15 +107,22 @@ import { index } from '../api';
     State,
 },
         methods: {
-            showAlert() {
-            // Use sweetalert2
-            this.$router.push('/ajoutpfe')
-            //this.$swal('Hello Vue world!!!');
+            ajouterDonnee() {
+                this.$router.push('/ajoutpfe')
             },
+            actualise(){
+                const reponse= index('http://localhost:8000/api/projet')
+                reponse.then(res => {this.donnees=res.data})
+            },
+            supprimerDonnee(){
+               if (verifyToDelete(this.$router)) {
+                    this.actualise()
+               }
+            }
         },
         mounted(){
-            const reponse= index('http://localhost:8000/api/projet')
-            reponse.then(res => {this.donnees=res.data})
+            store.state.suppressList=[];
+            this.actualise()
             this.$emit("pagename","Projets de fin d'etude")
         }
     }

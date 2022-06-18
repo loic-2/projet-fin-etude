@@ -41,9 +41,7 @@ export async function update($url,$data){
     .catch(err => {return err});
 }
 
-export async function drop($url){
+export async function ElementDrop($url){
     await axios.get('/sanctum/csrf-cookie');
-    await axios.delete($url)
-    .then(res => {return res})
-    .catch(err => {return err});
+    return await axios.delete($url);
 }

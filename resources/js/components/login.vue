@@ -1,5 +1,6 @@
 <template>
-        <div class="container-flex box">
+        <div class="container-flex box" style="background-image: url('/storage/img/background2.png');width:100%;
+    background-size:cover">
             <div class=" row align-flex-center">
                 <div class="form" id="form">
                     <div class="row mt-2 mb-3 text-center">
@@ -37,7 +38,7 @@
 </template>
 <script>
 import { show, stocker } from "../api"
-import { authentication, setUsername } from '../storage'
+import { store, setUsername } from '../storage'
 
 export default {
     data(){
@@ -61,7 +62,14 @@ export default {
             stocker('http://localhost:8000/login',this.donnee)
             .then(res => {
                 setUsername(res.data.user_details.name);
-                authentication(res.data.user_details);
+                console.log(res.data.user_details)
+                store.state.user={
+                    ID_ADMINISTRATEUR:res.data.user_details.id,
+                    NOM_ADMINISTRATEUR:res.data.user_details.NOM_ADMINISTRATEUR,
+                    LOGIN_ADMINISTRATEUR:res.data.user_details.name,
+                    EMAIL_ADMINISTRATEUR:res.data.user_details.email,
+                    TELEPHONE_ADMINISTRATEUR:res.data.user_details.TELEPHONE_ADMINISTRATEUR,
+                    }
                 this.$emit('authenticate')
                 })
             .catch(err => {

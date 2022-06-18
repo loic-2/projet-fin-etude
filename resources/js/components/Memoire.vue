@@ -28,6 +28,7 @@ import InputCustom from './InputCustom.vue';
 import State from './State.vue'
 const axios= require('axios');
 import { index } from '../api';
+import { store } from '../storage';
     export default {
         data() {
             return {
@@ -113,8 +114,7 @@ import { index } from '../api';
             },
         },
         mounted(){
-            const res = index('http://localhost:8000/api/categorie');
-            res.then((res)=>{console.log(res.data)});
+            store.state.suppressList=[];
             const reponse= index('http://localhost:8000/api/projet')
             reponse.then(res => {this.donnees=res.data})
         }

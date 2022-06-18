@@ -31,12 +31,13 @@ export default {
     },
     methods:{
         save(){
-            if (this.champs[3].valeur==this.champs[4].valeur) {
+            if (this.champs[4].valeur==this.champs[5].valeur) {
                 this.donnee.NOM_ADMINISTRATEUR= this.champs[0].valeur;
                 this.donnee.name= this.champs[1].valeur;
                 this.donnee.email=this.champs[2].valeur;
-                this.donnee.password= this.champs[3].valeur;
-                this.donnee.password_confirmation= this.champs[4].valeur;
+                this.donnee.TELEPHONE_ADMINISTRATEUR= this.champs[3].valeur;
+                this.donnee.password= this.champs[4].valeur;
+                this.donnee.password_confirmation= this.champs[5].valeur;
                 console.log(this.donnee)
                 registerAdmin(this.donnee)
             } else {
@@ -56,7 +57,8 @@ export default {
                 password:'',
                 password_confirmation:'',
                 name:'',
-                NOM_ADMINISTRATEUR:''
+                NOM_ADMINISTRATEUR:'',
+                TELEPHONE_ADMINISTRATEUR:''
             },
             buttons:[
                 {
@@ -96,13 +98,23 @@ export default {
                 },
                 {
                     text:"Email",
-                    type:"text",
+                    type:"email",
                     valeur:'',
                     placeholder:"Entrer une adresse mail",
                     showlabel:true,
                     icon:'fa-solid fa-eye-slash',
                     hide:true,
                     id:3,
+                },
+                {
+                    text:"Telephone",
+                    type:"text",
+                    valeur:'',
+                    placeholder:"Entrer un numero de telephone",
+                    showlabel:true,
+                    icon:'fa-solid fa-eye-slash',
+                    hide:true,
+                    id:4,
                 },
                 {
                     text:"Mot de passe",
@@ -112,7 +124,7 @@ export default {
                     showlabel:true,
                     icon:'fa-solid fa-eye-slash',
                     hide:false,
-                    id:4,
+                    id:5,
                 },
                 {
                     text:"Confirmer mot de passe",
@@ -122,7 +134,7 @@ export default {
                     showlabel:true,
                     icon:'fa-solid fa-eye-slash',
                     hide:false,
-                    id:5,
+                    id:6,
                 },
             ],
             routes:[

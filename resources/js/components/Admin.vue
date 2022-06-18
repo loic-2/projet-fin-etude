@@ -27,6 +27,7 @@ import ButtonCustom from './ButtonCustom.vue';
 import InputCustom from './InputCustom.vue';
 import State from './State.vue'
 import { index } from '../api';
+import { store } from '../storage';
     export default {
         data() {
             return {
@@ -105,6 +106,7 @@ import { index } from '../api';
             },
         },
         mounted(){
+            store.state.suppressList=[];
             const reponse= index('http://localhost:8000/api/administrateur')
             reponse.then(res => {this.donnees=res.data})
             this.$emit("pagename","Administrateur")

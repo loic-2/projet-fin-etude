@@ -8,7 +8,6 @@
 </head>
 <body style="background-image: url('/storage/img/notfound.png');background-repeat:no-repeat; background-size:cover">
     <div id=notfound class="notfound">
-        <notfound></notfound>
     </div>
     <script src={{{ mix('js/app.js') }}}></script>
 </body>
