@@ -10,7 +10,7 @@ class Encadreur extends Model
     use HasFactory;
     protected $table='ENCADREUR';
     protected $primaryKey='ID_ENCADREUR';
-    public $timestamps = false;
+    public $timestamps = true;
     protected $fillable=[
       'NOM_ENCADREUR','PROFESSION_ENCADREUR','TELEPHONE_ENCADREUR'
     ];

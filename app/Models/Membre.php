@@ -10,7 +10,7 @@ class Membre extends Model
     use HasFactory;
     protected $table='MEMBRE';
     protected $primaryKey='ID_MEMBRE';
-    public $timestamps = false;
+    public $timestamps = true;
     protected $fillable=[
         'NOM_MEMBRE','ID_PROJET','FILIERE_MEMBRE','TELEPHONE_MEMBRE'
     ];

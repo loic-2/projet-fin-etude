@@ -10,7 +10,7 @@ class Projet extends Model
     use HasFactory;
     protected $table='PROJET';
     protected $primaryKey='ID_PROJET';
-    public $timestamps = false;
+    public $timestamps = true;
     protected $fillable=[
       'NOM_PROJET','TYPE_PROJET','GROUPE_PROJET','PROMOTION_PROJET','VUE_PROJET',
       'LIEN_FICHIER_PROJET','TELECHARGEMENT_PROJET'
