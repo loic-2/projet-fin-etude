@@ -368,7 +368,7 @@ export default {
                 createProjet().then(res => {
                 this.show=false
             })
-            }, 20000);
+            }, 10000);
         }
     }
 

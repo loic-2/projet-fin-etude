@@ -53,6 +53,7 @@ async function saveData(){
                 })
             res1.then(res => {
                 removeProjet();
+                projet_id=null;
             })
             .catch(err => {
                 error('Impossible de contacter le serveur, veillez reesayer plustard')
@@ -236,7 +237,7 @@ export async function deleteProjet(projets=Array){
     });
 }
 
-export function deleteAdmin(admins=Array){
+export async function deleteAdmin(admins=Array){
     admins.forEach(admin => {
         const res= ElementDrop('http://localhost:8000/api/users/'+admin.id)
         res.then(res => {
@@ -248,7 +249,7 @@ export function deleteAdmin(admins=Array){
      });
 }
 
-export function deleteCategorie(categories=Array){
+export async function deleteCategorie(categories=Array){
     categories.forEach(categorie => {
         const res= ElementDrop('http://localhost:8000/api/users/'+categorie.ID_CATEGORIE)
         res.then(res => {
@@ -260,7 +261,7 @@ export function deleteCategorie(categories=Array){
      });
 }
 
-export function verifyToDelete(val) {
+export async function verifyToDelete(val) {
     if (store.state.suppressList!=0) {
         Swal.fire({
             icon:'question',

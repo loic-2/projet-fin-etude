@@ -92,9 +92,21 @@ export default {
 
 .col-md-3{
     padding: 0;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
+::-webkit-scrollbar{
+    width: 0.5em;
+}
+::-webkit-scrollbar-track{
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    margin-block: 20px;
+}
+::-webkit-scrollbar-thumb:hover{
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+}
 .hide{
     display: none;
 }

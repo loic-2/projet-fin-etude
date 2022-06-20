@@ -130,15 +130,21 @@ export default {
                         switch (this.$router.currentRoute.path) {
                             case '/admin':
                                 console.log(val)
-                                deleteAdmin([val])
+                                deleteAdmin([val]).then(res => {
+                                    this.actualise()
+                                })
                                 break;
 
                             case '/pfe':
-                                deleteProjet([val])
+                                deleteProjet([val]).then(res => {
+                                    this.actualise()
+                                })
                                 break;
 
                             case '/memoire':
-                                deleteProjet([val])
+                                deleteProjet([val]).then(res => {
+                                    this.actualise()
+                                })
                                 break;
 
                             default:

@@ -131,9 +131,9 @@ import { store } from '../storage';
                 }
             },
             supprimerDonnee(){
-               if (verifyToDelete(this.$router)) {
+               verifyToDelete(this.$router).then(res => {
                     this.actualise()
-               }
+               })
             }
         },
         mounted(){

@@ -97,11 +97,16 @@ export default {
       }
   },
   mounted(){
-    Promise.all([index('http://localhost:8000/api/administrateur'),index('http://localhost:8000/api/projet')])
+    Promise.all([index('http://localhost:8000/api/users'),index('http://localhost:8000/api/projet'),
+    index('http://localhost:8000/api/projetplusvue/?nombre=3')])
     .then((res)=>{
         this.admin_val=res[0].data.length
         this.memoires_val=res[1].data.length
         this.pfe_val=res[1].data.length
+        for (let index = 0; index < res[2].data.length; index++) {
+            this.documents[index].titre=res[2].data[index].NOM_PROJET;
+            this.documents[index].text=res[2].data[index].VUE_PROJET;
+        }
     })
   }
     

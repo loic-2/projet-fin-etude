@@ -2,7 +2,13 @@
     <div class="row">
         <state :routes="routes"></state>
         <ajout-projet :encadreur="encadreur" :parametres1="parametre1" :intitule="intitule" :file="file" :valeurs_select="valeurs_select" :etudiant="etudiant" style="margin-top:20px" :addetudiant="false" :annee="annee"></ajout-projet>
-        <ButtonGroup :buttons="buttons"></ButtonGroup>
+        <div class="row" style="margin:20px 0 20px 0">
+            <div class="col text-center">
+                <button-custom :button="buttons[0]" style="margin:0 15px 0 15px"></button-custom>
+                <button-custom @enregistrerMemoire="enregistre" :button="buttons[1]" style="margin:0 15px 0 15px"></button-custom>
+            </div>
+        </div>
+        <Loader v-if="show"></Loader>
     </div>
 </template>
 
@@ -11,10 +17,13 @@ import AjoutProjet from './AjoutProjet.vue'
 import ButtonCustom from './ButtonCustom.vue'
 import ButtonGroup from './ButtonGroup.vue'
 import State from './State.vue'
-import {store} from '../storage'
+import {store, storeEncadreur, storeProjet, storeStudent} from '../storage'
+import Loader from './Loader.vue'
+import { createProjet } from '../StrongMethode'
 export default {
     data(){
         return{
+            show:false,
             parametre1:store.getters.getFilieresMemoire,
         intitule:
                 {
@@ -38,17 +47,17 @@ export default {
                     hide:true,
                     id:1
                 }, 
-            valeurs_select:{
-                etudiant1:'',
-                etudiant2:'',
-                etudiant3:'',
-                etudiant4:'',
-                etudiant5:'',
-                etudiant6:'',
-                encadreur1:'',
-                encadreur2:'',
-                promotion:''
-                },
+            valeurs_select:[
+                'etudiant1',
+                'etudiant2',
+                'etudiant3',
+                'etudiant4',
+                'etudiant5',
+                'etudiant6',
+                'encadreur1',
+                'encadreur2',
+                'promotion'
+            ],
             encadreur:[
                 [{
                     text:"Nom",
@@ -345,7 +354,25 @@ export default {
     AjoutProjet,
     ButtonCustom,
     ButtonGroup,
-    State
+    State,
+    Loader
+    },
+    methods:{
+        storeData(){
+            storeStudent(this.etudiant)
+            storeProjet([this.intitule.valeur,'Memoire'])
+            storeEncadreur(this.encadreur)
+        },
+        
+        async enregistre(){
+            this.show=true,
+            this.storeData()
+            setTimeout(() => {
+                createProjet().then(res => {
+                    this.show=false
+                })
+            }, 10000);
+        }
     },
     mounted(){
         this.chaneName

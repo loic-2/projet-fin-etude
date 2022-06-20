@@ -4,20 +4,25 @@
         <div class="row group-box">
             <div class="row action" style="margin-bottom:10px">
                 <div class="col">
-                    <ButtonCustom :button="ajouter" @ajoutMemoire="showAlert"></ButtonCustom>
-                    <ButtonCustom :button="supprimer"></ButtonCustom>
+                    <ButtonCustom :button="ajouter" @ajoutMemoire="ajoutMemoire"></ButtonCustom>
+                    <ButtonCustom :button="supprimer" @supMemoire="supMemoire"></ButtonCustom>
                 </div>
                 <div class="col-3">
-                    <InputCustom :champ="recherche"></InputCustom>
+                    <InputCustom @search="resultatRecherche" :champ="recherche"></InputCustom>
                 </div>
             </div>
             <div class="row">
-                <div class="col text-end">
-                    <ButtonCustom :button="filtre"></ButtonCustom>
+                <div class="col-3 offset-9 text-end">
+                    <select name="" id="" title="Choisir le mode de recherche" class="form-select" v-model="mode">
+                        <option value="projet" selected>Projet</option>
+                        <option value="membre">Membre</option>
+                        <option value="encadreur">Encadreur</option>
+                        <option value="categorie">Categorie</option>
+                    </select>
                 </div>
             </div>
         </div>
-        <DataTable :colonnes="colonnes" :edit="true" :trash="true" :donnees="donnees" class="tableau"></DataTable>
+        <DataTable @actualise="actualise" :colonnes="colonnes" :edit="true" :trash="true" :donnees="donnees" class="tableau"></DataTable>
     </div>
 </template>
 
@@ -29,9 +34,11 @@ import State from './State.vue'
 const axios= require('axios');
 import { index } from '../api';
 import { store } from '../storage';
+import { verifyToDelete } from '../StrongMethode';
     export default {
         data() {
             return {
+                mode:"",
                 routes:[
                     {
                         Name:"Memoires",
@@ -62,6 +69,7 @@ import { store } from '../storage';
                 recherche:{
                     text:"",
                     type:"text",
+                    valeur:"",
                     placeholder:"Rechercher...",
                     icon:'fa-solid fa-magnifying-glass',
                     showlabel:false,
@@ -107,16 +115,31 @@ import { store } from '../storage';
     State
 },
         methods: {
-            showAlert() {
-            // Use sweetalert2
-            this.$router.push('/ajoutmemoire')
-            //this.$swal('Hello Vue world!!!');
+            actualise(){
+                const reponse= index('http://localhost:8000/api/projet')
+                reponse.then(res => {this.donnees=res.data})
             },
+            ajoutMemoire() {
+            this.$router.push('/ajoutmemoire')
+            },
+            supMemoire(){
+                verifyToDelete(this.$router).then(res => {
+                    this.actualise()
+               })
+            },
+            resultatRecherche(){
+                if (this.recherche.valeur==="") {
+                    this.actualise();
+                } else {
+                    const reponse= index(`http://localhost:8000/api/searchprojet/?colonne=${this.mode}&
+                    valeur=${this.recherche.valeur}`)
+                    reponse.then(res => {this.donnees=res.data})
+                }
+            }
         },
         mounted(){
             store.state.suppressList=[];
-            const reponse= index('http://localhost:8000/api/projet')
-            reponse.then(res => {this.donnees=res.data})
+            this.actualise()
         }
     }
 </script>

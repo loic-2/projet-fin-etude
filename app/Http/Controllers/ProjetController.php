@@ -166,49 +166,84 @@ class ProjetController extends Controller
         $value=$request->input('valeur');
         $column=$request->input('colonne');
         $listToReturn=array();
-        switch ($column) {
-            case 'categorie':
-                $categories= Categorie::where('NOM_CATEGORIE','like','%'.$value.'%')->get();
-                foreach ($categories as $categorie) {
-                    $projets= $categorie->projets;
-                    foreach ($projets as $projet) {
-                        if (!in_array($projet,$listToReturn)) {
-                            array_push($listToReturn,$projet);
+        if (isset($column) && !empty($column)) {
+            switch ($column) {
+                case 'categorie':
+                    $categories= Categorie::where('NOM_CATEGORIE','like','%'.$value.'%')->get();
+                    foreach ($categories as $categorie) {
+                        $projets= $categorie->projets;
+                        foreach ($projets as $projet) {
+                            if (!in_array($projet,$listToReturn)) {
+                                array_push($listToReturn,$projet);
+                            }
                         }
                     }
-                }
-                break;
-
-            case 'encadreur':
-                $encadreurs= Encadreur::where('NOM_ENCADREUR','like','%'.$value.'%')->get();
-                foreach ($encadreurs as $encadreur) {
-                    $projets= $encadreur->projets;
-                    foreach ($projets as $projet) {
+                    break;
+    
+                case 'encadreur':
+                    $encadreurs= Encadreur::where('NOM_ENCADREUR','like','%'.$value.'%')->get();
+                    foreach ($encadreurs as $encadreur) {
+                        $projets= $encadreur->projets;
+                        foreach ($projets as $projet) {
+                            if (!in_array($projet,$listToReturn)) {
+                                array_push($listToReturn,$projet);
+                                }
+                        }
+                    }
+                        break;
+                    
+                case 'membre':
+                    $membres= Membre::where('NOM_MEMBRE','like','%'.$value.'%')->get();
+                    foreach ($membres as $membre) {
+                        $projet= $membre->projet;
                         if (!in_array($projet,$listToReturn)) {
                             array_push($listToReturn,$projet);
                             }
                     }
-                }
+                    break;
+    
+                case 'projet':
+                    $listToReturn= Projet::where('NOM_PROJET','like','%'.$value.'%')->get();
                     break;
                 
-            case 'membre':
-                $membres= Membre::where('NOM_MEMBRE','like','%'.$value.'%')->get();
-                foreach ($membres as $membre) {
-                    $projet= $membre->projet;
-                    if (!in_array($projet,$listToReturn)) {
-                        array_push($listToReturn,$projet);
-                        }
-                }
-                break;
-
-            case 'projet':
-                $listToReturn= Projet::where('NOM_PROJET','like','%'.$value.'%')->get();
-                break;
-            
-            default:
-                # code...
-                break;
+                default:
+                    # code...
+                    break;
+            }
+        } else {
+            $listToReturn= Projet::where('NOM_PROJET','like','%'.$value.'%')->get();
         }
+        
         return $listToReturn;
+    }
+
+    /**
+     * Obtenir les projets les plus vues
+     */
+    public function projetsPlusVue(Request $request){
+
+        $nombre=$request->input('nombre');
+        if (isset($nombre) && !empty($request->input('nombre'))) {
+            return Projet::select()->orderByDesc('VUE_PROJET')->limit($request->input('nombre'))
+            ->get();
+        } else {
+            return Projet::select()->orderByDesc('VUE_PROJET')->get();
+        }
+        
+    }
+
+    /**
+     * Obtenir les projets les plus telecharger
+     */
+    public function projetsPlusTelecharger(Request $request){
+
+        $nombre=$request->input('nombre');
+        if (isset($nombre) && !empty($request->input('nombre'))) {
+            return Projet::select()->orderByDesc('TELECHARGEMENT_PROJET')->
+            limit($request->input('nombre'))->get();
+        } else {
+            return Projet::select()->orderByDesc('TELECHARGEMENT_PROJET')->get();
+        }
+        
     }
 }

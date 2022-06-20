@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <DataTable :colonnes="colonnes" :edit="true" :trash="true" :donnees="donnees" class="tableau"></DataTable>
+        <DataTable @actualise="actualise" :colonnes="colonnes" :edit="true" :trash="true" :donnees="donnees" class="tableau"></DataTable>
     </div>
 </template>
 
@@ -133,9 +133,9 @@ import { verifyToDelete } from '../StrongMethode';
                 }
             },
             supprimerAdmin(){
-                if (verifyToDelete(this.$router)) {
+                verifyToDelete(this.$router).then(res => {
                     this.actualise()
-                }
+               })
             }
         },
         mounted(){

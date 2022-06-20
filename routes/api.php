@@ -34,5 +34,7 @@ Route::apiResource('users','App\Http\Controllers\UserController');
 Route::apiResource('encadrement','App\Http\Controllers\EncadrementController');
 Route::apiResource('categorie_projet','App\Http\Controllers\CategorieProjetController');
 Route::get('searchprojet',[ProjetController::class,'search']);
+Route::get('projetplustelecharger',[ProjetController::class,'projetsPlusTelecharger']);
+Route::get('projetplusvue',[ProjetController::class,'projetsPlusVue']);
 Route::get('searchadmin',[UserController::class,'search']);
 Route::get('searchcategorie',[CategorieController::class,'search']);

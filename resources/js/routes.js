@@ -1,6 +1,7 @@
 
 import Memoire from './components/Memoire'
 import Pfe from './components/Pfe'
+import pdf from './components/pdf'
 import NotFound from './components/NotFound'
 import Board from './components/Board'
 import Admin from './components/Admin'
@@ -42,6 +43,11 @@ export default{
         {
             path:'/ajoutadmin',
             component: AjoutAdmin
+        },
+        {
+            path:'/lire',
+            component: pdf,
+            name:'document'
         },
         {
             path:'*',
