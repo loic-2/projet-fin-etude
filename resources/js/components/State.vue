@@ -1,5 +1,5 @@
 <template>
-    <div class="row" style="margin:0">
+    <div class="row" style="margin:0 0 45px 0">
         <div class="col">
             <span class="state"> 
             <router-link to="/dashboard">Tableau de bord</router-link>

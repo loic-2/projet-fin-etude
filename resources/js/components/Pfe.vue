@@ -156,6 +156,6 @@ import { store } from '../storage';
     padding: 0;
 }
 .group-box{
-    margin-bottom: 40px;
+    margin-bottom: 60px;
 }
 </style>

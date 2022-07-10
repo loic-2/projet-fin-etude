@@ -3,6 +3,7 @@ import Memoire from './components/Memoire'
 import Pfe from './components/Pfe'
 import pdf from './components/pdf'
 import NotFound from './components/NotFound'
+import Library from './components/Library'
 import Board from './components/Board'
 import Admin from './components/Admin'
 import AjoutMemoire from './components/AjoutMemoire'
@@ -31,6 +32,11 @@ export default{
             path:'/admin',
             component: Admin,
             name:'administrateurs'
+        },
+        {
+            path:'/categorie',
+            component: Library,
+            name:'categories'
         },
         {
             path:'/ajoutpfe',

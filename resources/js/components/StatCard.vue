@@ -1,10 +1,12 @@
 <template>
-     <div class="stat col px-0" >
-        <div class="nom-parametre" :style="{backgroundColor:color}">
-            <span>{{nom}}</span>
-        </div>
-        <div class="valeur">
-            <span>{{valeur}}</span>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xm-12">
+        <div class="stat px-0" >
+            <div class="nom-parametre" :style="{backgroundColor:color}">
+                <span>{{nom}}</span>
+            </div>
+            <div class="valeur">
+                <span>{{valeur}}</span>
+            </div>
         </div>
     </div>   
 </template>
@@ -27,6 +29,13 @@ export default {
     }
 </script>
 <style scoped>
+
+.col-lg-4, .col-md-4, .col-sm-6, .col-xm-12{
+    padding: 0;
+}
+.col-lg-4[data-v-7299848b]{
+    padding: 0;
+}
 .stat{
     background-color: #ffffff;
     color:#000000;

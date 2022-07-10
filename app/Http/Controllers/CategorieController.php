@@ -15,6 +15,10 @@ class CategorieController extends Controller
     public function index()
     {
         $categories= Categorie::orderByDesc('ID_CATEGORIE')->get();
+        foreach ($categories  as $categorie) {
+            $number=$categorie->projets();
+            $categorie["NOMBRE_PROJET"]=$number->count();
+        }
         echo $categories->toJson(JSON_PRETTY_PRINT);
     }
 

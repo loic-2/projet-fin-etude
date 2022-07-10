@@ -58,7 +58,7 @@ class UtilisateurController extends Controller
     {
         if ($utilisateur->update($request->all())) {
             return response()->json([
-                'succes'=>'Categorie bien enregistrer'
+                'succes'=>'Utilisateur bien enregistrer'
             ]);
         }else{
             return response()->json([

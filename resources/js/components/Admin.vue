@@ -36,7 +36,7 @@ import { verifyToDelete } from '../StrongMethode';
     export default {
         data() {
             return {
-                mode:"",
+                mode:"Nom",
                 routes:[
                     {
                         Name:"Administrateur",
@@ -158,6 +158,6 @@ import { verifyToDelete } from '../StrongMethode';
     padding: 0;
 }
 .group-box{
-    margin-bottom: 40px;
+    margin-bottom: 60px;
 }
 </style>
