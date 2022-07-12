@@ -85,4 +85,16 @@ class CategorieController extends Controller
             'message'=>$retVal
         ]);
     }
+
+
+    public function search(Request $request){
+        $valeur= $request->input("valeur");
+        $result= Categorie::where("NOM_CATEGORIE","like",'%'.$valeur.'%')->orderByDesc('ID_CATEGORIE')
+        ->get();
+        foreach ($result  as $categorie) {
+            $number=$categorie->projets();
+            $categorie["NOMBRE_PROJET"]=$number->count();
+        }
+        echo $result->toJson(JSON_PRETTY_PRINT);
+    }
 }

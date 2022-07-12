@@ -1,0 +1,10 @@
+https://shrouded-brushlands-38845.herokuapp.com/ | https://git.heroku.com/shrouded-brushlands-38845.git
+APP_KEY: base64:NU/P1iWzi1W4h/8oHlkQPrEHIHK8Q8huIr0p0KcVqJc=
+APP_KEY:      base64:NU/P1iWzi1W4h/8oHlkQPrEHIHK8Q8huIr0p0KcVqJc=
+DATABASE_URL: postgres://nkklvwkasfthkp:88de191f320cd04e3562895b8263f7a17a7dc183f73c093adabefdee1b98a0e6@ec2-34-200-35-222.compute-1.amazonaws.com:5432/d6egac1fqkh8su
+
+username=nkklvwkasfthkp
+pass=88de191f320cd04e3562895b8263f7a17a7dc183f73c093adabefdee1b98a0e6
+host=ec2-34-200-35-222.compute-1.amazonaws.com
+port=5432
+db=d6egac1fqkh8su

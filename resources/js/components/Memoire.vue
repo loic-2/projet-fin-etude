@@ -116,7 +116,7 @@ import { verifyToDelete } from '../StrongMethode';
 },
         methods: {
             actualise(){
-                const reponse= index('http://localhost:8000/api/projet')
+                const reponse= index(store.getters.getDomain+'api/projet')
                 reponse.then(res => {this.donnees=res.data})
             },
             ajoutMemoire() {
@@ -131,7 +131,7 @@ import { verifyToDelete } from '../StrongMethode';
                 if (this.recherche.valeur==="") {
                     this.actualise();
                 } else {
-                    const reponse= index(`http://localhost:8000/api/searchprojet/?colonne=${this.mode}&
+                    const reponse= index(store.getters.getDomain+`api/searchprojet/?colonne=${this.mode}&
                     valeur=${this.recherche.valeur}`)
                     reponse.then(res => {this.donnees=res.data})
                 }

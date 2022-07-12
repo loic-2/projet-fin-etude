@@ -27,7 +27,7 @@ function error(msg=String){
 
 export async function createProjet(){
     
-    const res = storage(`http://localhost:8000/api/projet?membres=${store.getters.getMembre}
+    const res = storage(store.getters.getDomain+`api/projet?membres=${store.getters.getMembre}
     &encadreurs=${store.getters.getEncadreur}&categories=${store.getters.getCategorieSelected}`,store.getters.getProjet)
     res.then(res => {console.log(res.data.id);
         projet_id=res.data.id;
@@ -45,9 +45,9 @@ export async function createProjet(){
 
 async function saveData(){
     await store.getters.getEncadreur.forEach(encadreur => {
-        const res = stocker('http://localhost:8000/api/encadreur',encadreur)
+        const res = stocker(store.getters.getDomain+'api/encadreur',encadreur)
         res.then(res => {
-            const res1 = stocker('http://localhost:8000/api/encadrement',{
+            const res1 = stocker(store.getters.getDomain+'api/encadrement',{
                     ID_PROJET:projet_id,
                     ID_ENCADREUR: res.data.id,
                 })
@@ -65,7 +65,7 @@ async function saveData(){
     });
     await store.getters.getMembre.forEach(membre => {
         membre['ID_PROJET']=projet_id
-        const res= stocker('http://localhost:8000/api/membre',membre)
+        const res= stocker(store.getters.getDomain+'api/membre',membre)
         res.then(res => {
             let id= res.data.id;
             console.log(id)
@@ -77,7 +77,7 @@ async function saveData(){
     });
     await store.getters.getCategorieSelected.forEach(categorie => {
         categorie['ID_PROJET']=projet_id
-        const res = stocker('http://localhost:8000/api/categorie_projet',categorie)
+        const res = stocker(store.getters.getDomain+'api/categorie_projet',categorie)
         res.then(res => {console.log(res.data)})
         .catch(err => {
             error('Impossible de contacter le serveur, veillez reesayer plustard')
@@ -86,7 +86,7 @@ async function saveData(){
 }
 
 export async function registerAdmin(data){
-    const res = stocker('http://localhost:8000/register',data);
+    const res = stocker(store.getters.getDomain+'register',data);
     res.then(res => {
         console.log(res.data);
         Swal.fire({
@@ -105,12 +105,54 @@ export async function registerAdmin(data){
 }
 
 export async function logout(){
-    const res = lockout('http://localhost:8000/logout');
+    const res = lockout(store.getters.getDomain+'logout');
     res.then(res => {
         console.log(res);
     }).catch(err => {
         console.log(err);
     })
+}
+
+export async function addCategorie(){
+   const response= Swal.fire({
+        title:"Ajouter une categorie",
+        inputLabel:"Nom de la categorie",
+        input:'text',
+        inputPlaceholder:"Entrer la categorie",
+        showCancelButton:true,
+        cancelButtonText:"Annuler",
+        showClass:"",
+        hideClass:"",
+        inputValidator:(value) =>{
+            if (value==="") {
+                return "Vous devez saisir un nom"
+            }
+        }
+    })
+    response.then(res =>{
+        console.log(res)
+        if (res.value) {
+            const res1= stocker(store.getters.getDomain+'api/categorie',{
+                NOM_CATEGORIE:res.value})
+            res1.then(res => {
+                if (res.data[0]="succes") {
+                    Swal.fire({
+                        icon:"success",
+                        title:"Insertion reussi",
+                        confirmButtonText:"fermer"
+                    })
+                } else {
+                    Swal.fire({
+                        icon:"error",
+                        title:"Echec de la creation",
+                        text:"Veillez reessayer plus tard",
+                        confirmButtonText:"fermer"
+                    })
+                }
+            })
+        }
+    })
+    return new Promise((resolve, reject) => { first })
 }
 
 export function showAdmin(admin=Object){
@@ -152,7 +194,7 @@ export function showMembre(membre=Object){
     })
     res.then(res =>{
         if (res.isDenied) {
-            ElementDrop(`http://localhost:8000/api/membre/${membre.ID_MEMBRE}`)
+            ElementDrop(store.getters.getDomain+`api/membre/${membre.ID_MEMBRE}`)
             .then(res => {
 
                 Swal.fire({
@@ -184,7 +226,7 @@ export function showEncadreur(encadreur=Object){
     })
     res.then(res =>{
         if (res.isDenied) {
-            ElementDrop(`http://localhost:8000/api/encadreur/${encadreur.ID_ENCADREUR}`)
+            ElementDrop(store.getters.getDomain+`api/encadreur/${encadreur.ID_ENCADREUR}`)
             .then(res => {
 
                 Swal.fire({
@@ -204,7 +246,7 @@ export function showEncadreur(encadreur=Object){
 export async function showProjet(projet=Object){
     let id= projet.ID_PROJET;
     console.log(id)
-    const res =show(`http://localhost:8000/api/lien/${id}`)
+    const res =show(store.getters.getDomain+`api/lien/${id}`)
     try {
         return await res;
     } catch (err) {
@@ -213,7 +255,7 @@ export async function showProjet(projet=Object){
 }
 
 export async function updateProjet(projet,categories){
-    const res= update(`http://localhost:8000/api/projet/${projet.ID_PROJET}`,{
+    const res= update(store.getters.getDomain+`api/projet/${projet.ID_PROJET}`,{
         'categories':categories,
         'projet':projet
     })
@@ -227,7 +269,7 @@ export async function updateProjet(projet,categories){
 
 export async function deleteProjet(projets=Array){
     projets.forEach(projet => {
-       const res= ElementDrop('http://localhost:8000/api/projet/'+projet.ID_PROJET)
+       const res= ElementDrop(store.getters.getDomain+'api/projet/'+projet.ID_PROJET)
        res.then(res => {
             Swal.fire({
                 icon:'success',
@@ -239,7 +281,7 @@ export async function deleteProjet(projets=Array){
 
 export async function deleteAdmin(admins=Array){
     admins.forEach(admin => {
-        const res= ElementDrop('http://localhost:8000/api/users/'+admin.id)
+        const res= ElementDrop(store.getters.getDomain+'api/users/'+admin.id)
         res.then(res => {
              Swal.fire({
                  icon:'success',
@@ -251,7 +293,7 @@ export async function deleteAdmin(admins=Array){
 
 export async function deleteCategorie(categories=Array){
     categories.forEach(categorie => {
-        const res= ElementDrop('http://localhost:8000/api/users/'+categorie.ID_CATEGORIE)
+        const res= ElementDrop(store.getters.getDomain+'api/users/'+categorie.ID_CATEGORIE)
         res.then(res => {
              Swal.fire({
                  icon:'success',

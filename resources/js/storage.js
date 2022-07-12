@@ -12,6 +12,7 @@ export const store= new Vuex.Store({
     select:[],
     encadreur:[],
     membre:[],
+    domain:"http://192.168.43.137:8000/",
     username:null,
     authenticate:false,
     suppressList:[],
@@ -124,6 +125,9 @@ export const store= new Vuex.Store({
     getUsername(state){
       return state.username
     },
+    getDomain(state){
+      return state.domain
+    },
     getUser(state){
       return state.user
     },
@@ -202,8 +206,8 @@ export function storeStudent(tab=Array)
     }
 }
 
-function getCategorieData(){
-  const promise= index("http://localhost:8000/api/categorie")
+ export function getCategorieData(){
+  const promise= index(store.getters.getDomain+"api/categorie")
   promise.then((res)=>{
     res.data.forEach(objet => {
       store.commit('addCategorie',{value:objet.NOM_CATEGORIE,key:objet.ID_CATEGORIE})
@@ -254,6 +258,3 @@ export function storeAdmin(tab=Array)
 
 
 getCategorieData()
-global.store=store
-storeAdmin(['Ganno Loic','loicganno@gmail.com',"655084085","loic","sdnjhgtyui"])
-console.log(store.getters.getAdmin)

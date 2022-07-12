@@ -19,12 +19,12 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
 /* import specific icons */
-import { faDashboard,faCircleChevronRight,faDownload,faAnglesRight,faSun,faMedal,faSort,faUserPlus,faPlus,faTrash,faUserTimes,faPen,faSave,faUndo,faTimes,faArrowAltCircleLeft,faSearch,
+import { faDashboard,faFolderOpen,faAngleDown,faAngleUp,faClock,faCircleChevronRight,faDownload,faAnglesRight,faSun,faMedal,faSort,faUserPlus,faPlus,faTrash,faUserTimes,faPen,faSave,faUndo,faTimes,faArrowAltCircleLeft,faSearch,
   faFilter,faCheck,faPlusCircle,faEye,faEyeSlash,faBars,faBookBookmark,faUserTie,faGear,faMagnifyingGlass,faBell,faClockRotateLeft,faCircleUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 
-library.add(faUserPlus,faCircleChevronRight,faDownload,faSun,faAnglesRight,faMedal,faSort,faPlus,faTrash,faUserTimes,faPen,faSave,faUndo,faTimes,faArrowAltCircleLeft,
+library.add(faUserPlus,faAngleDown,faFolderOpen,faAngleUp,faClock,faCircleChevronRight,faDownload,faSun,faAnglesRight,faMedal,faSort,faPlus,faTrash,faUserTimes,faPen,faSave,faUndo,faTimes,faArrowAltCircleLeft,
   faFilter,faPlusCircle,faCheck,faEye,faEyeSlash,faSearch,faDashboard,faBars,faBookBookmark,faUserTie,faGear,faBell,faMagnifyingGlass,faClockRotateLeft,faCircleUser)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

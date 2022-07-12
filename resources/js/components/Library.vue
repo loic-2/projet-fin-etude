@@ -6,7 +6,7 @@
             <button @click="addCategorie" class="add-categorie btn btn-dark"><font-awesome-icon icon="plus"/>  Ajouter</button>
         </div>
         <div class="col-md-4 col-sm-5 col-xm-6 offset-lg-5 offset-md-5 offset-sm-3 offset-xm-2 ">
-            <input type="text" name="" id="" placeholder="Rechercher..." class="form-control recherche">
+            <input type="text" v-model="valeur" @input="rechercher" name="" id="" placeholder="Rechercher..." class="form-control recherche">
         </div>
     </div>
     <div class="row total" style="margin-bottom:35px;">
@@ -21,6 +21,7 @@
 <script>
 import { index } from '../api'
 import { store } from '../storage'
+import { addCategorie } from '../StrongMethode'
 import ModeleCategorie from './ModeleCategorie.vue'
 import State from './State.vue'
 export default {
@@ -28,10 +29,11 @@ export default {
   data() {
     return {
         categories:Array,
+        valeur:"",
         routes:[
                     {
                         Name:"Categorie",
-                        path:"/admin",
+                        path:"/categorie",
                         id:1
                     }
                 ]
@@ -39,20 +41,26 @@ export default {
   },
   methods:{
     actualise(){
-            const res=index('http://localhost:8000/api/categorie')
+            const res=index(store.getters.getDomain+"api/categorie")
             res.then(res =>{
                 this.categories=res.data
             })
         },
+    fetchdata(){
+      const res= index(store.getters.getDomain+`api/searchcategorie?valeur=${this.valeur}`)
+      res.then(res => {
+        this.categories=res.data
+      })
+    },
     addCategorie(){
-        this.$swal.fire({
-            title:"Ajouter une categorie",
-            inputLabel:"Nom de la categorie",
-            confirmButtonText:"Enregister",
-            cancelButtonText:"Annuler",
-            showCancelButton:true,
-            inputValue:""
-        })
+        addCategorie().then(res => {this.actualise})
+    },
+    rechercher(){
+      if (this.valeur==="") {
+        this.actualise()
+      } else {
+        this.fetchdata()
+      }
     }
   },
   mounted(){

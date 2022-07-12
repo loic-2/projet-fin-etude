@@ -59,7 +59,7 @@ export default {
         },
         login(){
             console.log(this.donnee)
-            stocker('http://localhost:8000/login',this.donnee)
+            stocker(store.getters.getDomain+"login",this.donnee)
             .then(res => {
                 setUsername(res.data.user_details.name);
                 console.log(res.data.user_details)

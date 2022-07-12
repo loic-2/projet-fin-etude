@@ -14,7 +14,11 @@ class HistoriqueController extends Controller
      */
     public function index()
     {
-        return Historique::all();
+        $result= Historique::OrderByASC("DATE_HISTORIQUE")->get();
+        foreach ($result as $historique) {
+            $historique['administrateur']= $historique->administrateur();
+        }
+        return $result;
     }
 
     /**

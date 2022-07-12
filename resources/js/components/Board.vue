@@ -37,6 +37,7 @@ import PersonneConnecteVue from './PersonneConnecte.vue';
 import LaUne from './LaUne.vue';
 import StatCard from './StatCard.vue'
 import Chart from './Chart.vue';
+import { store } from '../storage';
 import { index, manyResponse } from '../api';
 const axios= require('axios')
 export default {
@@ -97,8 +98,8 @@ export default {
       }
   },
   mounted(){
-    Promise.all([index('http://localhost:8000/api/users'),index('http://localhost:8000/api/projet'),
-    index('http://localhost:8000/api/projetplusvue/?nombre=3')])
+    Promise.all([index(store.getters.getDomain+'api/users'),index(store.getters.getDomain+'api/projet'),
+    index(store.getters.getDomain+'api/projetplusvue/?nombre=3')])
     .then((res)=>{
         this.admin_val=res[0].data.length
         this.memoires_val=res[1].data.length

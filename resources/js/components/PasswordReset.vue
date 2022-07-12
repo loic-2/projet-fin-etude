@@ -29,7 +29,9 @@
         </div>
     </div>
 </template>
-<script>import { stocker } from "../api"
+<script>
+import { stocker } from "../api"
+import { store } from "../storage"
 
 export default {
     data(){
@@ -43,7 +45,7 @@ export default {
     },
     methods:{
         sendLink(){
-            const res = stocker('http://localhost:8000/reset-password',{
+            const res = stocker(store.getters.getDomain+'reset-password',{
                 'email':this.email,
                 'password':this.password,
                 'password_confirmation':this.password_confirmation,

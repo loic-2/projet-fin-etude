@@ -15,7 +15,9 @@
         </div>
     </div>
 </template>
-<script>import { stocker } from "../api"
+<script>
+import { stocker } from "../api"
+import { store } from "../storage"
 
 export default {
     data(){
@@ -27,7 +29,7 @@ export default {
     },
     methods:{
         sendLink(){
-            const res = stocker('http://localhost:8000/forgot-password',{
+            const res = stocker(store.getters.getDomain+'forgot-password',{
                 'email':this.email
                 })
             res.then(res => {

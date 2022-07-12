@@ -1,6 +1,6 @@
 <template>
     <div class="col-lg-3 col-md-4 col-sm-6 col-xm-12">
-        <div class="row">
+        <div class="row" style="padding:15px">
             <div class="col-10">
                 <div class="title">
                     <h3>{{categorie.NOM_CATEGORIE}}</h3>
@@ -47,7 +47,7 @@ export default {
     margin-left: 5px;
     margin-right: 5px;
     color: #fff;
-    background-color: #363740;
+    background-color: #63636475;
     border-radius: 20px;
     height: 150px;
 }

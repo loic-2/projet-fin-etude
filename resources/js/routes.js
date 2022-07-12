@@ -9,6 +9,7 @@ import Admin from './components/Admin'
 import AjoutMemoire from './components/AjoutMemoire'
 import AjoutPfe from './components/AjoutPfe'
 import AjoutAdmin from './components/AjoutAdmin'
+import Historique from './components/Historique'
 
 export default{
     
@@ -32,6 +33,11 @@ export default{
             path:'/admin',
             component: Admin,
             name:'administrateurs'
+        },
+        {
+            path:'/historique',
+            component: Historique,
+            name:'historique'
         },
         {
             path:'/categorie',

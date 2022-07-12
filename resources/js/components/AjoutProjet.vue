@@ -37,7 +37,7 @@
                 </div>
             </div>
         </div>
-        <div class="row" style="margin:0 25px 20px 0;">
+        <div class="row" style="margin:0 35px 20px 18px;">
             <label for="categorie">Categorie (s)</label>
             <vue-multi-select label="name" track-by="name" v-model="store.state.categorieSelected" :multiple="true" :searchable="true" :close-on-select="true" 
             placeholder="Selectionner la/les categorie(s) du projet" :options="test"></vue-multi-select>
@@ -51,7 +51,7 @@ import InputCustomVue from './InputCustom.vue'
 import VueMultiSelect from 'vue-multiselect'
 import MembreVue from './Membre.vue'
 import SelectVue from './Select.vue'
-import {storeCategorieSelected,store} from '../storage'
+import {storeCategorieSelected,store, getCategorieData} from '../storage'
 export default {
     props:{
         valeurs_select:[],
@@ -108,6 +108,9 @@ export default {
                 }
             ], 
         }
+    },
+    mounted() {
+        getCategorieData()
     },
 }
 </script>

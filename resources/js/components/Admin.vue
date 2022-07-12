@@ -119,14 +119,14 @@ import { verifyToDelete } from '../StrongMethode';
             //this.$swal('Hello Vue world!!!');
             },
             actualise(){
-                const reponse= index('http://localhost:8000/api/users')
+                const reponse= index(store.getters.getDomain+'api/users')
                 reponse.then(res => {this.donnees=res.data})
             },
             resultatRecherche(){
                 if (this.recherche.valeur==="") {
                     this.actualise()
                 } else {
-                    const reponse= index(`http://localhost:8000/api/searchadmin/?valeur=${this.recherche.valeur}&mode=
+                    const reponse= index(store.getters.getDomain+`api/searchadmin/?valeur=${this.recherche.valeur}&mode=
                     ${this.mode}`)
                     reponse.then(res => {this.donnees=res.data})
                     
