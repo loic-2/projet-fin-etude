@@ -9,6 +9,8 @@ class Encadrement extends Model
 {
     use HasFactory;
     protected $table='ENCADREMENT';
+    protected $primaryKey='null';
+    public $incrementing=false;
     public $timestamps = false;
     public $fillable = ['ID_PROJET','ID_ENCADREUR','TYPE_ENCADREMENT'];
 

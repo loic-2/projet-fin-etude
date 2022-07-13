@@ -9,6 +9,8 @@ class CategorieProjet extends Model
 {
     use HasFactory;
     protected $table='CATEGORIE_PROJET';
+    protected $primaryKey='null';
+    public $incrementing=false;
     public $timestamps = false;
     public $fillable =['ID_CATEGORIE','ID_PROJET'];
 
