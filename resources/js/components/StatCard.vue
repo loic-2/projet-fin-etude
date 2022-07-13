@@ -23,7 +23,7 @@ export default {
         },
         valeur:{
             type:Number,
-            default:145
+            default:0
         },
         }
     }
