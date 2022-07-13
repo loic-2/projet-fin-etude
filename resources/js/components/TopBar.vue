@@ -58,7 +58,7 @@ export default {
     methods:{
         logout(){
             logout();
-            window.location.href="http://localhost:8000/login";
+            window.location.href=store.getters.getDomain;
         },
         showProfile(){
             this.profile= !this.profile

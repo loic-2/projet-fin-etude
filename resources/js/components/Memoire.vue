@@ -38,7 +38,7 @@ import { verifyToDelete } from '../StrongMethode';
     export default {
         data() {
             return {
-                mode:"",
+                mode:"projet",
                 routes:[
                     {
                         Name:"Memoires",

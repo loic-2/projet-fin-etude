@@ -1,5 +1,5 @@
 <template>
-        <div class="container-flex box" style="background-image: url('/storage/img/background2.png');width:100%;
+        <div class="container-flex box" style="background-image: url('https://shrouded-brushlands-38845.herokuapp.com/storage/img/background2.png');width:100%;
     background-size:cover">
             <div class=" row align-flex-center">
                 <div class="form" id="form">
@@ -61,15 +61,15 @@ export default {
             console.log(this.donnee)
             stocker(store.getters.getDomain+"login",this.donnee)
             .then(res => {
-                //setUsername(res.data.user_details.name);
-                console.log(res)
-                /*store.state.user={
+                setUsername(res.data.user_details.name);
+                //console.log(res)
+                store.state.user={
                     ID_ADMINISTRATEUR:res.data.user_details.id,
                     NOM_ADMINISTRATEUR:res.data.user_details.NOM_ADMINISTRATEUR,
                     LOGIN_ADMINISTRATEUR:res.data.user_details.name,
                     EMAIL_ADMINISTRATEUR:res.data.user_details.email,
                     TELEPHONE_ADMINISTRATEUR:res.data.user_details.TELEPHONE_ADMINISTRATEUR,
-                    }*/
+                    }
                 this.$emit('authenticate')
                 })
             .catch(err => {

@@ -37,7 +37,7 @@ import { store } from '../storage';
     export default {
         data() {
             return {
-                mode:'',
+                mode:'projet',
                 routes:[
                 {
                     Name:"Projets de fin d'etudes",

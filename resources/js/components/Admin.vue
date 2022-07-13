@@ -36,7 +36,7 @@ import { verifyToDelete } from '../StrongMethode';
     export default {
         data() {
             return {
-                mode:"Nom",
+                mode:"NOM_ADMINISTRATEUR",
                 routes:[
                     {
                         Name:"Administrateur",
