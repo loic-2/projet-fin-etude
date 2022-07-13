@@ -12,7 +12,7 @@ export const store= new Vuex.Store({
     select:[],
     encadreur:[],
     membre:[],
-    domain:"https://shrouded-brushlands-38845.herokuapp.com/",
+    domain:"http://shrouded-brushlands-38845.herokuapp.com/",
     username:null,
     authenticate:false,
     suppressList:[],
