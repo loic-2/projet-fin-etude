@@ -2,7 +2,7 @@
         <div class="container-flex box" style="background-image: url('https://shrouded-brushlands-38845.herokuapp.com/storage/img/background2.png');width:100%;
     background-size:cover">
             <div class=" row align-flex-center">
-                <div class="form" id="form">
+                <div class="form col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-sm-10 offset-sm-1 col-10 offset-1" id="form">
                     <div class="row mt-2 mb-3 text-center">
                         <h4>Connectez-vous</h4>
                     </div>
@@ -20,17 +20,17 @@
                                 {{error_message}}
                             </div>
                         </div>
-                        <div class="row mb-2 option">
-                            <div class="form-check col form-switch">
+                        <div class="row mb-3 option">
+                            <div class="form-check col-lg-6 col-md-6 col-sm-6 col-12 form-switch">
                                 <input class="form-check-input" v-model="donnee.remember" type="checkbox">
                                 <label for="">Se souvenir de moi</label>
                             </div>
-                            <div class="col text-end">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-12 text-lg-end text-md-end text-sm-end text-left">
                                 <span @click="forgotPassword">Mot de passe oublie?</span>
                             </div>
                         </div>
                         <div class="row mb-3 text-center">
-                            <input @click="login" type="submit" class="btn offset-4 col-4 btn-primary" value="Se connecter">
+                            <input @click="login" type="submit" class="btn col-lg-4 offset-lg-4 col-md-4 offset-md-4 col-sm-4 offset-sm-4 col-6 offset-3 btn-primary" value="Se connecter">
                         </div>
                 </div>
             </div>
@@ -86,17 +86,17 @@ export default {
     margin: 0;
 }
 .box{
+    position: relative;
     background-color: rgba(202, 196, 194, 0.6);
     height: 100vh;
     width: 100%;
+    top: 0;
+    bottom: 0;
 }
 .form{
-    position: fixed;
     background-color: #ffffff;
     border-radius: 15px;
-    width: 40%;
-    left: 30%;
-    top:25%;
+    margin-top:13%;
 }
 span{
     cursor: pointer;

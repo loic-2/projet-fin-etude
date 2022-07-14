@@ -1,32 +1,34 @@
 <template>
     <div class="row">
         <PopProjet @fermer="fermer" @actualise="actualise" :projet="projet" :categories="categories" :encadreurs="encadreurs" :membres="membres" v-if="show"></PopProjet>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th><input type="checkbox" name="allChecked" v-model="coche"  id="allChecked" @change="[coche? addAll(donnees):removeAll(donnees)]"></th>
-                    <th class="col" v-for="colonne in colonnes" :key="colonne.key">
-                        {{colonne.nom}}
-                        <font-awesome-icon icon="fas-solid fa-sort" v-if="colonne.sortable" @click="sortBy(colonne.reference)"/>
-                    </th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="donnee in donnees" :key="donnee[0]">
-                    <td><input type="checkbox" v-model="donnee.check" name="allChecked" @change="[donnee.check? add(donnee):remove(donnee)]"></td>
-                    <td v-for="colonne in colonnes" :key="colonne.key">
-                        {{donnee[colonne.reference]}}
-                    </td>
-                    <td><button class="btn btn-primary" @click="goto(donnee)"><font-awesome-icon icon="fas fa-pen" v-if="edit"/></button>
-                        <span>&nbsp;</span><span>&nbsp;</span>
-                        <button class="btn btn-danger" @click="deleteItem(donnee)"><font-awesome-icon icon="fas fa-trash" v-if="trash"/></button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="pagination">
-            <span>Montre {{donnees.length}}</span>
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" name="allChecked" v-model="coche"  id="allChecked" @change="[coche? addAll(donnees):removeAll(donnees)]"></th>
+                        <th class="col" v-for="colonne in colonnes" :key="colonne.key">
+                            {{colonne.nom}}
+                            <font-awesome-icon icon="fas-solid fa-sort" v-if="colonne.sortable" @click="sortBy(colonne.reference)"/>
+                        </th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="donnee in donnees" :key="donnee[0]">
+                        <td><input type="checkbox" v-model="donnee.check" name="allChecked" @change="[donnee.check? add(donnee):remove(donnee)]"></td>
+                        <td v-for="colonne in colonnes" :key="colonne.key">
+                            {{donnee[colonne.reference]}}
+                        </td>
+                        <td><button class="btn btn-primary" @click="goto(donnee)"><font-awesome-icon icon="fas fa-pen" v-if="edit"/></button>
+                            <span>&nbsp;</span><span>&nbsp;</span>
+                            <button class="btn btn-danger" @click="deleteItem(donnee)"><font-awesome-icon icon="fas fa-trash" v-if="trash"/></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="pagination">
+                <caption>Montre {{donnees.length}}</caption>
+            </div>
         </div>
     </div>
 </template>

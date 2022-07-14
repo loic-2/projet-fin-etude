@@ -2,17 +2,17 @@
     <div class="container-flex" style="margin-top:50px;">
         <state :routes="routes" style="margin-bottom:40px"></state>
         <div class="row group-box">
-            <div class="row action" style="margin-bottom:10px">
-                <div class="col">
+            <div class="row action" style="margin-bottom:5px">
+                <div class="col mt-2">
                     <ButtonCustom :button="ajouter" @ajoutPfe="ajouterDonnee"></ButtonCustom>
                     <ButtonCustom :button="supprimer" @supPfe="supprimerDonnee"></ButtonCustom>
                 </div>
-                <div class="col-3">
+                <div class="mt-lg-2 mt-md-2 mt-sm-2 mt-4 col-lg-3 col-md-3 col-sm-5 col-10 offset-lg-4 offset-md-4 offset-sm-2 offset-2">
                     <InputCustom @search="resultatRecherche" :champ="recherche"></InputCustom>
                 </div>
             </div>
             <div class="row">
-                <div class="col-3 offset-9 text-end">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-6 offset-lg-9 offset-md-9 offset-sm-9 offset-6 text-end">
                     <select name="" id="" title="Choisir le mode de recherche" class="form-select" v-model="mode">
                         <option value="projet" selected>Projet</option>
                         <option value="membre">Membre</option>

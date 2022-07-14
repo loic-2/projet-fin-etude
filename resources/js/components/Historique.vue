@@ -1,5 +1,5 @@
 <template>
-  <div class="row entire-histry" style="margin-top:100px; margin-left:50px">
+  <div class="row entire-histry" style="margin-top:100px; margin-left:50px; margin-bottom:35px">
     
     <div class="row" style="margin-bottom:25px">
         <button class="group btn btn-danger btn-block col-lg-2 col-md-3 col-sm-3 col-4" @click="toggleSuppression" style="margin-left:-35px">Suppression  
@@ -9,7 +9,7 @@
         <div class="row" v-if="showSuppression" >
             <div v-for="hist in histry" :key="hist.ID_HISTORIQUE" class="histry row" style="margin-top:20px; margin-bottom:20px; margin-right:20px">
                 <span class="icon col-1" style="background-color:rgb(224, 89, 89);"><font-awesome-icon class="element" icon="trash"/></span>
-                <div class="col-10 offset-1">
+                <div class="col-10" style="padding: 0 20px 0 20px">
                     <HistoriqueElement ></HistoriqueElement>
                 </div>
             </div>

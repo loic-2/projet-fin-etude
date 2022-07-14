@@ -18,26 +18,36 @@
                 </div>
             </div>
             <div class="delete">
-                <button class="show btn btn-danger">Supprimer</button>
+                <button @click="update(categorie)" class="btn btn-primary">Modifier</button>
+                <button @click="deleteCategorie(categorie)" class="btn btn-danger">Supprimer</button>
             </div>
         </div>
     </div>
 </template>
-<script>
+<script>import { deleteCategorie, updateCategorie } from "../StrongMethode"
+
 
 export default {
     props:{
         categorie:Object
     },
     methods:{
-        
+        deleteCategorie(value){
+            deleteCategorie([value])
+        },
+        update(value){
+            updateCategorie(value)
+        }
     }
 }
 </script>
 
 <style scoped>
-.col-lg-4{
+.col-lg-3{
     padding: 0;
+}
+.row{
+    margin: 0;
 }
 .ele{
     margin: 0;

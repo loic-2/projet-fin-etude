@@ -155,6 +155,49 @@ export async function addCategorie(){
     return new Promise((resolve, reject) => { first })
 }
 
+export async function updateCategorie(valeur){
+    const response= Swal.fire({
+         title:"Modifier la categorie",
+         inputLabel:"Nom de la categorie",
+         input:'text',
+         inputValue:valeur.NOM_CATEGORIE,
+         inputPlaceholder:"Entrer la categorie",
+         showCancelButton:true,
+         cancelButtonText:"Annuler",
+         showClass:"",
+         hideClass:"",
+         inputValidator:(value) =>{
+             if (value==="") {
+                return "Vous devez saisir un nom"
+             }
+         }
+     })
+     response.then(res =>{
+         console.log(res)
+         if (res.value!=valeur.NOM_CATEGORIE && res.isConfirmed) {
+             const res1= update(store.getters.getDomain+`api/categorie/${valeur.ID_CATEGORIE}`,{
+                 NOM_CATEGORIE:res.value})
+             res1.then(res => {
+                 if (res.data[0]="succes") {
+                     Swal.fire({
+                         icon:"success",
+                         title:"Modification reussi",
+                         confirmButtonText:"fermer"
+                     })
+                 } else {
+                     Swal.fire({
+                         icon:"error",
+                         title:"Echec de la Modification",
+                         text:"Veillez reessayer plus tard",
+                         confirmButtonText:"fermer"
+                     })
+                 }
+             })
+         }
+     })
+     return new Promise((resolve, reject) => { first })
+ }
+
 export function showAdmin(admin=Object){
     let id= admin.ID_ADMINISTRATEUR;
     Swal.fire({
@@ -293,7 +336,7 @@ export async function deleteAdmin(admins=Array){
 
 export async function deleteCategorie(categories=Array){
     categories.forEach(categorie => {
-        const res= ElementDrop(store.getters.getDomain+'api/users/'+categorie.ID_CATEGORIE)
+        const res= ElementDrop(store.getters.getDomain+'api/categorie/'+categorie.ID_CATEGORIE)
         res.then(res => {
              Swal.fire({
                  icon:'success',

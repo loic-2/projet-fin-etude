@@ -2,15 +2,15 @@
   <div class="row">
     <State :routes="routes"/>
     <div class="action row">
-        <div class="col-md-3 col-sm-4 col-xm-4">
+        <div class="col-md-3 col-sm-4 col-6 mt-2 mb-2">
             <button @click="addCategorie" class="add-categorie btn btn-dark"><font-awesome-icon icon="plus"/>  Ajouter</button>
         </div>
-        <div class="col-md-4 col-sm-5 col-xm-6 offset-lg-5 offset-md-5 offset-sm-3 offset-xm-2 ">
+        <div class="col-md-4 col-sm-5 col-12 offset-lg-5 offset-md-5 offset-sm-3 mt-2 mb-2 ">
             <input type="text" v-model="valeur" @input="rechercher" name="" id="" placeholder="Rechercher..." class="form-control recherche">
         </div>
     </div>
     <div class="row total" style="margin-bottom:35px;">
-        <div class="col-2 col-xm-4 offset-10 offset-xm-8">
+        <div class="col-lg-1 col-md-2 col-sm-2 col-4 offset-lg-11 offset-md-10 offset-sm-10 offset-8">
             <label for="total">Total: </label><span>{{categories.length}}</span>
         </div>
     </div>
