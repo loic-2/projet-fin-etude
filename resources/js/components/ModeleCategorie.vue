@@ -33,10 +33,10 @@ export default {
     },
     methods:{
         deleteCategorie(value){
-            deleteCategorie([value])
+            deleteCategorie([value]).then(res => {this.$emit('actualise')})
         },
         update(value){
-            updateCategorie(value)
+            updateCategorie(value).then(res => {this.$emit('actualise')})
         }
     }
 }
@@ -59,7 +59,7 @@ export default {
     margin-left: 5px;
     margin-right: 5px;
     color: #fff;
-    background-color: #63636475;
+    background-color: #837F7E;
     border-radius: 20px;
     height: 150px;
 }

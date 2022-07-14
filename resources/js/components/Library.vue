@@ -14,7 +14,7 @@
             <label for="total">Total: </label><span>{{categories.length}}</span>
         </div>
     </div>
-    <ModeleCategorie :categorie="categorie" v-for="categorie in categories" :key="categorie.ID_CATEGORIE"/>
+    <ModeleCategorie @actualise="actualise" :categorie="categorie" v-for="categorie in categories" :key="categorie.ID_CATEGORIE"/>
   </div>
 </template>
 

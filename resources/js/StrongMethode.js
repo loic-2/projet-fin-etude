@@ -130,7 +130,6 @@ export async function addCategorie(){
         }
     })
     response.then(res =>{
-        console.log(res)
         if (res.value) {
             const res1= stocker(store.getters.getDomain+'api/categorie',{
                 NOM_CATEGORIE:res.value})
@@ -149,10 +148,12 @@ export async function addCategorie(){
                         confirmButtonText:"fermer"
                     })
                 }
+                return new Promise((resolve, reject) => { 
+                    resolve('succes')
+                  })
             })
         }
     })
-    return new Promise((resolve, reject) => { first })
 }
 
 export async function updateCategorie(valeur){
@@ -192,10 +193,12 @@ export async function updateCategorie(valeur){
                          confirmButtonText:"fermer"
                      })
                  }
+                 return new Promise((resolve, reject) => { 
+                    resolve('succes')
+                  })
              })
          }
      })
-     return new Promise((resolve, reject) => { first })
  }
 
 export function showAdmin(admin=Object){
@@ -342,6 +345,15 @@ export async function deleteCategorie(categories=Array){
                  icon:'success',
                  title:'Categorie supprimer avec succes'
              });
+             return new Promise((resolve, reject) => { 
+                resolve('succes')
+              })
+        }).catch(err =>{
+            Swal.fire({
+                icon:'warning',
+                title:'Suppression impossible',
+                text:'Cette categorie est ratache a un ou plusieurs projet(s),'
+            });
         })
      });
 }

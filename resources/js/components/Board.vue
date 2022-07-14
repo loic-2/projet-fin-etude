@@ -49,9 +49,9 @@ export default {
 },
   data(){
       return{
-                memoires_val:123,
-                pfe_val:189,
-                admin_val:230,
+                memoires_val:0,
+                pfe_val:0,
+                admin_val:0,
 
                 documents:[
                     {
