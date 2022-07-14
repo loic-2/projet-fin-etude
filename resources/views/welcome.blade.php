@@ -3,9 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-        <link rel="stylesheet" href="https://shrouded-brushlands-38845.herokuapp.com/css/app.css">
+        <link rel="stylesheet" href="{{secure_asset('css/app.css')}}">
         <title>Laravel</title>
 
         <style>
