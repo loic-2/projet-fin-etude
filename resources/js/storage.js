@@ -254,7 +254,3 @@ export function storeAdmin(tab=Array)
         mdp:tab[4]
     })
 }
-
-
-
-getCategorieData()
