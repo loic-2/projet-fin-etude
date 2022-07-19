@@ -12,9 +12,22 @@ class UtilisateurController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Utilisateur::all();
+        if ($request->all()!=null) {
+            $login=$request->input('LOGIN_UTILISATEUR');
+            $mdp= $request->input('MOT_DE_PASSE_UTILISATEUR');
+            $res= Utilisateur::where('LOGIN_UTILISATEUR',$login)->where('MOT_DE_PASSE_UTILISATEUR',
+            $mdp)->get();
+            if ($res->count()==1) {
+                return response()->json(['message'=>'succes','user'=>$res]);
+            } else {
+                return response()->json(['message'=>'error']);
+            }
+            
+        } else {
+            return Utilisateur::all();
+        }
     }
 
     /**
@@ -25,15 +38,22 @@ class UtilisateurController extends Controller
      */
     public function store(Request $request)
     {
-        if (Utilisateur::create($request->all())) {
-            return response()->json([
-                'succes'=>'Categorie bien enregistrer'
-            ]);
-        }else{
-            return response()->json([
-                'echec'=>"l'enregistrement n'a pas reussi"
-            ]);
+        if (Utilisateur::where('LOGIN_UTILISATEUR',$request->input('LOGIN_UTILISATEUR'))->
+        where('MOT_DE_PASSE_UTILISATEUR',$request->input('MOT_DE_PASSE_UTILISATEUR'))->get()
+        ->count() > 0) {
+           return response()->json(['message'=>'A user whit those credentials already exists']);
+        } else {
+            if (Utilisateur::create($request->all())) {
+                return response()->json([
+                    'message'=>'success'
+                ]);
+            }else{
+                return response()->json([
+                    'message'=>"error"
+                ]);
+            }
         }
+        
     }
 
     /**
@@ -58,11 +78,11 @@ class UtilisateurController extends Controller
     {
         if ($utilisateur->update($request->all())) {
             return response()->json([
-                'succes'=>'Utilisateur bien enregistrer'
+                'message'=>'success'
             ]);
         }else{
             return response()->json([
-                'echec'=>"l'enregistrement n'a pas reussi"
+                'message'=>"error"
             ]);
         }
     }
