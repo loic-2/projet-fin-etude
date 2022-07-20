@@ -40,6 +40,7 @@
                 </div>
                 <div class="row" style="margin:20px 0 0 0">
                     <div class="boutons text-center">
+                        <button class="btn btn-success" @click="lire">Lire</button>
                         <button class="btn btn-primary" @click="editer">Modifier</button>
                         <button class="btn btn-danger" @click="supprimer(projet)">Supprimer</button>
                         <button class="btn btn-secondary" @click="fermer">Fermer</button>
@@ -132,7 +133,6 @@ export default {
         },
         editer(){
             this.categories.forEach(categorie => {
-                console.log(categorie)
                 this.categoriesSelected.push({name:categorie.NOM_CATEGORIE,ID_CATEGORIE:categorie.ID_CATEGORIE})
             });
             this.show=false;
@@ -140,6 +140,12 @@ export default {
         },
         fermer(){
             this.$emit('fermer');
+        },
+        lire(){
+            this.fermer()
+            const tab= this.projet.LIEN_FICHIER_PROJET.split('/')
+            console.log(tab[1])
+            this.$router.push('/lire/'+tab[1])
         }
     },
     components: { Categorie, InputCustom, Select, Multiselect }

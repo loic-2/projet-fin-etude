@@ -57,7 +57,7 @@ export default{
             component: AjoutAdmin
         },
         {
-            path:'/lire',
+            path:'/lire/:file',
             component: pdf,
             name:'document'
         },

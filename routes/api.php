@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\GetFileController;
 use App\Http\Controllers\ProjetController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::apiResource('viewfile','App\Http\Controllers\GetFileController');
 Route::apiResource('categorie','App\Http\Controllers\CategorieController');
 Route::apiResource('utilisateur','App\Http\Controllers\UtilisateurController');
 Route::apiResource('historique','App\Http\Controllers\HistoriqueController');

@@ -1,5 +1,5 @@
 <template>
-    <div class="container-flex">
+    <div>
         <Login v-if="!store.getters.getAuthenticate" @authenticate="home"></Login>
         <div class="row " v-if="store.getters.getAuthenticate">
             <div class="position-fixed" :class="[hide? 'hide':'col-md-3 col-lg-2 col-sm-0']">
@@ -8,7 +8,7 @@
             <div  :class="[!hide? 'col-md-9 offset-md-3 col-lg-10 offset-lg-2 col-sm-12':'col-md-12 col-lg-12 col-sm-12']" >
                 <div class="row row-cols-1">
                     <TopBar :hide="hide" class="fixed-top" style="height: 40px;background-color: rgb(209, 212, 211);" @pagename='(n)=>console.log(n)' @hide="masquer" :namepage="namepage"></TopBar>
-                    <router-view style="margin-top:45px; padding:0"/>
+                    <router-view style="margin-top:40px; padding:0"/>
                 </div>
             </div>
         </div>
