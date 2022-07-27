@@ -75,35 +75,33 @@ export default {
                 ],
                 personnes:[
                     {
-                        nom:"Brian",
-                        color:"#17CAF1",
+                        name:"Brian",
                         id:1,
                     },
                     {
-                        nom:"Athena",
-                        color:"#BDB6B6",
+                        name:"Athena",
                         id:2,
                     },
                     {
-                        nom:"Leslie",
-                        color:"#1B32FB",
+                        name:"Leslie",
                         id:3,
                     },
                     {
-                        nom:"Naeke",
-                        color:"#000000",
+                        name:"Naeke",
                         id:4,
                     },
                 ],
       }
   },
   mounted(){
-    Promise.all([index(store.getters.getDomain+'api/users'),index(store.getters.getDomain+'api/projet'),
-    index(store.getters.getDomain+'api/projetplusvue/?nombre=3')])
+    Promise.all([index(store.getters.getDomain+'api/users'),index(store.getters.getDomain+'api/projet?value=PFE'),
+    index(store.getters.getDomain+'api/projetplusvue/?nombre=3'),index(store.getters.getDomain+'api/projet?value=Memoire')
+    ,index(store.getters.getDomain+'api/users?connecte=1')])
     .then((res)=>{
         this.admin_val=res[0].data.length
-        this.memoires_val=res[1].data.length
+        this.memoires_val=res[3].data.length
         this.pfe_val=res[1].data.length
+        this.personnes=res[4].data
         for (let index = 0; index < res[2].data.length; index++) {
             this.documents[index].titre=res[2].data[index].NOM_PROJET;
             this.documents[index].text=res[2].data[index].VUE_PROJET;

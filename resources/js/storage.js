@@ -18,8 +18,10 @@ export const store= new Vuex.Store({
     suppressList:[],
     user:Object,
 
-    filieresPfe:[{value:"ITT3-IR-CLA",id:1},{value:"ITT3-IR-ALT",id:2},{value:"ITT3-RC-CLA",id:3},
-    {value:"ITT3-RC-ALT",id:4},{value:"ITT3-RT-CLA",id:5},{value:"ITT3-RT-ALT",id:6}],
+    filieresPfe:[{value:"ITT3-IR-CLA",id:1},{value:"ITT3-IR-ALT",id:2},
+    {value:"ITT3-RC-CLA",id:3},{value:"ITT3-RC-ALT",id:4},{value:"ITT3-RT-CLA",id:5},
+    {value:"ITT3-RT-ALT",id:6},{value:"IPT3-TEP-ALT",id:7},{value:"IPT3-MGT-ALT",id:8},
+    {value:"ITT3-TEP-CLA",id:9},{value:"ITT3-MGTT-CLA",id:10}],
     promotionPfe:[
       {
           value:"2017 - 2020",
@@ -36,7 +38,7 @@ export const store= new Vuex.Store({
       }
   ],
 
-    filiereMemoire:[{value:"IT2",id:1},{value:"M2",id:2}],
+    filiereMemoire:[{value:"IT2-RM",id:1},{value:"ADM2",id:2},{value:"IT2-SR",id:3}],
     promotionMemoire:[
       {
           value:"2017 - 2019",
@@ -254,3 +256,4 @@ export function storeAdmin(tab=Array)
         mdp:tab[4]
     })
 }
+getCategorieData()

@@ -7,6 +7,9 @@ use Laravel\Fortify\Contracts\LogoutResponse;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
+use App\Models\User;
+use App\Models\Visite;
+use DateTime;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,9 +35,16 @@ class FortifyServiceProvider extends ServiceProvider
                  * @var User $user
                  */
                 $user = $request->user();
-                return $request->wantsJson()
-                    ? response()->json(['two_factor' => false, 'user_details' => Auth::user() ])
-                    : redirect()->intended(Fortify::redirects('login'));
+                if ($request->wantsJson()) {
+                    Visite::create(['DATE_VISITE'=> date("Y:m:d h:i:s")]);
+                    $userconec= User::find(Auth::user()->id);
+                    $userconec->CONNECTED=1;
+                    $userconec->save();
+                    return response()->json(['two_factor' => false, 'user_details' => Auth::user()]);
+                } else {
+                    return redirect()->intended(Fortify::redirects('login'));
+                }
+        
             }
         });
 

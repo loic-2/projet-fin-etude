@@ -6,10 +6,12 @@ use App\Models\Categorie;
 use App\Models\CategorieProjet;
 use App\Models\Encadrement;
 use App\Models\Encadreur;
+use App\Models\Historique;
 use App\Models\Membre;
 use App\Models\Projet;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ProjetController extends Controller
@@ -19,9 +21,17 @@ class ProjetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Projet::all();
+        if ($request["value"]) {
+            if($request["value"]=="PFE"){
+                return Projet::where('TYPE_PROJET','PFE')->get();
+            }else{
+                return Projet::where('TYPE_PROJET','Memoire')->get();
+            }
+        } else {
+            return Projet::all();
+        }
     }
 
     /**
@@ -43,6 +53,9 @@ class ProjetController extends Controller
                     //recuperer l'id du projet inserer
                     $id = Projet::where('NOM_PROJET',$name)->get()->first();
                     DB::commit();
+                    $user_credential=Auth::user();
+                    Historique::create(['ID_ADMINISTRATEUR'=>$user_credential['ID_ADMINISTRATEUR'],
+                    'ACTION_HISTORIQUE'=>'Ajout d\'une nouvelle archive']);
                     return response()->json([
                         'succes'=>'Projet bien enregistrer',
                         'id'=>$id->ID_PROJET
@@ -102,6 +115,9 @@ class ProjetController extends Controller
             }
             $projet->update($request->input('projet'));
             DB::commit();
+            $user_credential=Auth::user();
+                    Historique::create(['ID_ADMINISTRATEUR'=>$user_credential['ID_ADMINISTRATEUR'],
+                    'ACTION_HISTORIQUE'=>'Modification d\'une archive']);
             return response()->json([
                 'succes'=>'Projet bien modifier'
                 ]);
@@ -148,6 +164,9 @@ class ProjetController extends Controller
 
                 $retVal = ($projet->delete()) ? "Supression reussi" : "Echec de la supression";
                 DB::commit();
+                $user_credential=Auth::user();
+                    Historique::create(['ID_ADMINISTRATEUR'=>$user_credential['ID_ADMINISTRATEUR'],
+                    'ACTION_HISTORIQUE'=>'Suppression d\'une archive']);
                 return response()->json([
                     'message'=>$retVal
                 ]);

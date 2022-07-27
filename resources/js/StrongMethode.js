@@ -1,4 +1,4 @@
-import { removeProjet, store } from "./storage";
+import { getCategorieData, removeProjet, store } from "./storage";
 import { lockout, show, stocker, storage,ElementDrop, update } from "./api";
 import Swal from 'sweetalert2'
 import 'sweetalert2/src/sweetalert2.js'
@@ -140,6 +140,8 @@ export async function addCategorie(){
                         title:"Insertion reussi",
                         confirmButtonText:"fermer"
                     })
+                    store.state.categorie=[]
+                    getCategorieData()
                 } else {
                     Swal.fire({
                         icon:"error",
@@ -185,6 +187,8 @@ export async function updateCategorie(valeur){
                          title:"Modification reussi",
                          confirmButtonText:"fermer"
                      })
+                     store.state.categorie=[]
+                     getCategorieData()
                  } else {
                      Swal.fire({
                          icon:"error",
@@ -345,6 +349,8 @@ export async function deleteCategorie(categories=Array){
                  icon:'success',
                  title:'Categorie supprimer avec succes'
              });
+             store.state.categorie=[]
+             getCategorieData()
              return new Promise((resolve, reject) => { 
                 resolve('succes')
               })

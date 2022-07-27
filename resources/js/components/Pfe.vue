@@ -118,7 +118,7 @@ import { store } from '../storage';
                 this.$router.push('/ajoutpfe')
             },
             actualise(){
-                const reponse= index(store.getters.getDomain+'api/projet')
+                const reponse= index(store.getters.getDomain+'api/projet?value=PFE')
                 reponse.then(res => {this.donnees=res.data})
             },
             resultatRecherche(){

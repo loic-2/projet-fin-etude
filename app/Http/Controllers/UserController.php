@@ -12,9 +12,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return User::all();
+        if ($request['connecte']) {
+            return User::where('CONNECTED',1)->get();
+        } else {
+            return User::all();
+        }
     }
 
     /**

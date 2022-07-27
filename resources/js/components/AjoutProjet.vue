@@ -110,8 +110,6 @@ export default {
         }
     },
     mounted() {
-        store.state.categorie=[]
-        getCategorieData()
     },
 }
 </script>

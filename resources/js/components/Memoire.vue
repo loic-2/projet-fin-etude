@@ -116,7 +116,7 @@ import { verifyToDelete } from '../StrongMethode';
 },
         methods: {
             actualise(){
-                const reponse= index(store.getters.getDomain+'api/projet')
+                const reponse= index(store.getters.getDomain+'api/projet/?value=Memoire')
                 reponse.then(res => {this.donnees=res.data})
             },
             ajoutMemoire() {
