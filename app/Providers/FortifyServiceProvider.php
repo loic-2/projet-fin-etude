@@ -36,7 +36,7 @@ class FortifyServiceProvider extends ServiceProvider
                  */
                 $user = $request->user();
                 if ($request->wantsJson()) {
-                    Visite::create(['DATE_VISITE'=> date("Y:m:d h:i:s")]);
+                    Visite::create();
                     $userconec= User::find(Auth::user()->id);
                     $userconec->CONNECTED=1;
                     $userconec->save();
