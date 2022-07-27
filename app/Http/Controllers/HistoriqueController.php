@@ -12,12 +12,49 @@ class HistoriqueController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $result= Historique::OrderByASC("DATE_HISTORIQUE")->get();
-        foreach ($result as $historique) {
-            $historique['administrateur']= $historique->administrateur();
+        if ($request["historique"]) {
+            switch ($request['historique']) {
+                case 'ajout':
+                    $result= Historique::where('ACTION_HISTORIQUE','like','%Ajout%')
+                    ->orderByDesc("DATE_HISTORIQUE")->get();
+                    foreach ($result as $historique) {
+                        $historique['administrateur']= $historique->administrateur();
+                    }
+                    break;
+                case 'modification':
+                    $result= Historique::where('ACTION_HISTORIQUE','like','%Modification%')
+                    ->orderDesc("DATE_HISTORIQUE")->get();
+                    foreach ($result as $historique) {
+                        $historique['administrateur']= $historique->administrateur();
+                    }
+                    break;
+                case 'suppression':
+                    $result= Historique::where('ACTION_HISTORIQUE','like','%Suppression%')
+                    ->orderByDesc("DATE_HISTORIQUE")->get();
+                    foreach ($result as $historique) {
+                        $historique['administrateur']= $historique->administrateur();
+                    }
+                    break;
+                case 'Lecture':
+                    $result= Historique::where('ACTION_HISTORIQUE','like','%Lecture%')
+                    ->orderByDesc("DATE_HISTORIQUE")->get();
+                    foreach ($result as $historique) {
+                        $historique['administrateur']= $historique->administrateur();
+                    }
+                    break;    
+                default:
+                    # code...
+                    break;
+            }
+        } else {
+            $result= Historique::orderByDesc("DATE_HISTORIQUE")->get();
+                    foreach ($result as $historique) {
+                        $historique['administrateur']= $historique->administrateur();
+                    }
         }
+        
         return $result;
     }
 

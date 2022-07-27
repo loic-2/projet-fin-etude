@@ -12,11 +12,11 @@ class Historique extends Model
     protected $primaryKey='ID_HISTORIQUE';
     public $timestamps=false;
     protected $fillable=[
-        'ACTION_HISTORIQUE','ID_ADMINISTRATEUR'
+        'ACTION_HISTORIQUE','id'
     ];
 
     public function administrateur()
     {
-        return $this->belongsTo('App\Models\Administrateur','ID_ADMINISTRATEUR');
+        return $this->belongsTo('App\Models\User','id');
     }
 }

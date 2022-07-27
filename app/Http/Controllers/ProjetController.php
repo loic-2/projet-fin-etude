@@ -54,7 +54,7 @@ class ProjetController extends Controller
                     $id = Projet::where('NOM_PROJET',$name)->get()->first();
                     DB::commit();
                     $user_credential=Auth::user();
-                    Historique::create(['ID_ADMINISTRATEUR'=>$user_credential['ID_ADMINISTRATEUR'],
+                    Historique::create(['id'=>$user_credential['id'],
                     'ACTION_HISTORIQUE'=>'Ajout d\'une nouvelle archive']);
                     return response()->json([
                         'succes'=>'Projet bien enregistrer',
@@ -116,7 +116,7 @@ class ProjetController extends Controller
             $projet->update($request->input('projet'));
             DB::commit();
             $user_credential=Auth::user();
-                    Historique::create(['ID_ADMINISTRATEUR'=>$user_credential['ID_ADMINISTRATEUR'],
+                    Historique::create(['id'=>$user_credential['id'],
                     'ACTION_HISTORIQUE'=>'Modification d\'une archive']);
             return response()->json([
                 'succes'=>'Projet bien modifier'
@@ -165,7 +165,7 @@ class ProjetController extends Controller
                 $retVal = ($projet->delete()) ? "Supression reussi" : "Echec de la supression";
                 DB::commit();
                 $user_credential=Auth::user();
-                    Historique::create(['ID_ADMINISTRATEUR'=>$user_credential['ID_ADMINISTRATEUR'],
+                    Historique::create(['id'=>$user_credential['id'],
                     'ACTION_HISTORIQUE'=>'Suppression d\'une archive']);
                 return response()->json([
                     'message'=>$retVal
